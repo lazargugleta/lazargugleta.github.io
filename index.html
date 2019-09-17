@@ -17,19 +17,19 @@
             <div class="container">
                 <h1>Lazar Gugleta</h1>
                 <div class="social">
-                    <a href="https://www.facebook.com/lazar.gugleta" class="icon facebook">
+                    <a href="https://www.facebook.com/lazar.gugleta" class="icon-mail">
                         <img src="src/facebook.png" alt="Facebook profile" hspace="15">
                     </a>
-                    <a href="https://www.linkedin.com/in/lazargugleta/" class="icon linkedin">
+                    <a href="https://www.linkedin.com/in/lazargugleta/" class="icon-mail">
                         <img src="src/linkedin.png" alt="Linkedin profile" hspace="15">
                     </a>
-                    <a href="mailto:lazar.gugleta@gmail.com" class="icon mail">
+                    <a href="mailto:lazar.gugleta@gmail.com" class="icon-mail">
                         <img src="src/mail.png" alt="Mail me" hspace="15">
                     </a>
-                    <a href="https://medium.com/@lazar.gugleta" class="icon mail">
+                    <a href="https://medium.com/@lazar.gugleta" class="icon-mail">
                         <img src="src/medium-size.png" alt="Medium profile" hspace="15">
                     </a>
-                    <a href="https://www.instagram.com/lazar_gugleta/" class="icon mail">
+                    <a href="https://www.instagram.com/lazar_gugleta/" class="icon-mail">
                         <img src="src/instagram.png" alt="Instagram profile" hspace="15">
                     </a>
                 </div>
@@ -119,13 +119,16 @@
             display: flex;
             justify-content: space-around;
             margin: 0.5rem;
+            transition: all 0.05s ease;
         }
 
-        .mail{
-
+        .icon-mail {
+            transition: all 0.1s ease;
         }
 
-        
-
+        .icon-mail:hover{
+            position: relative;
+            transform: scale(1.1, 1.1);
+        }
     </style>
 </body></html>
