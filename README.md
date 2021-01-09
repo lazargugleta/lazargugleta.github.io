@@ -1,5 +1,36 @@
-git clone https://github.com/lazargugleta/lazargugleta.github.io.git
+# Visit https://github.com/lowlighter/metrics/blob/master/action.yml for full reference
+name: Metrics
+on:
+  # Schedule updates
+  schedule: [{cron: "0 * * * *"}]
+  push: {branches: "master"}
+jobs:
+  github-metrics:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: lowlighter/metrics@latest
+        with:
+          # You'll need to setup a personal token in your secrets.
+          token: ${{ secrets.METRICS_TOKEN }}
+          # GITHUB_TOKEN is a special auto-generated token used for commits
+          committer_token: ${{ secrets.GITHUB_TOKEN }}
 
-cd lazargugleta.github.io.git
-
-Open `index.html`
+          # Options
+          user: lazargugleta
+          template: classic
+          base: header, activity, community, repositories, metadata
+          config_timezone: Europe/Vienna
+          plugin_followup: yes
+          plugin_isocalendar: yes
+          plugin_isocalendar_duration: half-year
+          plugin_languages: yes
+          plugin_pagespeed: yes
+          plugin_posts: yes
+          plugin_posts_limit: 4
+          plugin_posts_source: dev.to
+          plugin_projects: yes
+          plugin_projects_limit: 4
+          plugin_stars: yes
+          plugin_stars_limit: 4
+          plugin_tweets: yes
+          plugin_tweets_limit: 2
