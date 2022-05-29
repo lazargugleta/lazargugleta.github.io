@@ -2,7 +2,7 @@ title:              Lazar Gugleta Blog
 email:              lazar.gugleta@gmail.com
 description:        Blog by Lazar Gugleta
 author:             Lazar Gugleta
-baseurl:            ""
+baseurl:            "/blog"
 url:                "https://lazargugleta.github.io"
 
 # Social Profiles
