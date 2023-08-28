@@ -24,6 +24,7 @@
     <title>Lazar Gugleta</title>
 </head>
 
+
 <body data-gr-c-s-loaded="true">
     <div class="wrapper">
         <div class="container gradient-text">
@@ -32,7 +33,7 @@
                 <div class="info-block">
                     <h2>Experience</h2>
                     <h3>Data Scientist at <a href="https://www.tttech-auto.com/" style="color:#20a0f575">TTTech Auto</a></h3>
-                    <h3>Community Lead at <br> <a href="https://developers.google.com/" style="color:#20a0f575">Google Developers</a></h2>
+                    <h3>Google DSC Lead at <br> <a href="https://developers.google.com/" style="color:#20a0f575">Google Developers</a></h2>
                     <h3>Data Scientist at <a href="https://www.shopreme.com" style="color:#20a0f575">Shopreme</a></h2>
                     <h3>Teaching assistant</h3>
                     <h3>International Student Ambassador at <br> <a href="https://www.tugraz.at/en/studying-and-teaching/international-studying-and-teaching/international-student-ambassadors/international-student-ambassadors/#c294396" style="color:#20a0f575">Technische Universität Graz</a></h2>
@@ -99,6 +100,25 @@
 
 
     <style>
+
+        @media (max-width: 768px) {
+            .wrapper {
+                height: auto; /* Remove fixed height */
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-wrap: wrap; /* Allow content to wrap on smaller screens */
+            }
+
+            .container {
+                display: block;
+                justify-content: center;
+                align-items: center;
+                grid-column: 2 / 3;
+            }
+
+        }
+
         body {
             position: relative;
             margin: auto;
@@ -166,15 +186,15 @@
         }
 
         .wrapper {
-            height: 100vh;
-            display: grid;
+            height: auto; /* Remove fixed height */
+            display: flex;
             justify-content: center;
             align-items: center;
-            grid-template-columns: repeat(3, 1fr);
+            flex-wrap: wrap; /* Allow content to wrap on smaller screens */
         }
 
         .container {
-            display: grid;
+            display: inline-grid;
             justify-content: center;
             align-items: center;
             grid-column: 2 / 3;
@@ -183,6 +203,7 @@
         .container h1 {
             padding: 0;
             margin: 0.5rem;
+            margin-top: 2.5rem;
             text-align: center;
         }
 
