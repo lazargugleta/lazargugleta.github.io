@@ -28,8 +28,8 @@
     <div class="wrapper">
         <div class="container gradient-text">
             <h1>Lazar Gugleta</h1>
-            <div class="info-container ">
-                <div class="info-block ">
+            <div class="info-container">
+                <div class="info-block">
                     <h2>Experience</h2>
                     <h3>Data Scientist at <a href="https://www.tttech-auto.com/" style="color:#20a0f575">TTTech Auto</a></h3>
                     <h3>Community Lead at <br> <a href="https://developers.google.com/" style="color:#20a0f575">Google Developers</a></h2>
@@ -59,20 +59,27 @@
                     <img src="src/cv.png" alt="CV" hspace="15">
                 </a>
             </div>
-            <div class="story-container gradient-text">
+            <div class="story-container gradient-table">
                 
                 <h2 class="story-container-header ">Latest published articles</h2>
+
                 <a target="_blank"
-                    href="https://towardsdatascience.com/how-to-track-coronavirus-with-python-a5320b778c8e"
-                    style="color:#20a0f575"> How To Track Coronavirus In Your Country with Python</a>
+                    href="https://medium.com/@lazar.gugleta/advanced-topic-modeling-using-listly-e7b70a5a58c5"> 
+                    Advanced topic modeling using Listly
+                </a>
+
                 <a target="_blank"
-                    href="https://towardsdatascience.com/python-gui-app-in-no-time-ea7282e33024"
-                    style="color:#20a0f575"> Python GUI App In No Time</a>
-                <a target="_blank" href="https://towardsdatascience.com/how-to-get-a-job-with-python-575f1b79fa11"
-                    style="color:#20a0f575"> How to Get a Job with Python</a>
-                <a target="_blank"
-                    href="https://towardsdatascience.com/top-10-free-automation-software-that-will-make-your-life-easier-63217e670447"
-                    style="color:#20a0f575"> Top 10 Free Automation Test Tools That Will Make Your Life Easier</a>
+                    href="https://towardsdatascience.com/how-to-track-coronavirus-with-python-a5320b778c8e"> 
+                    How To Track Coronavirus In Your Country with Python
+                </a>
+                <a target="_blank" 
+                    href="https://towardsdatascience.com/python-gui-app-in-no-time-ea7282e33024"> 
+                    Python GUI App In No Time
+                </a>
+                <a target="_blank" 
+                    href="https://towardsdatascience.com/how-to-get-a-job-with-python-575f1b79fa11"> 
+                    How to Get a Job with Python
+                </a>
                 
             </div>
             <!-- <form action="https://send.pageclip.co/ooOdypSUzelgT48PKP1cXDcfBMyfH9Je" class="pageclip-form"
@@ -137,7 +144,7 @@
         }
 
         .story-container a:hover {
-            color: #20a0f575 !important;
+            color: #ff330088 !important;
             font-size: 18px;
         }
 
@@ -209,6 +216,7 @@
             justify-content: space-between; /* Distribute space between the two blocks */
             flex-wrap: wrap; /* Wrap to new line on smaller screens */
             margin: 2rem;
+            margin-bottom: 0.5rem;
             text-align: left;
         }
 
@@ -218,7 +226,14 @@
         }
 
         .gradient-text {
-            background: linear-gradient(135deg, #ff5100, #0099ff);
+            background: linear-gradient(135deg, #ff3300, #0099ff);
+            -webkit-background-clip: text; /* For Safari */
+            background-clip: text;
+            color: transparent;
+        }
+
+        .gradient-table {
+            background: linear-gradient(60deg, #ff3300, #0099ff);
             -webkit-background-clip: text; /* For Safari */
             background-clip: text;
             color: transparent;
