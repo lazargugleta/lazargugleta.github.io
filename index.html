@@ -22,6 +22,7 @@
     <meta property="og:description" content="Lazar Gugleta">
     <link rel="icon" href="src/knjiga.ico" type="image/x-icon">
     <title>Lazar Gugleta</title>
+    <base target="_blank">
 
     <!-- Google Font: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -109,10 +110,18 @@
         }
 
         .gradient-text {
-            background: linear-gradient(135deg, #ff4422, #2090ff);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
+            color: #3daaf5;
+        }
+
+        /* ── Bio ─────────────────────────────────────── */
+        .bio {
+            font-size: 0.92rem;
+            font-weight: 400;
+            line-height: 1.6;
+            color: #999;
+            text-align: center;
+            max-width: 440px;
+            margin: 0.75rem auto 0.5rem;
         }
 
         /* ── Section headings ────────────────────────── */
@@ -121,10 +130,7 @@
             font-weight: 600;
             margin-bottom: 0.75rem;
             text-align: center;
-            background: linear-gradient(135deg, #ff4422, #2090ff);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
+            color: #3daaf5;
         }
 
         /* ── Info (Experience / Education) ────────────── */
@@ -192,10 +198,7 @@
             font-weight: 600;
             text-align: center;
             margin-bottom: 1rem;
-            background: linear-gradient(135deg, #ff4422, #2090ff);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
+            color: #3daaf5;
         }
 
         .social {
@@ -259,10 +262,7 @@
             background-color: #0a0a0a;
             white-space: nowrap;
             padding: 0 0.75rem;
-            background: linear-gradient(135deg, #ff4422, #2090ff);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
+            color: #3daaf5;
         }
 
         .story-container a {
@@ -314,7 +314,9 @@
 <body>
     <div class="wrapper">
         <div class="container">
-            <h1 class="gradient-text fade-in">Lazar Gugleta</h1>
+            <h1 class="gradient-text fade-in">Lazar Gugleta, MSc</h1>
+            <p class="bio fade-in fade-in-delay-1">Passionate learner and technologist with a love for data,
+                problem-solving, and building meaningful products. Fluent in four languages.</p>
 
             <div class="info-container fade-in fade-in-delay-1">
                 <div class="info-block">
@@ -322,13 +324,13 @@
                     <ul class="role-list">
                         <li class="role-item">
                             <div class="role-title">Product Owner Data Management</div>
-                            <div class="role-company">at <a href="https://www.tttech-auto.com/"
-                                    class="accent-link">NXP / TTTech Auto</a></div>
+                            <div class="role-company">at <a href="https://www.tttech-auto.com/" class="accent-link">NXP
+                                    / TTTech Auto</a></div>
                         </li>
                         <li class="role-item">
                             <div class="role-title">Data Scientist</div>
-                            <div class="role-company">at <a href="https://www.tttech-auto.com/"
-                                    class="accent-link">NXP / TTTech Auto</a></div>
+                            <div class="role-company">at <a href="https://www.tttech-auto.com/" class="accent-link">NXP
+                                    / TTTech Auto</a></div>
                         </li>
                         <li class="role-item">
                             <div class="role-title">Google DSC Lead</div>
@@ -342,6 +344,8 @@
                         </li>
                         <li class="role-item">
                             <div class="role-title">Teaching assistant</div>
+                            <div class="role-company">at <a href="https://www.tugraz.at/" class="accent-link">TU
+                                    Graz</a></div>
                         </li>
                         <li class="role-item">
                             <div class="role-title">International Student Ambassador</div>
@@ -358,12 +362,15 @@
                             <div class="role-title">Master in <a
                                     href="https://www.tugraz.at/en/studying-and-teaching/degree-and-certificate-programmes/masters-degree-programmes/computer-science"
                                     class="accent-link">Computer Science</a></div>
-                            <div class="role-company">major in Data Science</div>
+                            <div class="role-company">major in Data Science · <a href="https://www.tugraz.at/"
+                                    class="accent-link">TU Graz</a></div>
                         </li>
                         <li class="role-item">
                             <div class="role-title">Bachelor in <a
                                     href="https://www.tugraz.at/en/studying-and-teaching/degree-and-certificate-programmes/bachelors-degree-programmes/computer-science/"
                                     class="accent-link">Computer Science</a></div>
+                            <div class="role-company">at <a href="https://www.tugraz.at/" class="accent-link">TU
+                                    Graz</a></div>
                         </li>
                     </ul>
                 </div>
@@ -384,7 +391,7 @@
                     <img src="src/github.svg" alt="GitHub profile">
                 </a>
                 <a target="_blank" href="src/Lazar_Gugleta_CV.pdf" aria-label="CV">
-                    <img src="src/cv.png" alt="CV">
+                    <img src="src/cv.svg" alt="CV">
                 </a>
             </div>
 
