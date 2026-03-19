@@ -324,6 +324,14 @@
             background: rgba(0, 0, 0, 0.08);
         }
 
+        body.light .social-link.email img {
+            filter: saturate(1.8) hue-rotate(-18deg) brightness(1.15);
+        }
+
+        body.light .social-link.linkedin img {
+            filter: saturate(1.6) hue-rotate(8deg) brightness(1.05);
+        }
+
         .social a img {
             width: 22px;
             height: 22px;
@@ -516,19 +524,19 @@
 
             <h2 class="contact-heading fade-in fade-in-delay-2">Contact me</h2>
             <div class="social fade-in fade-in-delay-2">
-                <a target="_blank" href="https://www.linkedin.com/in/lazargugleta/" aria-label="LinkedIn">
+                <a class="social-link linkedin" target="_blank" href="https://www.linkedin.com/in/lazargugleta/" aria-label="LinkedIn">
                     <img src="src/linkedin.png" alt="Linkedin profile">
                 </a>
-                <a target="_blank" href="mailto:lazar.gugleta@gmail.com" aria-label="Email">
+                <a class="social-link email" target="_blank" href="mailto:lazar.gugleta@gmail.com" aria-label="Email">
                     <img src="src/mail.png" alt="Mail me">
                 </a>
-                <a target="_blank" href="https://medium.com/@lazar.gugleta" aria-label="Medium">
+                <a class="social-link" target="_blank" href="https://medium.com/@lazar.gugleta" aria-label="Medium">
                     <img src="src/medium-size.png" alt="Medium profile">
                 </a>
-                <a target="_blank" href="https://github.com/lazargugleta" aria-label="GitHub">
+                <a class="social-link" target="_blank" href="https://github.com/lazargugleta" aria-label="GitHub">
                     <img src="src/github.svg" alt="GitHub profile">
                 </a>
-                <a target="_blank" href="src/Lazar_Gugleta_CV.pdf" aria-label="CV">
+                <a class="social-link" target="_blank" href="src/Lazar_Gugleta_CV.pdf" aria-label="CV">
                     <img src="src/cv.svg" alt="CV">
                 </a>
             </div>
