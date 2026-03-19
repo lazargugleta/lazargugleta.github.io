@@ -102,28 +102,43 @@
             max-width: 640px;
             width: 100%;
             padding: 2rem 1rem;
-            position: relative;
         }
 
         .theme-toggle {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
+            position: fixed;
+            right: 1.25rem;
+            bottom: 1.25rem;
+            width: 36px;
+            height: 36px;
             border: 1px solid rgba(255, 255, 255, 0.12);
             background: rgba(255, 255, 255, 0.06);
             color: #e0e0e0;
             border-radius: 999px;
-            padding: 0.35rem 0.7rem;
-            font-size: 0.68rem;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
             cursor: pointer;
             transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
         }
 
         .theme-toggle:hover {
             background: rgba(255, 255, 255, 0.12);
             border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .theme-toggle svg {
+            width: 16px;
+            height: 16px;
+            display: block;
+        }
+
+        .theme-toggle .icon-sun {
+            display: block;
+        }
+
+        .theme-toggle .icon-moon {
+            display: none;
         }
 
         body.light .theme-toggle {
@@ -135,6 +150,14 @@
         body.light .theme-toggle:hover {
             background: rgba(0, 0, 0, 0.12);
             border-color: rgba(0, 0, 0, 0.2);
+        }
+
+        body.light .theme-toggle .icon-sun {
+            display: none;
+        }
+
+        body.light .theme-toggle .icon-moon {
+            display: block;
         }
 
         /* ── Name heading ────────────────────────────── */
@@ -406,7 +429,24 @@
 <body>
     <div class="wrapper">
         <div class="container">
-            <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch to day mode">Day</button>
+            <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch to day mode">
+                <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true">
+                    <circle cx="12" cy="12" r="4" fill="currentColor"></circle>
+                    <g stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                        <line x1="12" y1="1.5" x2="12" y2="4.5"></line>
+                        <line x1="12" y1="19.5" x2="12" y2="22.5"></line>
+                        <line x1="1.5" y1="12" x2="4.5" y2="12"></line>
+                        <line x1="19.5" y1="12" x2="22.5" y2="12"></line>
+                        <line x1="4.4" y1="4.4" x2="6.6" y2="6.6"></line>
+                        <line x1="17.4" y1="17.4" x2="19.6" y2="19.6"></line>
+                        <line x1="4.4" y1="19.6" x2="6.6" y2="17.4"></line>
+                        <line x1="17.4" y1="6.6" x2="19.6" y2="4.4"></line>
+                    </g>
+                </svg>
+                <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M20.5 14.9c-1.1.4-2.2.6-3.4.6-5 0-9.1-4.1-9.1-9.1 0-1.2.2-2.3.6-3.4-3.2 1.4-5.4 4.6-5.4 8.3 0 5 4.1 9.1 9.1 9.1 3.7 0 6.9-2.2 8.2-5.5z" fill="currentColor"></path>
+                </svg>
+            </button>
             <h1 class="gradient-text fade-in">Lazar Gugleta, MSc</h1>
             <p class="bio fade-in fade-in-delay-1">Learner and technologist with a focus on data, <br>problem-solving,
                 and building meaningful products.</p>
@@ -415,6 +455,10 @@
                 <div class="info-block">
                     <h2 class="section-heading">Experience</h2>
                     <ul class="role-list">
+                        <li class="role-item">
+                            <div class="role-title">Senior Data & AI Engineer</div>
+                            <div class="role-company">at Helvetia</div>
+                        </li>
                         <li class="role-item">
                             <div class="role-title">Product Owner Data Management</div>
                             <div class="role-company">at <a href="https://www.tttech-auto.com/" class="accent-link">NXP
@@ -535,11 +579,9 @@
             function applyTheme(theme) {
                 if (theme === "light") {
                     body.classList.add("light");
-                    button.textContent = "Night";
                     button.setAttribute("aria-label", "Switch to night mode");
                 } else {
                     body.classList.remove("light");
-                    button.textContent = "Day";
                     button.setAttribute("aria-label", "Switch to day mode");
                 }
             }
