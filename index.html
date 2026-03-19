@@ -107,7 +107,7 @@
         .theme-toggle {
             position: fixed;
             right: 1.25rem;
-            bottom: 1.25rem;
+            top: 1.25rem;
             width: 36px;
             height: 36px;
             border: 1px solid rgba(255, 255, 255, 0.12);
@@ -587,8 +587,7 @@
             }
 
             const saved = localStorage.getItem(STORAGE_KEY);
-            const prefersLight = window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches;
-            applyTheme(saved || (prefersLight ? "light" : "dark"));
+            applyTheme(saved || "dark");
 
             button.addEventListener("click", function () {
                 const next = body.classList.contains("light") ? "dark" : "light";
