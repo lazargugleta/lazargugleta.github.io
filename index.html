@@ -99,7 +99,7 @@
         }
 
         .container {
-            max-width: 640px;
+            max-width: 980px;
             width: 100%;
             padding: 2rem 1rem;
         }
@@ -207,14 +207,19 @@
         .info-container {
             display: flex;
             justify-content: center;
-            gap: 2.5rem;
-            margin: 2rem auto 1.5rem;
-            max-width: 520px;
+            align-items: flex-start;
+            gap: 3rem;
+            margin: 2rem auto 1.75rem;
+            max-width: 980px;
         }
 
         .info-block {
             flex: 1;
             min-width: 0;
+        }
+
+        .info-block + .info-block {
+            margin-top: 0;
         }
 
         .role-list {
@@ -245,8 +250,40 @@
             line-height: 1.45;
         }
 
+        .role-title-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 0.6rem;
+        }
+
+        .role-title-text {
+            min-width: 0;
+            flex: 1;
+        }
+
+        .role-date {
+            font-size: 0.72rem;
+            font-weight: 500;
+            color: #7f7f7f;
+            white-space: nowrap;
+            letter-spacing: 0.02em;
+            padding: 0.12rem 0.45rem;
+            border-radius: 999px;
+            background: rgba(32, 160, 245, 0.08);
+        }
+
+        .education-list .role-date {
+            margin-left: 0.5rem;
+        }
+
         body.light .role-title {
             color: #222;
+        }
+
+        body.light .role-date {
+            color: #666;
+            background: rgba(32, 160, 245, 0.09);
         }
 
         .role-company {
@@ -417,13 +454,12 @@
 
             .info-container {
                 flex-direction: column;
-                align-items: center;
-                gap: 1.5rem;
+                gap: 1.75rem;
             }
 
             .info-block {
                 width: 100%;
-                max-width: 280px;
+                max-width: none;
             }
 
             .story-container {
@@ -462,39 +498,43 @@
             <div class="info-container fade-in fade-in-delay-1">
                 <div class="info-block">
                     <h2 class="section-heading">Experience</h2>
-                    <ul class="role-list">
+                    <ul class="role-list education-list">
                         <li class="role-item">
-                            <div class="role-title">Senior Data & AI Engineer</div>
+                            <div class="role-title role-title-row">Senior Data & AI Engineer <span class="role-date">Apr 2026-now</span></div>
                             <div class="role-company">at <a href="https://www.helvetia.com/"
                                     class="accent-link">Helvetia</a></div>
                         </li>
                         <li class="role-item">
-                            <div class="role-title">Product Owner Data Management</div>
+                            <div class="role-title role-title-row">Built and shipped AI data products <span class="role-date">2024-now</span></div>
+                            <div class="role-company">with <a href="https://chat4data.ai/" class="accent-link">Chat4Data</a>
+                                and <a href="https://www.octoparse.com/" class="accent-link">Octoparse</a></div>
+                        </li>
+                        <li class="role-item">
+                            <div class="role-title role-title-row">Product Owner - Data Science <span class="role-date">Dec 2024-Apr 2026</span></div>
                             <div class="role-company">at <a href="https://www.tttech-auto.com/" class="accent-link">NXP
                                     / TTTech Auto</a></div>
                         </li>
                         <li class="role-item">
-                            <div class="role-title">Data Scientist</div>
+                            <div class="role-title role-title-row">Data Scientist <span class="role-date">May 2023-Apr 2026</span></div>
                             <div class="role-company">at <a href="https://www.tttech-auto.com/" class="accent-link">NXP
                                     / TTTech Auto</a></div>
                         </li>
                         <li class="role-item">
-                            <div class="role-title">Google DSC Lead</div>
-                            <div class="role-company">at <a href="https://developers.google.com/"
-                                    class="accent-link">Google Developers</a></div>
+                            <div class="role-title role-title-row">Google DSC Lead | Mentor <span class="role-date">Jul 2021-Jan 2024</span></div>
+                            <div class="role-company">at <a href="https://developers.google.com/" class="accent-link">Google Developers</a></div>
                         </li>
                         <li class="role-item">
-                            <div class="role-title">Data Scientist</div>
+                            <div class="role-title role-title-row">Data Scientist <span class="role-date">Nov 2020-Apr 2023</span></div>
                             <div class="role-company">at <a href="https://www.shopreme.com"
                                     class="accent-link">Shopreme</a></div>
                         </li>
                         <li class="role-item">
-                            <div class="role-title">Teaching assistant</div>
+                            <div class="role-title role-title-row">Teaching Assistant <span class="role-date">Jul 2019-May 2023</span></div>
                             <div class="role-company">at <a href="https://www.tugraz.at/" class="accent-link">TU
                                     Graz</a></div>
                         </li>
                         <li class="role-item">
-                            <div class="role-title">International Student Ambassador</div>
+                            <div class="role-title role-title-row">International Student Ambassador <span class="role-date">2018-2019</span></div>
                             <div class="role-company">at <a
                                     href="https://www.tugraz.at/en/studying-and-teaching/international-studying-and-teaching/international-student-ambassadors/international-student-ambassadors/#c294396"
                                     class="accent-link">Technische Universität Graz</a></div>
@@ -503,18 +543,18 @@
                 </div>
                 <div class="info-block">
                     <h2 class="section-heading">Education</h2>
-                    <ul class="role-list">
+                    <ul class="role-list education-list">
                         <li class="role-item">
-                            <div class="role-title">Master in <a
+                            <div class="role-title role-title-row"><span class="role-title-text">Master in <a
                                     href="https://www.tugraz.at/en/studying-and-teaching/degree-and-certificate-programmes/masters-degree-programmes/computer-science"
-                                    class="accent-link">Computer Science</a></div>
-                            <div class="role-company">major in Data Science · <a href="https://www.tugraz.at/"
+                                    class="accent-link">Computer Science</a></span><span class="role-date">Oct 2021-Apr 2023</span></div>
+                            <div class="role-company">major Data Science, minor Machine Learning · <a href="https://www.tugraz.at/"
                                     class="accent-link">TU Graz</a></div>
                         </li>
                         <li class="role-item">
-                            <div class="role-title">Bachelor in <a
+                            <div class="role-title role-title-row"><span class="role-title-text">Bachelor in <a
                                     href="https://www.tugraz.at/en/studying-and-teaching/degree-and-certificate-programmes/bachelors-degree-programmes/computer-science/"
-                                    class="accent-link">Computer Science</a></div>
+                                    class="accent-link">Computer Science</a></span><span class="role-date">Oct 2018-Sep 2021</span></div>
                             <div class="role-company">at <a href="https://www.tugraz.at/" class="accent-link">TU
                                     Graz</a></div>
                         </li>
