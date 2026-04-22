@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="How I build browser automation pipelines">
+    <meta name="author" content="Lazar Gugleta">
+    <meta property="og:title" content="How I build browser automation pipelines - Lazar Gugleta">
+    <meta property="og:description" content="Example internal blog post page for lazargugleta.com style.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://lazargugleta.github.io/blog/browser-automation-pipeline.html">
+    <meta name="theme-color" content="#e2364f">
+    <link rel="canonical" href="https://lazargugleta.github.io/blog/browser-automation-pipeline.html">
+    <link rel="icon" href="../favicon.ico?v=2" sizes="any">
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg?v=2">
+    <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png?v=2">
+    <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png?v=2">
+    <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png?v=2">
+    <title>How I build browser automation pipelines - Lazar Gugleta</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            color-scheme: dark;
+            --bg: oklch(0.185 0.006 250);
+            --bg-soft: oklch(0.21 0.006 250);
+            --text: oklch(0.96 0.008 250);
+            --text-2: oklch(0.82 0.008 250);
+            --muted: oklch(0.62 0.008 250);
+            --faint: oklch(0.46 0.008 250);
+            --border: oklch(0.28 0.008 250);
+            --border-soft: oklch(0.26 0.008 250);
+            --accent: oklch(0.68 0.15 30);
+            --accent-soft: oklch(0.68 0.15 30 / 0.14);
+            --accent-border: oklch(0.68 0.15 30 / 0.38);
+            --header-bg: oklch(0.185 0.006 250 / 0.88);
+        }
+
+        body.light {
+            color-scheme: light;
+            --bg: oklch(0.97 0.004 80);
+            --bg-soft: oklch(0.94 0.005 80);
+            --text: oklch(0.18 0.01 40);
+            --text-2: oklch(0.36 0.008 40);
+            --muted: oklch(0.52 0.008 40);
+            --faint: oklch(0.66 0.006 40);
+            --border: oklch(0.85 0.007 80);
+            --border-soft: oklch(0.88 0.006 80);
+            --accent: oklch(0.58 0.18 30);
+            --accent-soft: oklch(0.58 0.18 30 / 0.1);
+            --accent-border: oklch(0.58 0.18 30 / 0.32);
+            --header-bg: oklch(0.97 0.004 80 / 0.9);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            min-height: 100vh;
+            background:
+                radial-gradient(circle at 8% -10%, oklch(0.3 0.04 260 / 0.2), transparent 40%),
+                radial-gradient(circle at 90% 10%, oklch(0.72 0.12 30 / 0.08), transparent 35%),
+                var(--bg);
+            color: var(--text);
+            font-family: "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            font-size: 15px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a { color: inherit; text-decoration: none; transition: color 160ms ease, border-color 160ms ease; }
+
+        .container { max-width: 860px; margin: 0 auto; padding: 0 40px; }
+
+        .topbar {
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            background: var(--header-bg);
+            border-bottom: 1px solid var(--border-soft);
+        }
+
+        .topbar-inner {
+            height: 68px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+        }
+
+        .back-link {
+            color: var(--text-2);
+            font-size: 13px;
+        }
+
+        .back-link:hover {
+            color: var(--text);
+        }
+
+        .theme-toggle {
+            width: 32px;
+            height: 32px;
+            border-radius: 999px;
+            border: 1px solid var(--border-soft);
+            background: var(--bg-soft);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            color: var(--text-2);
+        }
+
+        .theme-toggle svg {
+            width: 14px;
+            height: 14px;
+            position: absolute;
+            transition: opacity 160ms ease, transform 160ms ease;
+        }
+
+        .theme-icon-sun { opacity: 0; transform: scale(0.75); }
+        .theme-icon-moon { opacity: 1; transform: scale(1); }
+        body.light .theme-icon-sun { opacity: 1; transform: scale(1); }
+        body.light .theme-icon-moon { opacity: 0; transform: scale(0.75); }
+
+        article {
+            padding: 56px 0 70px;
+        }
+
+        .eyebrow {
+            margin-bottom: 12px;
+            color: var(--accent);
+            font-family: "JetBrains Mono", monospace;
+            font-size: 11px;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            margin-bottom: 16px;
+            font-size: 44px;
+            line-height: 1.07;
+            letter-spacing: -1px;
+        }
+
+        .meta {
+            margin-bottom: 28px;
+            color: var(--faint);
+            font-family: "JetBrains Mono", monospace;
+            font-size: 11px;
+        }
+
+        .summary {
+            margin-bottom: 22px;
+            color: var(--text-2);
+            font-size: 17px;
+            line-height: 1.66;
+        }
+
+        .block {
+            margin-top: 20px;
+            border-left: 2px solid var(--border-soft);
+            padding-left: 14px;
+            color: var(--muted);
+            font-size: 15px;
+            line-height: 1.72;
+        }
+
+        h2 {
+            margin-top: 28px;
+            margin-bottom: 10px;
+            font-size: 24px;
+            letter-spacing: -0.4px;
+        }
+
+        p {
+            color: var(--text-2);
+            font-size: 16px;
+            line-height: 1.72;
+            margin-bottom: 12px;
+        }
+
+        ul {
+            margin-left: 18px;
+            margin-bottom: 12px;
+            color: var(--text-2);
+            line-height: 1.72;
+        }
+
+        li { margin-bottom: 4px; }
+
+        .footer {
+            padding: 24px 0 52px;
+            border-top: 1px solid var(--border-soft);
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+            color: var(--faint);
+            font-family: "JetBrains Mono", monospace;
+            font-size: 11px;
+        }
+
+        @media (max-width: 760px) {
+            .container { padding: 0 18px; }
+            .topbar-inner { height: auto; padding: 12px 0; }
+            article { padding-top: 44px; }
+            h1 { font-size: 34px; }
+        }
+    </style>
+</head>
+<body>
+    <header class="topbar">
+        <div class="container topbar-inner">
+            <a class="back-link" href="../blog.html"><- back to blog</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle color theme" title="Toggle color theme">
+                <svg class="theme-icon-moon" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                    <path d="M11.25 10.75A6 6 0 015.25 2.5a6 6 0 106 8.25z" fill="currentColor"></path>
+                </svg>
+                <svg class="theme-icon-sun" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                    <circle cx="8" cy="8" r="3" stroke="currentColor" stroke-width="1.4"></circle>
+                    <path d="M8 1.4v1.8M8 12.8v1.8M12.6 8h1.8M1.6 8h1.8M11.25 4.75l1.25-1.25M3.5 12.5l1.25-1.25M11.25 11.25l1.25 1.25M3.5 3.5l1.25 1.25" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"></path>
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <main class="container">
+        <article>
+            <div class="eyebrow">Internal post example</div>
+            <h1>How I build browser automation pipelines</h1>
+            <div class="meta">Apr 2026 · 6 min read · Lazar Gugleta</div>
+
+            <p class="summary">When I automate browsing for data products, I optimize for repeatability first, speed second. Stable extraction beats brittle speed in production.</p>
+            <div class="block">This page is a local template example. You can duplicate it for each future blog post and keep everything on your own domain.</div>
+
+            <h2>My baseline structure</h2>
+            <p>I split each pipeline into three stages: navigation, extraction, and validation. This keeps failures isolated and easier to debug.</p>
+            <ul>
+                <li>Navigation: deterministic page setup and waits.</li>
+                <li>Extraction: strict field selectors and fallback rules.</li>
+                <li>Validation: schema checks before data is accepted.</li>
+            </ul>
+
+            <h2>Why this works</h2>
+            <p>Most scraping outages are selector drift and timing instability. If validation is mandatory, bad batches are blocked before they reach downstream dashboards or models.</p>
+
+            <h2>What to add next</h2>
+            <p>For your real posts, add header image, tags, estimated read time, and related-post links at the bottom. The page already supports mobile layout and theme switching.</p>
+        </article>
+
+        <footer class="footer">
+            <span>Copyright 2026 Lazar Gugleta - built in Vienna</span>
+            <a href="../blog.html">back to blog</a>
+        </footer>
+    </main>
+
+    <script>
+        (function () {
+            const STORAGE_KEY = "theme";
+            const body = document.body;
+            const button = document.getElementById("theme-toggle");
+
+            function applyTheme(theme) {
+                if (theme === "light") {
+                    body.classList.add("light");
+                } else {
+                    body.classList.remove("light");
+                }
+            }
+
+            applyTheme(localStorage.getItem(STORAGE_KEY) || "dark");
+
+            button.addEventListener("click", function () {
+                const next = body.classList.contains("light") ? "dark" : "light";
+                localStorage.setItem(STORAGE_KEY, next);
+                applyTheme(next);
+            });
+        })();
+    </script>
+</body>
+</html>
