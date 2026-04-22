@@ -95,13 +95,13 @@
             display: flex;
             justify-content: center;
             align-items: flex-start;
-            padding: 1rem;
+            padding: 1rem 2rem;
         }
 
         .container {
             max-width: 980px;
             width: 100%;
-            padding: 2rem 1rem;
+            padding: 2rem 0;
         }
 
         .theme-toggle {
@@ -448,6 +448,11 @@
 
         /* ── Responsive ──────────────────────────────── */
         @media (max-width: 560px) {
+            .wrapper {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+
             .container h1 {
                 font-size: 2rem;
             }
@@ -465,6 +470,13 @@
             .story-container {
                 margin-left: 0.5rem;
                 margin-right: 0.5rem;
+            }
+        }
+
+        @media (max-width: 420px) {
+            .wrapper {
+                padding-left: 0.75rem;
+                padding-right: 0.75rem;
             }
         }
     </style>
