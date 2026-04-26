@@ -516,6 +516,16 @@
             display: grid;
             grid-template-columns: 175px 48px 1fr;
             position: relative;
+            transition: opacity 200ms ease;
+        }
+
+        .timeline-event-inner {
+            display: contents;
+            transition: transform 200ms ease;
+        }
+
+        .timeline-event:hover .timeline-event-inner {
+            transform: translateX(4px);
         }
 
         .timeline-date {
@@ -1135,15 +1145,18 @@
             </div>
 
             <article class="timeline-event" data-type="work">
+                <div class="timeline-event-inner">
                 <div class="timeline-date">Apr 2026 -> now</div>
                 <div class="timeline-spine"><div class="timeline-dot work current">W</div></div>
                 <div class="timeline-body">
                     <div class="timeline-title">Senior Data Architect and AI Integration <span class="now-badge">Now</span></div>
                     <div class="timeline-org">Helvetia</div>
                 </div>
+                </div>
             </article>
 
             <article class="timeline-event" data-type="study">
+                <div class="timeline-event-inner">
                 <div class="timeline-date">Apr 2026 -> now</div>
                 <div class="timeline-spine"><div class="timeline-dot edu current">E</div></div>
                 <div class="timeline-body">
@@ -1151,36 +1164,44 @@
                     <div class="timeline-org">Uni Wien</div>
                     <div class="timeline-blurb">Research focus: AI in security.</div>
                 </div>
+                </div>
             </article>
 
             <article class="timeline-event" data-type="work">
+                <div class="timeline-event-inner">
                 <div class="timeline-date">2024 -> now</div>
                 <div class="timeline-spine"><div class="timeline-dot work current">W</div></div>
                 <div class="timeline-body">
                     <div class="timeline-title">Built and shipped AI data products <span class="now-badge">Now</span></div>
                     <div class="timeline-org">Octoparse, Chat4Data, BrowserStack</div>
                 </div>
+                </div>
             </article>
 
             <article class="timeline-event" data-type="work">
+                <div class="timeline-event-inner">
                 <div class="timeline-date">Dec 2024 -> Apr 2026</div>
                 <div class="timeline-spine"><div class="timeline-dot work">W</div></div>
                 <div class="timeline-body">
                     <div class="timeline-title">Product Owner - Data Science</div>
                     <div class="timeline-org">NXP / TTTech Auto</div>
                 </div>
+                </div>
             </article>
 
             <article class="timeline-event" data-type="work">
+                <div class="timeline-event-inner">
                 <div class="timeline-date">May 2023 -> Apr 2026</div>
                 <div class="timeline-spine"><div class="timeline-dot work">W</div></div>
                 <div class="timeline-body">
                     <div class="timeline-title">Data Scientist</div>
                     <div class="timeline-org">NXP / TTTech Auto</div>
                 </div>
+                </div>
             </article>
 
             <article class="timeline-event" data-type="study">
+                <div class="timeline-event-inner">
                 <div class="timeline-date">Oct 2021 -> Apr 2023</div>
                 <div class="timeline-spine"><div class="timeline-dot edu">E</div></div>
                 <div class="timeline-body">
@@ -1188,50 +1209,61 @@
                     <div class="timeline-org">TU Graz</div>
                     <div class="timeline-blurb">Major Data Science, minor Machine Learning.</div>
                 </div>
+                </div>
             </article>
 
             <article class="timeline-event" data-type="work">
+                <div class="timeline-event-inner">
                 <div class="timeline-date">Jul 2021 -> Jan 2024</div>
                 <div class="timeline-spine"><div class="timeline-dot work">W</div></div>
                 <div class="timeline-body">
                     <div class="timeline-title">Google DSC Lead and Mentor</div>
                     <div class="timeline-org">Google Developers</div>
                 </div>
+                </div>
             </article>
 
             <article class="timeline-event" data-type="work">
+                <div class="timeline-event-inner">
                 <div class="timeline-date">Nov 2020 -> Apr 2023</div>
                 <div class="timeline-spine"><div class="timeline-dot work">W</div></div>
                 <div class="timeline-body">
                     <div class="timeline-title">Data Scientist</div>
                     <div class="timeline-org">Shopreme</div>
                 </div>
+                </div>
             </article>
 
             <article class="timeline-event" data-type="study">
+                <div class="timeline-event-inner">
                 <div class="timeline-date">Oct 2018 -> Sep 2021</div>
                 <div class="timeline-spine"><div class="timeline-dot edu">E</div></div>
                 <div class="timeline-body">
                     <div class="timeline-title">Bachelor in Computer Science</div>
                     <div class="timeline-org">TU Graz</div>
                 </div>
+                </div>
             </article>
 
             <article class="timeline-event" data-type="work">
+                <div class="timeline-event-inner">
                 <div class="timeline-date">Jul 2019 -> May 2023</div>
                 <div class="timeline-spine"><div class="timeline-dot work">W</div></div>
                 <div class="timeline-body">
                     <div class="timeline-title">Teaching Assistant</div>
                     <div class="timeline-org">TU Graz</div>
                 </div>
+                </div>
             </article>
 
             <article class="timeline-event" data-type="work">
+                <div class="timeline-event-inner">
                 <div class="timeline-date">2018 -> 2019</div>
                 <div class="timeline-spine"><div class="timeline-dot work">W</div></div>
                 <div class="timeline-body">
                     <div class="timeline-title">International Student Ambassador</div>
                     <div class="timeline-org">Technische Universitat Graz</div>
+                </div>
                 </div>
             </article>
         </section>
