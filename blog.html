@@ -272,11 +272,14 @@
             border-radius: 8px;
             background: var(--bg-soft);
             padding: 18px;
+            transition: transform 200ms ease, border-color 200ms ease, background-color 200ms ease, box-shadow 200ms ease;
         }
 
         .blog-card:hover {
             border-color: var(--accent-border);
             background: var(--accent-soft);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px oklch(0.08 0 0 / 0.15);
         }
 
         .blog-card-top {

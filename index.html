@@ -516,6 +516,11 @@
             display: grid;
             grid-template-columns: 175px 48px 1fr;
             position: relative;
+            transition: transform 200ms ease, opacity 200ms ease;
+        }
+
+        .timeline-event:hover {
+            transform: translateX(4px);
         }
 
         .timeline-date {
