@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Lazar Gugleta CV">
+    <meta name="author" content="Lazar Gugleta">
+    <meta property="og:title" content="Lazar Gugleta - CV">
+    <meta property="og:description" content="Lazar Gugleta CV">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://lazargugleta.github.io/cv.html">
+    <meta name="theme-color" content="#e2364f">
+    <link rel="canonical" href="https://lazargugleta.github.io/cv.html">
+    <link rel="icon" href="favicon.ico?v=2" sizes="any">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg?v=2">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png?v=2">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png?v=2">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=2">
+    <title>Lazar Gugleta - CV</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            color-scheme: dark;
+            --bg: oklch(0.185 0.006 250);
+            --bg-soft: oklch(0.21 0.006 250);
+            --text: oklch(0.96 0.008 250);
+            --text-2: oklch(0.82 0.008 250);
+            --border-soft: oklch(0.26 0.008 250);
+            --header-bg: oklch(0.185 0.006 250 / 0.88);
+            --accent: oklch(0.68 0.15 30);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            min-height: 100vh;
+            background:
+                radial-gradient(circle at 8% -10%, oklch(0.3 0.04 260 / 0.2), transparent 40%),
+                radial-gradient(circle at 90% 10%, oklch(0.72 0.12 30 / 0.08), transparent 35%),
+                var(--bg);
+            color: var(--text);
+            font-family: "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .topbar {
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            background: var(--header-bg);
+            border-bottom: 1px solid var(--border-soft);
+        }
+
+        .topbar-inner {
+            max-width: 1080px;
+            margin: 0 auto;
+            padding: 12px 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .brand-mark {
+            width: 30px;
+            height: 30px;
+            border-radius: 6px;
+            background: var(--accent);
+            color: var(--bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: "JetBrains Mono", monospace;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn {
+            border: 1px solid var(--border-soft);
+            border-radius: 999px;
+            padding: 8px 12px;
+            font-size: 13px;
+            background: var(--bg-soft);
+        }
+
+        .viewer {
+            max-width: 1080px;
+            margin: 0 auto;
+            padding: 18px;
+        }
+
+        .viewer-frame {
+            width: 100%;
+            height: calc(100vh - 92px);
+            border: 1px solid var(--border-soft);
+            border-radius: 12px;
+            background: #111;
+        }
+
+        @media (max-width: 760px) {
+            .topbar-inner {
+                padding: 12px 16px;
+            }
+
+            .viewer {
+                padding: 14px 16px 16px;
+            }
+
+            .viewer-frame {
+                height: calc(100vh - 84px);
+                border-radius: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="topbar">
+        <div class="topbar-inner">
+            <a class="brand" href="index.html">
+                <span class="brand-mark">lg</span>
+                <span>Lazar Gugleta</span>
+            </a>
+            <div class="actions">
+                <a class="btn" href="src/Lazar_Gugleta_CV.pdf" target="_blank" rel="noopener">Open raw PDF</a>
+                <a class="btn" href="index.html">Back</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="viewer">
+        <iframe class="viewer-frame" src="src/Lazar_Gugleta_CV.pdf" title="Lazar Gugleta CV"></iframe>
+    </main>
+</body>
+</html>
