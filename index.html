@@ -710,17 +710,23 @@
             align-items: center;
             justify-content: center;
             min-height: 220px;
-            color: var(--faint);
-            font-family: "JetBrains Mono", monospace;
-            font-size: 11px;
-            background:
-                repeating-linear-gradient(
-                    135deg,
-                    oklch(0.23 0.008 250),
-                    oklch(0.23 0.008 250) 8px,
-                    oklch(0.21 0.006 250) 8px,
-                    oklch(0.21 0.006 250) 16px
-                );
+            padding: 12px;
+            background: var(--bg-soft);
+            border-left: 1px solid var(--border-soft);
+            overflow: hidden;
+        }
+
+        .writing-preview img {
+            width: 100%;
+            height: 100%;
+            min-height: 200px;
+            object-fit: cover;
+            border-radius: 6px;
+            transition: transform 300ms ease, filter 300ms ease;
+        }
+
+        .writing-featured:hover .writing-preview img {
+            transform: scale(1.03);
         }
 
         .writing-grid {
@@ -1329,10 +1335,16 @@
                     <p>A practical benchmark-driven comparison showing where Polars outperforms Pandas and where each tool still fits best.</p>
                     <div class="writing-meta">Aug 2024 - 41k reads</div>
                 </div>
-                <div class="writing-preview">[ benchmark preview ]</div>
+                <div class="writing-preview">
+                    <img src="src/polars-vs-pandas.png" alt="Why Polars Destroys Pandas in All Possible Ways" />
+                </div>
             </a>
 
             <div class="writing-grid">
+                <a class="writing-card" href="blog/browser-automation-pipeline.html">
+                    <div class="writing-card-top"><span>Architecture</span><span>Apr 2026</span></div>
+                    <div class="writing-card-title">How I build browser automation pipelines</div>
+                </a>
                 <a class="writing-card" target="_blank" rel="noopener" href="https://www.octoparse.com/blog/guide-to-browser-automation">
                     <div class="writing-card-top"><span>Tooling</span><span>Mar 2026</span></div>
                     <div class="writing-card-title">Guide to Browser Automation</div>
