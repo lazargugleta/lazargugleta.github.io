@@ -1,3 +1,8 @@
+/*
+  Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: SAMEORIGIN
+
 /src/Lazar_Gugleta_CV.pdf
   Link: </favicon-32x32.png?v=5>; rel="icon"; type="image/png"; sizes="32x32"
   Link: </favicon.svg?v=5>; rel="alternate icon"; type="image/svg+xml"
