@@ -1368,6 +1368,359 @@
             color: var(--accent);
         }
 
+        /* CV Object Tracking Card Feature */
+        .project-card-cv {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card-content {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .project-card-cv .project-repo,
+        .project-card-cv .project-title,
+        .project-card-cv .project-blurb {
+            text-shadow: 0 1px 4px rgba(0, 0, 0, 0.85), 0 0 2px rgba(0, 0, 0, 0.6);
+        }
+
+        body.light .project-card-cv .project-repo,
+        body.light .project-card-cv .project-title,
+        body.light .project-card-cv .project-blurb {
+            text-shadow: 0 1px 4px rgba(255, 255, 255, 0.95), 0 0 2px rgba(255, 255, 255, 0.8);
+        }
+
+        .cv-road-canvas {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            pointer-events: none;
+            overflow: hidden;
+            border-radius: inherit;
+            container-type: inline-size;
+            background: linear-gradient(
+                180deg,
+                rgba(11, 16, 26, 0.45) 0%,
+                rgba(15, 23, 42, 0.72) 48%,
+                rgba(11, 16, 26, 0.55) 100%
+            );
+            opacity: 0.85;
+            transition: opacity 250ms ease;
+        }
+
+        .project-card-cv:hover .cv-road-canvas {
+            opacity: 1;
+        }
+
+        .cv-road-divider {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            height: 1px;
+            background: repeating-linear-gradient(
+                to right,
+                rgba(245, 158, 11, 0.28) 0px,
+                rgba(245, 158, 11, 0.28) 14px,
+                transparent 14px,
+                transparent 26px
+            );
+            z-index: 1;
+        }
+
+        .cv-lane {
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 44px;
+            overflow: visible;
+        }
+
+        .cv-lane-top {
+            bottom: 50%;
+            margin-bottom: 4px;
+        }
+
+        .cv-lane-bottom {
+            top: 50%;
+            margin-top: 4px;
+        }
+
+        .cv-car-unit {
+            position: absolute;
+            top: 8px;
+            left: 0;
+            width: 70px;
+            height: 28px;
+            will-change: transform;
+            opacity: 0.65;
+            transition: opacity 250ms ease;
+        }
+
+        .project-card-cv:hover .cv-car-unit {
+            opacity: 0.95;
+        }
+
+        .cv-car-unit.top-1 {
+            animation: drive-left 8s linear infinite;
+        }
+
+        .cv-car-unit.top-2 {
+            animation: drive-left 8s linear infinite;
+            animation-delay: -4s;
+        }
+
+        .cv-car-unit.bottom-1 {
+            animation: drive-right 9.2s linear infinite;
+        }
+
+        .cv-car-unit.bottom-2 {
+            animation: drive-right 9.2s linear infinite;
+            animation-delay: -4.6s;
+        }
+
+        @keyframes drive-left {
+            0% {
+                transform: translate3d(450px, 0, 0);
+                transform: translate3d(calc(100cqw + 70px), 0, 0);
+            }
+            100% {
+                transform: translate3d(-110px, 0, 0);
+            }
+        }
+
+        @keyframes drive-right {
+            0% {
+                transform: translate3d(-110px, 0, 0);
+            }
+            100% {
+                transform: translate3d(450px, 0, 0);
+                transform: translate3d(calc(100cqw + 70px), 0, 0);
+            }
+        }
+
+        .cv-bbox {
+            position: absolute;
+            inset: -4px -5px;
+            border: 1px solid rgba(16, 185, 129, 0.55);
+            background: rgba(16, 185, 129, 0.04);
+            border-radius: 2px;
+            box-shadow: 0 0 6px rgba(16, 185, 129, 0.15);
+            transition: border-color 200ms ease, box-shadow 200ms ease;
+        }
+
+        .project-card-cv:hover .cv-bbox {
+            border-color: rgba(52, 211, 153, 0.95);
+            box-shadow: 0 0 10px rgba(16, 185, 129, 0.35);
+        }
+
+        .cv-corner {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            border-color: #34d399;
+            border-style: solid;
+        }
+
+        .cv-corner.tl { top: -1px; left: -1px; border-width: 2px 0 0 2px; }
+        .cv-corner.tr { top: -1px; right: -1px; border-width: 2px 2px 0 0; }
+        .cv-corner.bl { bottom: -1px; left: -1px; border-width: 0 0 2px 2px; }
+        .cv-corner.br { bottom: -1px; right: -1px; border-width: 0 2px 2px 0; }
+
+        .cv-centroid {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 9px;
+            height: 9px;
+            transform: translate(-50%, -50%);
+        }
+
+        .cv-centroid::before {
+            content: "";
+            position: absolute;
+            top: 4px;
+            left: 0;
+            width: 9px;
+            height: 1px;
+            background: #34d399;
+        }
+
+        .cv-centroid::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 4px;
+            width: 1px;
+            height: 9px;
+            background: #34d399;
+        }
+
+        .cv-centroid-dot {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 3px;
+            height: 3px;
+            background: #fef08a;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 4px #fef08a;
+        }
+
+        .cv-vector-arrow {
+            position: absolute;
+            top: 50%;
+            height: 1px;
+            background: #34d399;
+        }
+
+        .cv-car-unit.facing-left .cv-vector-arrow {
+            right: 50%;
+            width: 22px;
+            margin-right: 5px;
+        }
+
+        .cv-car-unit.facing-left .cv-vector-arrow::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: -2px;
+            width: 0;
+            height: 0;
+            border-top: 2.5px solid transparent;
+            border-bottom: 2.5px solid transparent;
+            border-right: 5px solid #34d399;
+        }
+
+        .cv-car-unit.facing-right .cv-vector-arrow {
+            left: 50%;
+            width: 22px;
+            margin-left: 5px;
+        }
+
+        .cv-car-unit.facing-right .cv-vector-arrow::after {
+            content: "";
+            position: absolute;
+            right: 0;
+            top: -2px;
+            width: 0;
+            height: 0;
+            border-top: 2.5px solid transparent;
+            border-bottom: 2.5px solid transparent;
+            border-left: 5px solid #34d399;
+        }
+
+        .cv-tag {
+            position: absolute;
+            top: -14px;
+            left: -1px;
+            background: rgba(10, 15, 26, 0.95);
+            border: 1px solid rgba(52, 211, 153, 0.7);
+            color: #34d399;
+            font-size: 7.5px;
+            font-weight: 600;
+            line-height: 1;
+            padding: 1.5px 4px;
+            border-radius: 2px;
+            white-space: nowrap;
+            letter-spacing: 0.4px;
+            text-transform: uppercase;
+        }
+
+        .cv-car-svg {
+            display: block;
+            width: 70px;
+            height: 28px;
+            overflow: visible;
+        }
+
+        /* Light Mode Tuning for CV Tracking */
+        body.light .project-card-cv {
+            background: var(--bg-card);
+        }
+
+        body.light .cv-road-canvas {
+            background: linear-gradient(
+                180deg,
+                rgba(241, 245, 249, 0.6) 0%,
+                rgba(226, 232, 240, 0.78) 48%,
+                rgba(241, 245, 249, 0.6) 100%
+            );
+            opacity: 0.75;
+        }
+
+        body.light .cv-car-unit {
+            opacity: 0.48;
+        }
+
+        body.light .project-card-cv:hover .cv-car-unit {
+            opacity: 0.88;
+        }
+
+        body.light .cv-road-divider {
+            background: repeating-linear-gradient(
+                to right,
+                rgba(217, 119, 6, 0.35) 0px,
+                rgba(217, 119, 6, 0.35) 14px,
+                transparent 14px,
+                transparent 26px
+            );
+        }
+
+        body.light .cv-bbox {
+            border-color: rgba(5, 150, 105, 0.75);
+            background: rgba(5, 150, 105, 0.06);
+        }
+
+        body.light .cv-corner {
+            border-color: #059669;
+        }
+
+        body.light .cv-tag {
+            background: rgba(255, 255, 255, 0.96);
+            border-color: rgba(5, 150, 105, 0.85);
+            color: #047857;
+        }
+
+        body.light .cv-centroid::before,
+        body.light .cv-centroid::after,
+        body.light .cv-vector-arrow {
+            background: #059669;
+        }
+
+        body.light .cv-car-unit.facing-left .cv-vector-arrow::after {
+            border-right-color: #059669;
+        }
+
+        body.light .cv-car-unit.facing-right .cv-vector-arrow::after {
+            border-left-color: #059669;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .cv-car-unit {
+                animation: none !important;
+            }
+            .cv-car-unit.top-1 {
+                transform: translate3d(120px, 0, 0);
+            }
+            .cv-car-unit.top-2 {
+                display: none;
+            }
+            .cv-car-unit.bottom-1 {
+                transform: translate3d(140px, 0, 0);
+            }
+            .cv-car-unit.bottom-2 {
+                display: none;
+            }
+        }
+
         .project-repo {
             margin-bottom: 10px;
             color: var(--faint);
@@ -2130,11 +2483,179 @@
             <div class="section-kicker">Products and projects</div>
             <h2>Projects</h2>
             <div class="projects-grid">
-                <a class="project-card" target="_blank" rel="noopener" href="https://www.educative.io/projects/tracking-moving-objects-using-python">
-                    <div class="project-repo">educative.io</div>
-                    <div class="project-title">Tracking Moving Objects Using Python</div>
-                    <div class="project-blurb">Hands-on object tracking project with practical computer vision workflows in Python.</div>
-                    <div><span class="project-pill">Python</span><span class="project-pill">OpenCV</span><span class="project-pill">CV</span></div>
+                <a class="project-card project-card-cv" target="_blank" rel="noopener" href="https://www.educative.io/projects/tracking-moving-objects-using-python">
+                    <div class="cv-road-canvas" aria-hidden="true">
+                        <div class="cv-road-divider"></div>
+
+                        <!-- Top Lane: Moving Right to Left (<-) -->
+                        <div class="cv-lane cv-lane-top">
+                            <!-- Car 1 -->
+                            <div class="cv-car-unit facing-left top-1">
+                                <div class="cv-bbox">
+                                    <span class="cv-tag">ID: 01 car 98%</span>
+                                    <span class="cv-corner tl"></span>
+                                    <span class="cv-corner tr"></span>
+                                    <span class="cv-corner bl"></span>
+                                    <span class="cv-corner br"></span>
+                                    <div class="cv-centroid"><span class="cv-centroid-dot"></span></div>
+                                    <div class="cv-vector-arrow"></div>
+                                </div>
+                                <svg class="cv-car-svg" viewBox="0 0 70 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <defs>
+                                        <linearGradient id="bodyBlueLeft" x1="70" y1="14" x2="0" y2="14" gradientUnits="userSpaceOnUse">
+                                            <stop offset="0%" stop-color="#2563eb"/>
+                                            <stop offset="100%" stop-color="#1d4ed8"/>
+                                        </linearGradient>
+                                        <linearGradient id="roofBlueLeft" x1="50" y1="3" x2="20" y2="10" gradientUnits="userSpaceOnUse">
+                                            <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.8"/>
+                                            <stop offset="100%" stop-color="#0369a1" stop-opacity="0.9"/>
+                                        </linearGradient>
+                                        <radialGradient id="lightBeamLeft" cx="2" cy="18" r="32" gradientUnits="userSpaceOnUse">
+                                            <stop offset="0%" stop-color="#fef08a" stop-opacity="0.65"/>
+                                            <stop offset="100%" stop-color="#fef08a" stop-opacity="0"/>
+                                        </radialGradient>
+                                    </defs>
+                                    <polygon points="2,16 -24,10 -24,24 2,20" fill="url(#lightBeamLeft)"/>
+                                    <path d="M4,20 C1.5,20 0,18 0,16 L3,14 C4.5,10.5 9,9 16,9 L24,4 C27.5,1.8 33,1.2 42,1.2 L54,1.8 C60,2.5 63.5,4.5 66,9.5 L68,13 C70,14.5 70,18 67,20 Z" fill="url(#bodyBlueLeft)"/>
+                                    <path d="M25,4.5 L41,3 L41,9 L19,9 Z" fill="url(#roofBlueLeft)"/>
+                                    <path d="M43,3 L54,3.5 C58,5 60.5,7 62.5,9 L43,9 Z" fill="url(#roofBlueLeft)"/>
+                                    <rect x="0" y="15" width="2.5" height="3.5" rx="0.5" fill="#fef08a"/>
+                                    <rect x="68" y="14" width="2" height="4" rx="0.5" fill="#ef4444"/>
+                                    <circle cx="17" cy="20" r="5" fill="#0f172a" stroke="#475569" stroke-width="1.2"/>
+                                    <circle cx="17" cy="20" r="2.5" fill="#94a3b8"/>
+                                    <circle cx="56" cy="20" r="5" fill="#0f172a" stroke="#475569" stroke-width="1.2"/>
+                                    <circle cx="56" cy="20" r="2.5" fill="#94a3b8"/>
+                                </svg>
+                            </div>
+
+                            <!-- Car 2 (Staggered) -->
+                            <div class="cv-car-unit facing-left top-2">
+                                <div class="cv-bbox">
+                                    <span class="cv-tag">ID: 03 car 94%</span>
+                                    <span class="cv-corner tl"></span>
+                                    <span class="cv-corner tr"></span>
+                                    <span class="cv-corner bl"></span>
+                                    <span class="cv-corner br"></span>
+                                    <div class="cv-centroid"><span class="cv-centroid-dot"></span></div>
+                                    <div class="cv-vector-arrow"></div>
+                                </div>
+                                <svg class="cv-car-svg" viewBox="0 0 70 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <defs>
+                                        <linearGradient id="bodyCyanLeft" x1="70" y1="14" x2="0" y2="14" gradientUnits="userSpaceOnUse">
+                                            <stop offset="0%" stop-color="#0891b2"/>
+                                            <stop offset="100%" stop-color="#0e7490"/>
+                                        </linearGradient>
+                                        <linearGradient id="roofCyanLeft" x1="50" y1="3" x2="20" y2="10" gradientUnits="userSpaceOnUse">
+                                            <stop offset="0%" stop-color="#a5f3fc" stop-opacity="0.8"/>
+                                            <stop offset="100%" stop-color="#164e63" stop-opacity="0.9"/>
+                                        </linearGradient>
+                                        <radialGradient id="lightBeamLeft2" cx="2" cy="18" r="32" gradientUnits="userSpaceOnUse">
+                                            <stop offset="0%" stop-color="#fef08a" stop-opacity="0.65"/>
+                                            <stop offset="100%" stop-color="#fef08a" stop-opacity="0"/>
+                                        </radialGradient>
+                                    </defs>
+                                    <polygon points="2,16 -24,10 -24,24 2,20" fill="url(#lightBeamLeft2)"/>
+                                    <path d="M4,20 C1.5,20 0,18 0,16 L3,14 C4.5,10.5 9,9 16,9 L24,4 C27.5,1.8 33,1.2 42,1.2 L54,1.8 C60,2.5 63.5,4.5 66,9.5 L68,13 C70,14.5 70,18 67,20 Z" fill="url(#bodyCyanLeft)"/>
+                                    <path d="M25,4.5 L41,3 L41,9 L19,9 Z" fill="url(#roofCyanLeft)"/>
+                                    <path d="M43,3 L54,3.5 C58,5 60.5,7 62.5,9 L43,9 Z" fill="url(#roofCyanLeft)"/>
+                                    <rect x="0" y="15" width="2.5" height="3.5" rx="0.5" fill="#fef08a"/>
+                                    <rect x="68" y="14" width="2" height="4" rx="0.5" fill="#ef4444"/>
+                                    <circle cx="17" cy="20" r="5" fill="#0f172a" stroke="#475569" stroke-width="1.2"/>
+                                    <circle cx="17" cy="20" r="2.5" fill="#94a3b8"/>
+                                    <circle cx="56" cy="20" r="5" fill="#0f172a" stroke="#475569" stroke-width="1.2"/>
+                                    <circle cx="56" cy="20" r="2.5" fill="#94a3b8"/>
+                                </svg>
+                            </div>
+                        </div>
+
+                        <!-- Bottom Lane: Moving Left to Right (->) -->
+                        <div class="cv-lane cv-lane-bottom">
+                            <!-- Car 3 -->
+                            <div class="cv-car-unit facing-right bottom-1">
+                                <div class="cv-bbox">
+                                    <span class="cv-tag">ID: 02 car 96%</span>
+                                    <span class="cv-corner tl"></span>
+                                    <span class="cv-corner tr"></span>
+                                    <span class="cv-corner bl"></span>
+                                    <span class="cv-corner br"></span>
+                                    <div class="cv-centroid"><span class="cv-centroid-dot"></span></div>
+                                    <div class="cv-vector-arrow"></div>
+                                </div>
+                                <svg class="cv-car-svg" viewBox="0 0 70 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <defs>
+                                        <linearGradient id="bodyIndigoRight" x1="0" y1="14" x2="70" y2="14" gradientUnits="userSpaceOnUse">
+                                            <stop offset="0%" stop-color="#4f46e5"/>
+                                            <stop offset="100%" stop-color="#4338ca"/>
+                                        </linearGradient>
+                                        <linearGradient id="roofIndigoRight" x1="20" y1="3" x2="50" y2="10" gradientUnits="userSpaceOnUse">
+                                            <stop offset="0%" stop-color="#312e81" stop-opacity="0.9"/>
+                                            <stop offset="100%" stop-color="#a5b4fc" stop-opacity="0.8"/>
+                                        </linearGradient>
+                                        <radialGradient id="lightBeamRight" cx="68" cy="18" r="32" gradientUnits="userSpaceOnUse">
+                                            <stop offset="0%" stop-color="#fef08a" stop-opacity="0.65"/>
+                                            <stop offset="100%" stop-color="#fef08a" stop-opacity="0"/>
+                                        </radialGradient>
+                                    </defs>
+                                    <polygon points="68,16 94,10 94,24 68,20" fill="url(#lightBeamRight)"/>
+                                    <path d="M66,20 C68.5,20 70,18 70,16 L67,14 C65.5,10.5 61,9 54,9 L46,4 C42.5,1.8 37,1.2 28,1.2 L16,1.8 C10,2.5 6.5,4.5 4,9.5 L2,13 C0,14.5 0,18 3,20 Z" fill="url(#bodyIndigoRight)"/>
+                                    <path d="M45,4.5 L29,3 L29,9 L51,9 Z" fill="url(#roofIndigoRight)"/>
+                                    <path d="M27,3 L16,3.5 C12,5 9.5,7 7.5,9 L27,9 Z" fill="url(#roofIndigoRight)"/>
+                                    <rect x="67.5" y="15" width="2.5" height="3.5" rx="0.5" fill="#fef08a"/>
+                                    <rect x="0" y="14" width="2" height="4" rx="0.5" fill="#ef4444"/>
+                                    <circle cx="53" cy="20" r="5" fill="#0f172a" stroke="#475569" stroke-width="1.2"/>
+                                    <circle cx="53" cy="20" r="2.5" fill="#94a3b8"/>
+                                    <circle cx="14" cy="20" r="5" fill="#0f172a" stroke="#475569" stroke-width="1.2"/>
+                                    <circle cx="14" cy="20" r="2.5" fill="#94a3b8"/>
+                                </svg>
+                            </div>
+
+                            <!-- Car 4 (Staggered) -->
+                            <div class="cv-car-unit facing-right bottom-2">
+                                <div class="cv-bbox">
+                                    <span class="cv-tag">ID: 04 car 97%</span>
+                                    <span class="cv-corner tl"></span>
+                                    <span class="cv-corner tr"></span>
+                                    <span class="cv-corner bl"></span>
+                                    <span class="cv-corner br"></span>
+                                    <div class="cv-centroid"><span class="cv-centroid-dot"></span></div>
+                                    <div class="cv-vector-arrow"></div>
+                                </div>
+                                <svg class="cv-car-svg" viewBox="0 0 70 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <defs>
+                                        <linearGradient id="bodyAmberRight" x1="0" y1="14" x2="70" y2="14" gradientUnits="userSpaceOnUse">
+                                            <stop offset="0%" stop-color="#0284c7"/>
+                                            <stop offset="100%" stop-color="#0369a1"/>
+                                        </linearGradient>
+                                        <linearGradient id="roofAmberRight" x1="20" y1="3" x2="50" y2="10" gradientUnits="userSpaceOnUse">
+                                            <stop offset="0%" stop-color="#1e3a8a" stop-opacity="0.9"/>
+                                            <stop offset="100%" stop-color="#bae6fd" stop-opacity="0.8"/>
+                                        </linearGradient>
+                                        <radialGradient id="lightBeamRight2" cx="68" cy="18" r="32" gradientUnits="userSpaceOnUse">
+                                            <stop offset="0%" stop-color="#fef08a" stop-opacity="0.65"/>
+                                            <stop offset="100%" stop-color="#fef08a" stop-opacity="0"/>
+                                        </radialGradient>
+                                    </defs>
+                                    <polygon points="68,16 94,10 94,24 68,20" fill="url(#lightBeamRight2)"/>
+                                    <path d="M66,20 C68.5,20 70,18 70,16 L67,14 C65.5,10.5 61,9 54,9 L46,4 C42.5,1.8 37,1.2 28,1.2 L16,1.8 C10,2.5 6.5,4.5 4,9.5 L2,13 C0,14.5 0,18 3,20 Z" fill="url(#bodyAmberRight)"/>
+                                    <path d="M45,4.5 L29,3 L29,9 L51,9 Z" fill="url(#roofAmberRight)"/>
+                                    <path d="M27,3 L16,3.5 C12,5 9.5,7 7.5,9 L27,9 Z" fill="url(#roofAmberRight)"/>
+                                    <rect x="67.5" y="15" width="2.5" height="3.5" rx="0.5" fill="#fef08a"/>
+                                    <rect x="0" y="14" width="2" height="4" rx="0.5" fill="#ef4444"/>
+                                    <circle cx="53" cy="20" r="5" fill="#0f172a" stroke="#475569" stroke-width="1.2"/>
+                                    <circle cx="53" cy="20" r="2.5" fill="#94a3b8"/>
+                                    <circle cx="14" cy="20" r="5" fill="#0f172a" stroke="#475569" stroke-width="1.2"/>
+                                    <circle cx="14" cy="20" r="2.5" fill="#94a3b8"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="project-card-content">
+                        <div class="project-repo">educative.io</div>
+                        <div class="project-title">Tracking Moving Objects Using Python</div>
+                        <div class="project-blurb">Hands-on object tracking project with practical computer vision workflows in Python.</div>
+                        <div><span class="project-pill">Python</span><span class="project-pill">OpenCV</span><span class="project-pill">CV</span></div>
+                    </div>
                 </a>
                 <a class="project-card" target="_blank" rel="noopener" href="https://www.octoparse.com/blog/author/lazar-gugleta">
                     <div class="project-repo">octoparse.com</div>
