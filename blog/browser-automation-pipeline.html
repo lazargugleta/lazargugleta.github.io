@@ -63,10 +63,7 @@
 
         body {
             min-height: 100vh;
-            background:
-                radial-gradient(circle at 8% -10%, oklch(0.3 0.04 260 / 0.2), transparent 40%),
-                radial-gradient(circle at 90% 10%, oklch(0.72 0.12 30 / 0.08), transparent 35%),
-                var(--bg);
+            background: var(--bg);
             color: var(--text);
             font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "SF Pro", "Inter", sans-serif;
             font-size: 15px;
@@ -234,12 +231,12 @@
 
     <main class="container">
         <article>
-            <div class="eyebrow">Internal post example</div>
+            <div class="eyebrow">Engineering & Architecture</div>
             <h1>How I build browser automation pipelines</h1>
             <div class="meta">Apr 2026 · 6 min read · Lazar Gugleta</div>
 
-            <p class="summary">When I automate browsing for data products, I optimize for repeatability first, speed second. Stable extraction beats brittle speed in production.</p>
-            <div class="block">This page is a local template example. You can duplicate it for each future blog post and keep everything on your own domain.</div>
+            <p class="summary">When engineering automated data extraction pipelines, repeatability and resilience take priority over raw speed. Stable extraction beats brittle performance in production.</p>
+            <div class="block">A practical walkthrough on pipeline design, isolation boundaries, schema validation, and selector resilience.</div>
 
             <h2>My baseline structure</h2>
             <p>I split each pipeline into three stages: navigation, extraction, and validation. This keeps failures isolated and easier to debug.</p>
