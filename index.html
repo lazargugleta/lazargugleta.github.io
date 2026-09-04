@@ -402,11 +402,144 @@
         }
 
         .hero {
+            position: relative;
             padding: 72px 0 60px;
             display: grid;
             grid-template-columns: 1.45fr 1fr;
             gap: 52px;
             align-items: start;
+        }
+
+        /* Hero Data Flow & AI Security Conduit Animation */
+        .hero-conduit-svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 5;
+            overflow: visible;
+        }
+
+        @media (max-width: 980px) {
+            .hero-conduit-svg {
+                display: none !important;
+            }
+        }
+
+        .conduit-track-bg {
+            fill: none;
+            stroke: rgba(59, 130, 246, 0.42);
+            stroke-width: 1.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            transition: stroke 0.3s ease;
+        }
+
+        body.light .conduit-track-bg {
+            stroke: rgba(37, 99, 235, 0.35);
+        }
+
+        .conduit-origin-node {
+            stroke: rgba(59, 130, 246, 0.5);
+            transition: stroke 0.3s ease;
+        }
+
+        body.light .conduit-origin-node {
+            stroke: rgba(37, 99, 235, 0.45);
+        }
+
+        .conduit-ball-group {
+            will-change: transform;
+            pointer-events: none;
+        }
+
+        .conduit-ai-anchor {
+            display: inline;
+            transition: text-shadow 0.35s ease, filter 0.35s ease;
+        }
+
+        .conduit-ai-active {
+            text-shadow: 0 0 16px rgba(59, 130, 246, 0.95), 0 0 32px rgba(59, 130, 246, 0.6) !important;
+        }
+
+        body.light .conduit-ai-active {
+            text-shadow: 0 0 14px rgba(37, 99, 235, 0.7), 0 0 28px rgba(37, 99, 235, 0.4) !important;
+        }
+
+        .now-card {
+            transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 220ms ease;
+        }
+
+        .now-card.conduit-impacted {
+            border-color: rgba(59, 130, 246, 0.85) !important;
+            box-shadow: -6px 0 24px -2px rgba(59, 130, 246, 0.55), var(--shadow-md) !important;
+        }
+
+        body.light .now-card.conduit-impacted {
+            border-color: rgba(37, 99, 235, 0.85) !important;
+            box-shadow: -6px 0 24px -2px rgba(37, 99, 235, 0.45), var(--shadow-md) !important;
+        }
+
+        .conduit-ripple {
+            fill: none;
+            stroke: #3b82f6;
+            opacity: 0;
+            transform-origin: center;
+        }
+
+        body.light .conduit-ripple {
+            stroke: #2563eb;
+        }
+
+        .conduit-ripple.active {
+            animation: conduitRippleAnim 0.75s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+        }
+
+        @keyframes conduitRippleAnim {
+            0% {
+                r: 2px;
+                opacity: 0.95;
+                stroke-width: 2.5px;
+            }
+            100% {
+                r: 26px;
+                opacity: 0;
+                stroke-width: 0.5px;
+            }
+        }
+
+        .conduit-spark {
+            fill: #60a5fa;
+            opacity: 0;
+        }
+
+        body.light .conduit-spark {
+            fill: #2563eb;
+        }
+
+        .conduit-spark.active {
+            animation: conduitSparkAnim 0.65s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+        }
+
+        @keyframes conduitSparkAnim {
+            0% {
+                transform: translate(0, 0) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: var(--spark-target) scale(0);
+                opacity: 0;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .conduit-ball-group,
+            .conduit-ripple,
+            .conduit-spark {
+                display: none !important;
+            }
         }
 
         .hero-main {
@@ -2157,9 +2290,26 @@
 
     <main class="container">
         <section id="top" class="hero">
+            <svg class="hero-conduit-svg" id="hero-conduit-svg" aria-hidden="true">
+                <path class="conduit-track-bg" id="conduit-track" d="" />
+                <circle class="conduit-origin-node" id="conduit-node" r="2.5" fill="none" stroke-width="1.5" />
+                <g class="conduit-ball-group" id="conduit-ball-group" style="display: none;">
+                    <circle id="conduit-ball-glow" r="7" opacity="0.38" />
+                    <circle id="conduit-ball" r="3.5" />
+                </g>
+                <g id="conduit-splash-group" transform="translate(-999, -999)">
+                    <circle class="conduit-ripple" id="conduit-ripple-1" r="0" />
+                    <circle class="conduit-ripple" id="conduit-ripple-2" r="0" style="animation-delay: 0.08s;" />
+                    <circle class="conduit-spark" id="conduit-spark-1" cx="0" cy="0" r="1.5" style="--spark-target: translate(-14px, -12px);" />
+                    <circle class="conduit-spark" id="conduit-spark-2" cx="0" cy="0" r="1.5" style="--spark-target: translate(-18px, 2px);" />
+                    <circle class="conduit-spark" id="conduit-spark-3" cx="0" cy="0" r="1.5" style="--spark-target: translate(-12px, 14px);" />
+                    <circle class="conduit-spark" id="conduit-spark-4" cx="0" cy="0" r="1.2" style="--spark-target: translate(-8px, -18px);" />
+                </g>
+            </svg>
+
             <div class="hero-main">
                 <div class="hero-kicker">Data Architecture &amp; AI Security</div>
-                <h1 class="hero-title">Architecting resilient data systems.<br>Advancing <span class="accent">AI security</span>.</h1>
+                <h1 class="hero-title">Architecting resilient data systems<span class="conduit-dot-anchor">.</span><br>Advancing <span class="accent conduit-ai-anchor">AI security</span>.</h1>
 
                 <p class="hero-bio">
                     Product Owner &amp; Data Architect at <strong>Helvetia</strong> and PhD candidate in AI security at the <strong>University of Vienna</strong>. I design mission-critical data platforms and research trust boundaries in autonomous AI.
@@ -2195,7 +2345,7 @@
                 </div>
             </div>
 
-            <aside class="now-card">
+            <aside class="now-card" id="now-card">
                 <div class="now-header"><span>Current focus</span><span>2026</span></div>
                 <div class="now-row"><div class="now-key">role</div><div class="now-value">Product Owner & Data Architect at Helvetia</div></div>
                 <div class="now-row"><div class="now-key">research</div><div class="now-value">PhD Candidate in AI Security, University of Vienna</div></div>
@@ -3035,6 +3185,179 @@
                     }
                 });
             }
+
+            // Hero Data Flow & AI Security Conduit Animation
+            (function initHeroConduit() {
+                const hero = document.getElementById('top');
+                const track = document.getElementById('conduit-track');
+                const node = document.getElementById('conduit-node');
+                const ballGroup = document.getElementById('conduit-ball-group');
+                const ball = document.getElementById('conduit-ball');
+                const ballGlow = document.getElementById('conduit-ball-glow');
+                const splashGroup = document.getElementById('conduit-splash-group');
+                const card = document.getElementById('now-card') || document.querySelector('.now-card');
+                const dot = document.querySelector('.conduit-dot-anchor');
+                const ai = document.querySelector('.conduit-ai-anchor');
+
+                if (!hero || !track || !card || !dot || !ai) return;
+
+                let trackLen = 0;
+                let impactPoint = { x: 0, y: 0 };
+                let animFrameId = null;
+                let cycleStartTime = null;
+                let isVisible = true;
+                let hasImpactedThisCycle = false;
+
+                const CYCLE_DURATION = 3800; // ms per complete data cycle
+                const TRAVEL_RATIO = 0.72; // 72% travel along path, 28% splash and recharge
+
+                function updatePath() {
+                    if (window.innerWidth <= 980) {
+                        track.setAttribute('d', '');
+                        if (node) node.setAttribute('cx', '-999');
+                        ballGroup.style.display = 'none';
+                        return false;
+                    }
+
+                    const hRect = hero.getBoundingClientRect();
+                    const dRect = dot.getBoundingClientRect();
+                    const aRect = ai.getBoundingClientRect();
+                    const cRect = card.getBoundingClientRect();
+
+                    const r = 8;
+                    const xStart = Math.round(dRect.right - hRect.left);
+                    const yStart = Math.round(dRect.top + dRect.height / 2 - hRect.top);
+
+                    const xRightTurn = Math.round(xStart + 32);
+                    const yMidTrace = Math.round(aRect.top - hRect.top - 8);
+                    const xLeftTurn = Math.round(aRect.left - hRect.left - 10);
+                    const yBottomTrace = Math.round(aRect.bottom - hRect.top + 14);
+                    const xCard = Math.round(cRect.left - hRect.left);
+
+                    const pathD = [
+                        'M ' + xStart + ' ' + yStart,
+                        'H ' + (xRightTurn - r),
+                        'A ' + r + ' ' + r + ' 0 0 1 ' + xRightTurn + ' ' + (yStart + r),
+                        'V ' + (yMidTrace - r),
+                        'A ' + r + ' ' + r + ' 0 0 1 ' + (xRightTurn - r) + ' ' + yMidTrace,
+                        'H ' + (xLeftTurn + r),
+                        'A ' + r + ' ' + r + ' 0 0 0 ' + xLeftTurn + ' ' + (yMidTrace + r),
+                        'V ' + (yBottomTrace - r),
+                        'A ' + r + ' ' + r + ' 0 0 0 ' + (xLeftTurn + r) + ' ' + yBottomTrace,
+                        'H ' + xCard
+                    ].join(' ');
+
+                    track.setAttribute('d', pathD);
+                    if (node) {
+                        node.setAttribute('cx', xStart);
+                        node.setAttribute('cy', yStart);
+                    }
+
+                    trackLen = track.getTotalLength();
+                    impactPoint = { x: xCard, y: yBottomTrace };
+                    return true;
+                }
+
+                function triggerSplash() {
+                    if (splashGroup) {
+                        splashGroup.setAttribute('transform', 'translate(' + impactPoint.x + ', ' + impactPoint.y + ')');
+                        const ripples = splashGroup.querySelectorAll('.conduit-ripple');
+                        ripples.forEach(r => {
+                            r.classList.remove('active');
+                            void r.offsetWidth;
+                            r.classList.add('active');
+                        });
+                        const sparks = splashGroup.querySelectorAll('.conduit-spark');
+                        sparks.forEach(s => {
+                            s.classList.remove('active');
+                            void s.offsetWidth;
+                            s.classList.add('active');
+                        });
+                    }
+                    card.classList.add('conduit-impacted');
+                }
+
+                function frame(timestamp) {
+                    if (!isVisible || window.innerWidth <= 980 || trackLen === 0) {
+                        if (ai) ai.classList.remove('conduit-ai-active');
+                        if (card) card.classList.remove('conduit-impacted');
+                        animFrameId = requestAnimationFrame(frame);
+                        return;
+                    }
+
+                    if (!cycleStartTime) cycleStartTime = timestamp;
+                    const elapsed = (timestamp - cycleStartTime) % CYCLE_DURATION;
+                    const progress = elapsed / CYCLE_DURATION;
+
+                    const isLight = document.body.classList.contains('light');
+                    const greenColor = isLight ? '#059669' : '#10b981';
+                    const blueColor = isLight ? '#2563eb' : '#3b82f6';
+
+                    if (progress <= TRAVEL_RATIO) {
+                        hasImpactedThisCycle = false;
+                        const pathP = progress / TRAVEL_RATIO;
+                        const pt = track.getPointAtLength(pathP * trackLen);
+
+                        ballGroup.style.display = 'block';
+                        ballGroup.setAttribute('transform', 'translate(' + pt.x + ', ' + pt.y + ')');
+
+                        if (pathP < 0.35) {
+                            ball.setAttribute('fill', greenColor);
+                            ballGlow.setAttribute('fill', greenColor);
+                            ai.classList.remove('conduit-ai-active');
+                            card.classList.remove('conduit-impacted');
+                        } else if (pathP >= 0.35 && pathP < 0.98) {
+                            ball.setAttribute('fill', blueColor);
+                            ballGlow.setAttribute('fill', blueColor);
+                            ai.classList.add('conduit-ai-active');
+                            card.classList.remove('conduit-impacted');
+                        } else {
+                            ai.classList.remove('conduit-ai-active');
+                        }
+                    } else {
+                        ballGroup.style.display = 'none';
+                        ai.classList.remove('conduit-ai-active');
+
+                        if (!hasImpactedThisCycle) {
+                            hasImpactedThisCycle = true;
+                            triggerSplash();
+                        }
+
+                        if (progress > 0.88) {
+                            card.classList.remove('conduit-impacted');
+                        }
+                    }
+
+                    animFrameId = requestAnimationFrame(frame);
+                }
+
+                window.addEventListener('resize', updatePath, { passive: true });
+
+                if (document.fonts && document.fonts.ready) {
+                    document.fonts.ready.then(updatePath);
+                }
+
+                if ('IntersectionObserver' in window) {
+                    const observer = new IntersectionObserver((entries) => {
+                        entries.forEach(entry => {
+                            isVisible = entry.isIntersecting;
+                        });
+                    }, { threshold: 0.1 });
+                    observer.observe(hero);
+                }
+
+                document.addEventListener('visibilitychange', () => {
+                    isVisible = document.visibilityState === 'visible';
+                    if (!isVisible && card) {
+                        card.classList.remove('conduit-impacted');
+                        if (ai) ai.classList.remove('conduit-ai-active');
+                    }
+                });
+
+                // Initial run
+                setTimeout(updatePath, 50);
+                animFrameId = requestAnimationFrame(frame);
+            })();
         })();
     </script>
 </body>
