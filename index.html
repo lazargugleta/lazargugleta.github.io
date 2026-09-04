@@ -442,12 +442,12 @@
         }
 
         .conduit-origin-node {
-            stroke: rgba(59, 130, 246, 0.5);
+            stroke: rgba(239, 68, 68, 0.55);
             transition: stroke 0.3s ease;
         }
 
         body.light .conduit-origin-node {
-            stroke: rgba(37, 99, 235, 0.45);
+            stroke: rgba(220, 38, 38, 0.5);
         }
 
         .conduit-ball-group {
@@ -3237,7 +3237,7 @@
                         : Math.round(aRect.left - hRect.left + 36);
 
                     const xRightTurn = Math.max(Math.round(xStart + 32), xDropThroughI + 28);
-                    const yMidTrace = Math.round(aRect.top - hRect.top - 8);
+                    const yMidTrace = Math.round(aRect.top - hRect.top + 2);
                     const yBottomTrace = Math.round(aRect.bottom - hRect.top + 14);
                     const xCard = Math.round(cRect.left - hRect.left);
 
@@ -3302,7 +3302,7 @@
                     const progress = elapsed / CYCLE_DURATION;
 
                     const isLight = document.body.classList.contains('light');
-                    const greenColor = isLight ? '#059669' : '#10b981';
+                    const redColor = isLight ? '#dc2626' : '#ef4444';
                     const blueColor = isLight ? '#2563eb' : '#3b82f6';
 
                     if (progress <= TRAVEL_RATIO) {
@@ -3314,8 +3314,8 @@
                         ballGroup.setAttribute('transform', 'translate(' + pt.x + ', ' + pt.y + ')');
 
                         if (pathP < aiEnterRatio) {
-                            ball.setAttribute('fill', greenColor);
-                            ballGlow.setAttribute('fill', greenColor);
+                            ball.setAttribute('fill', redColor);
+                            ballGlow.setAttribute('fill', redColor);
                             ai.classList.remove('conduit-ai-active');
                             card.classList.remove('conduit-impacted');
                         } else if (pathP >= aiEnterRatio && pathP < 0.98) {
