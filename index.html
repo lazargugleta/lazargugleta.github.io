@@ -793,7 +793,8 @@
         }
 
         /* --- Desk Reading Lamp & Writing Section Illumination --- */
-        .writing-section {
+        #writing.section {
+            border-top: none;
             position: relative;
         }
 
@@ -802,13 +803,17 @@
             align-items: flex-end;
             justify-content: space-between;
             position: relative;
-            margin-bottom: 22px;
+            margin-bottom: 14px;
             gap: 20px;
         }
 
         .writing-head-info {
             display: flex;
             flex-direction: column;
+        }
+
+        .writing-head-info h2 {
+            margin-bottom: 12px;
         }
 
         .writing-head-info .section-link {
@@ -823,8 +828,8 @@
             align-items: flex-end;
             user-select: none;
             z-index: 5;
-            margin-top: -24px;
-            margin-bottom: -16px;
+            margin-top: 0;
+            margin-bottom: -28px;
         }
 
         .writing-lamp-btn {
@@ -910,6 +915,10 @@
             fill: #b45309;
         }
 
+        .pull-bracket {
+            stroke: #b45309;
+        }
+
         .pull-chain-beads {
             stroke: #94a3b8;
         }
@@ -927,7 +936,7 @@
         /* Pull Cord Physics & Sway */
         .lamp-pull-cord {
             cursor: pointer;
-            transform-origin: 138px 0px;
+            transform-origin: 133.5px 27.5px;
             transition: transform 180ms ease;
         }
 
@@ -1018,32 +1027,32 @@
             transform: translateY(-0.5px);
         }
 
-        /* Ambient Spotlight Cone Layer - Feathered into darkness with zero hard stops */
+        /* Ambient Spotlight Cone Layer - Soft Downward Illumination with zero hard stops */
         .writing-spotlight-layer {
             position: absolute;
-            inset: -140px -100px -100px -100px;
+            inset: -10px -80px -80px -80px;
             pointer-events: none;
             background: radial-gradient(
-                ellipse 680px 540px at calc(100% - 130px) 165px,
+                ellipse 620px 480px at calc(100% - 90px) 100px,
                 oklch(0.92 0.16 80 / 0.18) 0%,
-                oklch(0.90 0.15 78 / 0.11) 22%,
-                oklch(0.88 0.13 75 / 0.04) 45%,
-                oklch(0.85 0.10 75 / 0.01) 62%,
-                transparent 76%
+                oklch(0.90 0.15 78 / 0.10) 24%,
+                oklch(0.88 0.12 75 / 0.04) 48%,
+                oklch(0.85 0.08 75 / 0.01) 68%,
+                transparent 80%
             );
             -webkit-mask-image: radial-gradient(
-                ellipse 600px 490px at calc(100% - 130px) 165px,
+                ellipse 560px 420px at calc(100% - 90px) 100px,
                 black 15%,
                 rgba(0, 0, 0, 0.6) 38%,
-                rgba(0, 0, 0, 0.12) 58%,
-                transparent 72%
+                rgba(0, 0, 0, 0.12) 60%,
+                transparent 78%
             );
             mask-image: radial-gradient(
-                ellipse 600px 490px at calc(100% - 130px) 165px,
+                ellipse 560px 420px at calc(100% - 90px) 100px,
                 black 15%,
                 rgba(0, 0, 0, 0.6) 38%,
-                rgba(0, 0, 0, 0.12) 58%,
-                transparent 72%
+                rgba(0, 0, 0, 0.12) 60%,
+                transparent 78%
             );
             opacity: 0;
             transition: opacity 450ms cubic-bezier(0.16, 1, 0.3, 1);
@@ -1904,7 +1913,7 @@
 
                 <div class="writing-lamp-fixture">
                     <button id="reading-lamp-btn" class="writing-lamp-btn" type="button" role="switch" aria-checked="false" aria-label="Toggle desk reading lamp" title="Click or pull cord to toggle reading lamp">
-                        <svg class="writing-lamp-svg" viewBox="0 0 170 145" width="170" height="145" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <svg class="writing-lamp-svg" viewBox="0 0 160 115" width="160" height="115" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                             <defs>
                                 <linearGradient id="lampShadeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
                                     <stop offset="0%" stop-color="#334155" class="shade-stop-1" />
@@ -1932,6 +1941,12 @@
                                     <stop offset="100%" stop-color="rgba(245, 158, 11, 0)" />
                                 </linearGradient>
 
+                                <linearGradient id="lampWireFade" x1="0%" y1="0%" x2="0%" y2="100%">
+                                    <stop offset="0%" stop-color="#94a3b8" stop-opacity="0" />
+                                    <stop offset="45%" stop-color="#94a3b8" stop-opacity="0.85" />
+                                    <stop offset="100%" stop-color="#94a3b8" stop-opacity="1" />
+                                </linearGradient>
+
                                 <filter id="beamFeather" x="-35%" y="-35%" width="170%" height="170%">
                                     <feGaussianBlur stdDeviation="5" />
                                 </filter>
@@ -1947,52 +1962,51 @@
                                 </filter>
                             </defs>
 
-                            <!-- Ceiling cord & mount (shared horizontal canopy bar at y=0) -->
-                            <rect x="108" y="0" width="36" height="3" rx="1.5" class="lamp-mount-cap" fill="#475569" />
-                            <line x1="118" y1="0" x2="118" y2="24" stroke="currentColor" class="lamp-ceiling-wire" stroke-width="2" stroke-linecap="round" />
-                            <rect x="113" y="20" width="10" height="7" rx="2" class="lamp-socket-base" fill="#d97706" />
+                            <!-- Clean slender ceiling wire fading in naturally from darkness above -->
+                            <line x1="118" y1="0" x2="118" y2="26" stroke="url(#lampWireFade)" class="lamp-ceiling-wire" stroke-width="1.8" stroke-linecap="round" />
 
-                            <!-- Angled Lamp Assembly (pointing down and left toward articles) -->
-                            <g class="lamp-head" transform="rotate(24 118 26)">
+                            <!-- Socket base & switch bracket right where the light hangs -->
+                            <rect x="113" y="24" width="10" height="7" rx="2" class="lamp-socket-base" fill="#d97706" />
+                            <path d="M123 27.5 L133.5 27.5" stroke="#d97706" stroke-width="2" stroke-linecap="round" class="pull-bracket" />
+                            <circle cx="133.5" cy="27.5" r="2.2" class="pull-eyelet" fill="#b45309" />
+
+                            <!-- Angled Lamp Head (pointing down and left toward articles) -->
+                            <g class="lamp-head" transform="rotate(24 118 30)">
                                 <!-- Light cone projecting across articles (feathered, visible when lit) -->
                                 <g class="lamp-light-beam" filter="url(#beamFeather)">
-                                    <polygon points="94,54 142,54 220,240 -80,240" fill="url(#lampBeamGrad)" />
-                                    <!-- Light rays radiating from aperture matching sketch -->
-                                    <line x1="98" y1="56" x2="20" y2="135" stroke="#fef08a" stroke-width="1.8" stroke-linecap="round" stroke-dasharray="14 8" opacity="0.85" />
-                                    <line x1="110" y1="58" x2="48" y2="165" stroke="#fef08a" stroke-width="1.8" stroke-linecap="round" stroke-dasharray="16 10" opacity="0.75" />
-                                    <line x1="124" y1="59" x2="85" y2="185" stroke="#fde047" stroke-width="1.8" stroke-linecap="round" stroke-dasharray="18 10" opacity="0.65" />
-                                    <line x1="138" y1="57" x2="130" y2="195" stroke="#f59e0b" stroke-width="1.8" stroke-linecap="round" stroke-dasharray="16 12" opacity="0.5" />
+                                    <polygon points="94,58 142,58 220,240 -80,240" fill="url(#lampBeamGrad)" />
+                                    <!-- Light rays radiating from aperture -->
+                                    <line x1="98" y1="60" x2="20" y2="140" stroke="#fef08a" stroke-width="1.8" stroke-linecap="round" stroke-dasharray="14 8" opacity="0.85" />
+                                    <line x1="110" y1="62" x2="48" y2="170" stroke="#fef08a" stroke-width="1.8" stroke-linecap="round" stroke-dasharray="16 10" opacity="0.75" />
+                                    <line x1="124" y1="63" x2="85" y2="190" stroke="#fde047" stroke-width="1.8" stroke-linecap="round" stroke-dasharray="18 10" opacity="0.65" />
+                                    <line x1="138" y1="61" x2="130" y2="200" stroke="#f59e0b" stroke-width="1.8" stroke-linecap="round" stroke-dasharray="16 12" opacity="0.5" />
                                 </g>
 
                                 <!-- Interior Reflector of Shade -->
-                                <ellipse cx="118" cy="54" rx="24" ry="7" class="lamp-reflector" />
+                                <ellipse cx="118" cy="58" rx="24" ry="7" class="lamp-reflector" />
 
                                 <!-- Bulb & Filament -->
-                                <ellipse cx="118" cy="53" rx="9" ry="7.5" class="lamp-bulb" />
-                                <circle cx="118" cy="52" r="3.5" class="lamp-filament" />
+                                <ellipse cx="118" cy="57" rx="9" ry="7.5" class="lamp-bulb" />
+                                <circle cx="118" cy="56" r="3.5" class="lamp-filament" />
 
                                 <!-- Exterior Metal Shade Cone -->
-                                <path d="M113 26 L123 26 L142 53 C142.5 54 141 54.5 139 55 C132 56.5 104 56.5 97 55 C95 54.5 93.5 54 94 53 Z" fill="url(#lampShadeGrad)" class="lamp-shade-shell" stroke="rgba(255,255,255,0.12)" stroke-width="1" />
+                                <path d="M113 30 L123 30 L142 57 C142.5 58 141 58.5 139 59 C132 60.5 104 60.5 97 59 C95 58.5 93.5 58 94 57 Z" fill="url(#lampShadeGrad)" class="lamp-shade-shell" stroke="rgba(255,255,255,0.12)" stroke-width="1" />
 
                                 <!-- Metallic Rim Band -->
-                                <path d="M94 53.5 C98 57 138 57 142 53.5" stroke="#d97706" stroke-width="1.8" stroke-linecap="round" fill="none" class="lamp-rim-trim" />
+                                <path d="M94 57.5 C98 61 138 61 142 57.5" stroke="#d97706" stroke-width="1.8" stroke-linecap="round" fill="none" class="lamp-rim-trim" />
                             </g>
 
-                            <!-- Pull Switch Chain (hangs from ceiling mount at same level as light) -->
+                            <!-- Pull Switch Chain (hangs from socket level where the light hangs) -->
                             <g class="lamp-pull-cord" id="lamp-pull-chain" role="presentation">
-                                <!-- Generous interactive tap area -->
-                                <rect x="122" y="0" width="34" height="115" fill="transparent" class="pull-tap-target" />
-                                
-                                <!-- Switch collar & eyelet at ceiling mount level -->
-                                <rect x="135" y="0" width="6" height="4" rx="1" fill="#b45309" />
-                                <circle cx="138" cy="4" r="2.2" class="pull-eyelet" fill="#d97706" />
+                                <!-- Interactive tap target -->
+                                <rect x="120" y="24" width="28" height="84" fill="transparent" class="pull-tap-target" />
 
-                                <!-- Beaded chain extending down from top -->
-                                <line x1="138" y1="5" x2="138" y2="92" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="2 3" stroke-linecap="round" class="pull-chain-beads" />
+                                <!-- Beaded chain extending down from socket level -->
+                                <line x1="133.5" y1="29.5" x2="133.5" y2="88" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="2 3" stroke-linecap="round" class="pull-chain-beads" />
 
                                 <!-- Weighted Pull Knob at end of string -->
-                                <path d="M135.5 93 C135.5 91 140.5 91 140.5 93 L141.5 104 C141.5 107 134.5 107 134.5 104 Z" fill="#d97706" class="pull-knob" />
-                                <circle cx="138" cy="104.5" r="3.2" fill="#b45309" class="pull-knob-tip" />
+                                <path d="M131 89 C131 87 136 87 136 89 L137 100 C137 103 130 103 130 100 Z" fill="#d97706" class="pull-knob" />
+                                <circle cx="133.5" cy="100.5" r="3" fill="#b45309" class="pull-knob-tip" />
                             </g>
                         </svg>
                     </button>
