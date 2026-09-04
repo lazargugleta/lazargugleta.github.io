@@ -927,7 +927,7 @@
         /* Pull Cord Physics & Sway */
         .lamp-pull-cord {
             cursor: pointer;
-            transform-origin: 138px 30px;
+            transform-origin: 138px 0px;
             transition: transform 180ms ease;
         }
 
@@ -953,63 +953,105 @@
             100% { transform: translateY(0); }
         }
 
-        /* Lamp Status Badge */
-        .lamp-status-badge {
-            display: inline-flex;
+        /* Night-only lamp tooltip */
+        .lamp-night-tooltip {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            margin-top: 10px;
+            display: flex;
             align-items: center;
-            gap: 6px;
-            margin-top: -6px;
-            margin-right: 6px;
+            gap: 10px;
+            padding: 8px 13px;
+            background: rgba(15, 23, 42, 0.96);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(251, 191, 36, 0.4);
+            border-radius: 999px;
+            box-shadow: 0 14px 30px -4px rgba(0, 0, 0, 0.4), 0 0 16px -2px rgba(245, 158, 11, 0.2);
+            color: #f8fafc;
+            font-size: 12px;
+            white-space: nowrap;
+            pointer-events: none;
+            opacity: 0;
+            transform: translateY(-6px) scale(0.96);
+            transition: opacity 220ms ease, transform 220ms cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 25;
+        }
+
+        .lamp-night-tooltip.is-visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            pointer-events: auto;
+        }
+
+        .lamp-night-icon {
+            font-size: 13px;
+            line-height: 1;
+        }
+
+        .lamp-night-text {
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", sans-serif;
+            font-size: 11.5px;
+            color: #f1f5f9;
+            font-weight: 450;
+        }
+
+        .lamp-night-switch-btn {
+            background: rgba(251, 191, 36, 0.16);
+            border: 1px solid rgba(251, 191, 36, 0.45);
+            border-radius: 999px;
             padding: 3px 9px;
+            color: #fde047;
             font-family: "JetBrains Mono", monospace;
             font-size: 10px;
-            color: var(--muted);
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 999px;
-            box-shadow: var(--shadow-sm);
-            pointer-events: none;
-            transition: all 250ms ease;
+            font-weight: 500;
+            cursor: pointer;
+            line-height: 1.2;
+            transition: background 160ms ease, border-color 160ms ease, color 160ms ease, transform 160ms ease;
         }
 
-        .lamp-status-dot {
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: var(--faint);
-            transition: all 250ms ease;
+        .lamp-night-switch-btn:hover {
+            background: rgba(251, 191, 36, 0.3);
+            border-color: #fbbf24;
+            color: #ffffff;
+            transform: translateY(-0.5px);
         }
 
-        /* Ambient Spotlight Cone Layer */
+        /* Ambient Spotlight Cone Layer - Feathered into darkness with zero hard stops */
         .writing-spotlight-layer {
             position: absolute;
-            inset: -20px -20px -20px -20px;
+            inset: -140px -100px -100px -100px;
             pointer-events: none;
             background: radial-gradient(
-                circle 780px at calc(100% - 90px) 110px,
-                oklch(0.92 0.16 80 / 0.16) 0%,
-                oklch(0.88 0.14 75 / 0.09) 30%,
-                oklch(0.85 0.10 75 / 0.04) 55%,
-                transparent 75%
+                ellipse 680px 540px at calc(100% - 130px) 165px,
+                oklch(0.92 0.16 80 / 0.18) 0%,
+                oklch(0.90 0.15 78 / 0.11) 22%,
+                oklch(0.88 0.13 75 / 0.04) 45%,
+                oklch(0.85 0.10 75 / 0.01) 62%,
+                transparent 76%
+            );
+            -webkit-mask-image: radial-gradient(
+                ellipse 600px 490px at calc(100% - 130px) 165px,
+                black 15%,
+                rgba(0, 0, 0, 0.6) 38%,
+                rgba(0, 0, 0, 0.12) 58%,
+                transparent 72%
+            );
+            mask-image: radial-gradient(
+                ellipse 600px 490px at calc(100% - 130px) 165px,
+                black 15%,
+                rgba(0, 0, 0, 0.6) 38%,
+                rgba(0, 0, 0, 0.12) 58%,
+                transparent 72%
             );
             opacity: 0;
             transition: opacity 450ms cubic-bezier(0.16, 1, 0.3, 1);
             mix-blend-mode: screen;
             z-index: 2;
-            border-radius: 16px;
         }
 
-        body.light .writing-spotlight-layer {
-            background: radial-gradient(
-                circle 780px at calc(100% - 90px) 110px,
-                oklch(0.88 0.15 75 / 0.14) 0%,
-                oklch(0.85 0.10 75 / 0.07) 35%,
-                transparent 70%
-            );
-            mix-blend-mode: multiply;
-        }
-
-        /* --- WHEN THE READING LAMP IS ON --- */
+        /* --- WHEN THE READING LAMP IS ON (NIGHT / DARK MODE ONLY) --- */
         #writing.is-lit .writing-lamp-svg {
             filter: drop-shadow(0 6px 24px oklch(0.88 0.16 80 / 0.45));
         }
@@ -1042,16 +1084,8 @@
             fill: #f59e0b;
         }
 
-        #writing.is-lit .lamp-status-badge {
-            color: #f59e0b;
-            border-color: oklch(0.85 0.14 80 / 0.4);
-            background: oklch(0.85 0.14 80 / 0.08);
-            box-shadow: 0 2px 10px oklch(0.85 0.14 80 / 0.2);
-        }
-
-        #writing.is-lit .lamp-status-dot {
-            background: #fbbf24;
-            box-shadow: 0 0 8px #fbbf24;
+        #writing.is-lit .writing-spotlight-layer {
+            opacity: 1;
         }
 
         #writing.is-lit .writing-spotlight-layer {
@@ -1891,11 +1925,16 @@
                                 </radialGradient>
 
                                 <linearGradient id="lampBeamGrad" x1="100%" y1="0%" x2="0%" y2="100%">
-                                    <stop offset="0%" stop-color="rgba(254, 240, 138, 0.45)" />
-                                    <stop offset="25%" stop-color="rgba(245, 158, 11, 0.22)" />
-                                    <stop offset="65%" stop-color="rgba(245, 158, 11, 0.07)" />
+                                    <stop offset="0%" stop-color="rgba(254, 240, 138, 0.42)" />
+                                    <stop offset="18%" stop-color="rgba(245, 158, 11, 0.2)" />
+                                    <stop offset="48%" stop-color="rgba(245, 158, 11, 0.05)" />
+                                    <stop offset="78%" stop-color="rgba(245, 158, 11, 0.01)" />
                                     <stop offset="100%" stop-color="rgba(245, 158, 11, 0)" />
                                 </linearGradient>
+
+                                <filter id="beamFeather" x="-35%" y="-35%" width="170%" height="170%">
+                                    <feGaussianBlur stdDeviation="5" />
+                                </filter>
 
                                 <filter id="bulbGlow" x="-60%" y="-60%" width="220%" height="220%">
                                     <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur1" />
@@ -1908,15 +1947,15 @@
                                 </filter>
                             </defs>
 
-                            <!-- Ceiling cord & mount -->
+                            <!-- Ceiling cord & mount (shared horizontal canopy bar at y=0) -->
+                            <rect x="108" y="0" width="36" height="3" rx="1.5" class="lamp-mount-cap" fill="#475569" />
                             <line x1="118" y1="0" x2="118" y2="24" stroke="currentColor" class="lamp-ceiling-wire" stroke-width="2" stroke-linecap="round" />
-                            <rect x="110" y="0" width="16" height="3" rx="1.5" class="lamp-mount-cap" fill="#475569" />
                             <rect x="113" y="20" width="10" height="7" rx="2" class="lamp-socket-base" fill="#d97706" />
 
                             <!-- Angled Lamp Assembly (pointing down and left toward articles) -->
                             <g class="lamp-head" transform="rotate(24 118 26)">
-                                <!-- Light cone projecting across articles (visible when lit) -->
-                                <g class="lamp-light-beam">
+                                <!-- Light cone projecting across articles (feathered, visible when lit) -->
+                                <g class="lamp-light-beam" filter="url(#beamFeather)">
                                     <polygon points="94,54 142,54 220,240 -80,240" fill="url(#lampBeamGrad)" />
                                     <!-- Light rays radiating from aperture matching sketch -->
                                     <line x1="98" y1="56" x2="20" y2="135" stroke="#fef08a" stroke-width="1.8" stroke-linecap="round" stroke-dasharray="14 8" opacity="0.85" />
@@ -1939,16 +1978,17 @@
                                 <path d="M94 53.5 C98 57 138 57 142 53.5" stroke="#d97706" stroke-width="1.8" stroke-linecap="round" fill="none" class="lamp-rim-trim" />
                             </g>
 
-                            <!-- Pull Switch Chain (hangs down on the right side) -->
+                            <!-- Pull Switch Chain (hangs from ceiling mount at same level as light) -->
                             <g class="lamp-pull-cord" id="lamp-pull-chain" role="presentation">
                                 <!-- Generous interactive tap area -->
-                                <rect x="122" y="30" width="34" height="90" fill="transparent" class="pull-tap-target" />
+                                <rect x="122" y="0" width="34" height="115" fill="transparent" class="pull-tap-target" />
                                 
-                                <!-- Switch eyelet from socket base -->
-                                <circle cx="138" cy="30" r="2.2" class="pull-eyelet" fill="#d97706" />
+                                <!-- Switch collar & eyelet at ceiling mount level -->
+                                <rect x="135" y="0" width="6" height="4" rx="1" fill="#b45309" />
+                                <circle cx="138" cy="4" r="2.2" class="pull-eyelet" fill="#d97706" />
 
-                                <!-- Beaded chain -->
-                                <line x1="138" y1="32" x2="138" y2="92" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="2 3" stroke-linecap="round" class="pull-chain-beads" />
+                                <!-- Beaded chain extending down from top -->
+                                <line x1="138" y1="5" x2="138" y2="92" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="2 3" stroke-linecap="round" class="pull-chain-beads" />
 
                                 <!-- Weighted Pull Knob at end of string -->
                                 <path d="M135.5 93 C135.5 91 140.5 91 140.5 93 L141.5 104 C141.5 107 134.5 107 134.5 104 Z" fill="#d97706" class="pull-knob" />
@@ -1956,9 +1996,10 @@
                             </g>
                         </svg>
                     </button>
-                    <div class="lamp-status-badge" aria-live="polite">
-                        <span class="lamp-status-dot"></span>
-                        <span class="lamp-status-label">Reading light: <strong>OFF</strong></span>
+                    <div id="lamp-night-tooltip" class="lamp-night-tooltip" role="status" aria-live="polite">
+                        <span class="lamp-night-icon">🌙</span>
+                        <span class="lamp-night-text">The reading lamp only works at night.</span>
+                        <button type="button" id="lamp-night-switch-btn" class="lamp-night-switch-btn">Switch to dark mode</button>
                     </div>
                 </div>
             </div>
@@ -2102,6 +2143,9 @@
             function applyTheme(theme) {
                 if (theme === "light") {
                     body.classList.add("light");
+                    if (typeof setLampState === "function") {
+                        setLampState(false, false);
+                    }
                 } else {
                     body.classList.remove("light");
                 }
@@ -2183,12 +2227,29 @@
                 });
             }
 
-            // --- Interactive Desk Reading Lamp Controller ---
+            // --- Interactive Desk Reading Lamp Controller (Night / Dark Mode Only) ---
             const writingSection = document.getElementById("writing");
             const lampBtn = document.getElementById("reading-lamp-btn");
             const lampPullChain = document.getElementById("lamp-pull-chain");
-            const lampStatusLabel = document.querySelector(".lamp-status-label");
+            const nightTooltip = document.getElementById("lamp-night-tooltip");
+            const nightSwitchBtn = document.getElementById("lamp-night-switch-btn");
             const LAMP_STORAGE_KEY = "reading_lamp_lit";
+            let nightTooltipTimeout;
+
+            function showNightTooltip() {
+                if (!nightTooltip) return;
+                clearTimeout(nightTooltipTimeout);
+                nightTooltip.classList.add("is-visible");
+                nightTooltipTimeout = setTimeout(function () {
+                    hideNightTooltip();
+                }, 3200);
+            }
+
+            function hideNightTooltip() {
+                if (!nightTooltip) return;
+                clearTimeout(nightTooltipTimeout);
+                nightTooltip.classList.remove("is-visible");
+            }
 
             function playSwitchSound(isOn) {
                 try {
@@ -2233,13 +2294,14 @@
 
             function setLampState(isLit, playSound) {
                 if (!writingSection) return;
+                // Reading light strictly works only in dark mode (at night)
+                if (isLit && body.classList.contains("light")) {
+                    isLit = false;
+                }
                 writingSection.classList.toggle("is-lit", isLit);
                 if (lampBtn) {
                     lampBtn.setAttribute("aria-checked", isLit ? "true" : "false");
                     lampBtn.setAttribute("title", isLit ? "Pull cord to turn off reading lamp" : "Pull cord to turn on reading lamp");
-                }
-                if (lampStatusLabel) {
-                    lampStatusLabel.innerHTML = isLit ? 'Reading light: <strong>ON</strong>' : 'Reading light: <strong>OFF</strong>';
                 }
                 localStorage.setItem(LAMP_STORAGE_KEY, isLit ? "1" : "0");
                 if (playSound) {
@@ -2249,7 +2311,6 @@
 
             function triggerLampPull() {
                 if (!writingSection) return;
-                const isLit = !writingSection.classList.contains("is-lit");
 
                 // Animate cord pull with physics
                 if (lampPullChain) {
@@ -2261,12 +2322,22 @@
                     }, 550);
                 }
 
+                // If currently in light mode, tell user it only works at night!
+                if (body.classList.contains("light")) {
+                    playSwitchSound(false);
+                    showNightTooltip();
+                    return;
+                }
+
+                hideNightTooltip();
+                const isLit = !writingSection.classList.contains("is-lit");
                 setLampState(isLit, true);
             }
 
             if (lampBtn && writingSection) {
                 const savedLamp = localStorage.getItem(LAMP_STORAGE_KEY);
-                if (savedLamp === "1") {
+                // Only restore lit state if in dark mode
+                if (savedLamp === "1" && !body.classList.contains("light")) {
                     setLampState(true, false);
                 }
 
@@ -2279,6 +2350,27 @@
                     if (e.key === "Enter" || e.key === " ") {
                         e.preventDefault();
                         triggerLampPull();
+                    }
+                });
+
+                if (nightSwitchBtn) {
+                    nightSwitchBtn.addEventListener("click", function (e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        hideNightTooltip();
+                        localStorage.setItem(STORAGE_KEY, "dark");
+                        applyTheme("dark");
+                        setTimeout(function () {
+                            setLampState(true, true);
+                        }, 100);
+                    });
+                }
+
+                document.addEventListener("click", function (e) {
+                    if (nightTooltip && nightTooltip.classList.contains("is-visible")) {
+                        if (!e.target.closest(".writing-lamp-fixture")) {
+                            hideNightTooltip();
+                        }
                     }
                 });
             }
