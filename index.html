@@ -794,7 +794,6 @@
 
         /* --- Desk Reading Lamp & Writing Section Illumination --- */
         #writing.section {
-            border-top: none;
             position: relative;
         }
 
@@ -829,7 +828,7 @@
             user-select: none;
             z-index: 5;
             margin-top: 0;
-            margin-bottom: -28px;
+            margin-bottom: -2px;
         }
 
         .writing-lamp-btn {
@@ -1027,32 +1026,32 @@
             transform: translateY(-0.5px);
         }
 
-        /* Ambient Spotlight Cone Layer - Soft Downward Illumination with zero hard stops */
+        /* Ambient Spotlight Cone Layer - Slowly fading into darkness above and below with zero hard stops */
         .writing-spotlight-layer {
             position: absolute;
-            inset: -10px -80px -80px -80px;
+            inset: -320px -120px -120px -120px;
             pointer-events: none;
             background: radial-gradient(
-                ellipse 620px 480px at calc(100% - 90px) 100px,
+                ellipse 660px 480px at calc(100% - 100px) 390px,
                 oklch(0.92 0.16 80 / 0.18) 0%,
-                oklch(0.90 0.15 78 / 0.10) 24%,
-                oklch(0.88 0.12 75 / 0.04) 48%,
-                oklch(0.85 0.08 75 / 0.01) 68%,
-                transparent 80%
+                oklch(0.90 0.15 78 / 0.12) 20%,
+                oklch(0.88 0.12 75 / 0.06) 42%,
+                oklch(0.85 0.08 75 / 0.02) 65%,
+                transparent 82%
             );
             -webkit-mask-image: radial-gradient(
-                ellipse 560px 420px at calc(100% - 90px) 100px,
+                ellipse 620px 450px at calc(100% - 100px) 390px,
                 black 15%,
-                rgba(0, 0, 0, 0.6) 38%,
-                rgba(0, 0, 0, 0.12) 60%,
-                transparent 78%
+                rgba(0, 0, 0, 0.65) 36%,
+                rgba(0, 0, 0, 0.18) 58%,
+                transparent 80%
             );
             mask-image: radial-gradient(
-                ellipse 560px 420px at calc(100% - 90px) 100px,
+                ellipse 620px 450px at calc(100% - 100px) 390px,
                 black 15%,
-                rgba(0, 0, 0, 0.6) 38%,
-                rgba(0, 0, 0, 0.12) 60%,
-                transparent 78%
+                rgba(0, 0, 0, 0.65) 36%,
+                rgba(0, 0, 0, 0.18) 58%,
+                transparent 80%
             );
             opacity: 0;
             transition: opacity 450ms cubic-bezier(0.16, 1, 0.3, 1);
