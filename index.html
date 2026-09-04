@@ -27,7 +27,7 @@
     <meta name="twitter:image" content="https://lazargugleta.github.io/src/polars-vs-pandas.png">
     <meta name="application-name" content="Lazar Gugleta">
     <meta name="apple-mobile-web-app-title" content="Lazar Gugleta">
-    <meta name="theme-color" content="#e2364f">
+    <meta name="theme-color" content="#2563eb">
     <link rel="canonical" href="https://lazargugleta.github.io/">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png?v=5">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png?v=5">
@@ -385,45 +385,117 @@
         }
 
         .hero {
-            padding: 72px 0 56px;
+            padding: 72px 0 60px;
             display: grid;
-            grid-template-columns: 1.5fr 1fr;
-            gap: 56px;
+            grid-template-columns: 1.45fr 1fr;
+            gap: 52px;
             align-items: start;
         }
 
-        .kicker {
-            display: inline-block;
-            margin-bottom: 20px;
+        .hero-main {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .hero-brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 22px;
+        }
+
+        .hero-avatar {
+            position: relative;
+            width: 46px;
+            height: 46px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, oklch(0.68 0.15 250) 0%, oklch(0.52 0.18 250) 100%);
+            box-shadow: 0 4px 16px -2px oklch(0.65 0.14 250 / 0.4), inset 0 1px 0 oklch(1 1 1 / 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        body.light .hero-avatar {
+            background: linear-gradient(135deg, oklch(0.58 0.18 250) 0%, oklch(0.48 0.18 250) 100%);
+            box-shadow: 0 4px 16px -2px oklch(0.52 0.16 250 / 0.35), inset 0 1px 0 oklch(1 1 1 / 0.4);
+        }
+
+        .avatar-monogram {
+            font-family: "JetBrains Mono", monospace;
+            font-size: 16px;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: -0.5px;
+        }
+
+        .avatar-status {
+            position: absolute;
+            bottom: -2px;
+            right: -2px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--ok);
+            border: 2.5px solid var(--bg);
+            box-shadow: 0 0 8px var(--ok);
+            animation: pulse-dot 2.6s ease-in-out infinite;
+        }
+
+        .hero-identity {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .hero-name {
+            font-size: 19px;
+            font-weight: 700;
+            letter-spacing: -0.4px;
+            color: var(--text);
+            line-height: 1.2;
+        }
+
+        .hero-tagline {
+            font-family: "JetBrains Mono", monospace;
+            font-size: 11px;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
             color: var(--accent);
-            font-size: 13px;
             font-weight: 500;
         }
 
-        h1 {
-            margin-bottom: 22px;
-            font-size: 47px;
-            line-height: 1.08;
+        .hero-title {
+            margin-bottom: 20px;
+            font-size: 46px;
+            line-height: 1.1;
             font-weight: 600;
             letter-spacing: -1.2px;
             color: var(--text);
             text-wrap: balance;
         }
 
-        .hero .accent {
+        .hero-title .accent {
             color: var(--accent);
         }
 
-        .hero p {
+        .hero-bio {
             margin-bottom: 26px;
             max-width: 560px;
             font-size: 16px;
-            line-height: 1.62;
+            line-height: 1.65;
             color: var(--text-2);
+        }
+
+        .hero-bio strong {
+            color: var(--text);
+            font-weight: 600;
         }
 
         .hero-actions {
             display: flex;
+            align-items: center;
             flex-wrap: wrap;
             gap: 12px;
             margin-bottom: 26px;
@@ -432,13 +504,24 @@
         .btn {
             display: inline-flex;
             align-items: center;
-            gap: 9px;
-            border-radius: 7px;
+            gap: 8px;
+            border-radius: 8px;
             padding: 12px 18px;
             font-size: 14px;
             font-weight: 500;
             border: 1px solid transparent;
+            cursor: pointer;
+            line-height: 1;
             transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease, background-color 160ms ease, color 160ms ease;
+        }
+
+        .btn-icon {
+            flex-shrink: 0;
+            transition: transform 160ms ease;
+        }
+
+        .btn-primary:hover .btn-icon {
+            transform: translate(2px, -2px);
         }
 
         .btn-primary {
@@ -465,25 +548,53 @@
 
         .btn-secondary {
             border-color: var(--border);
-            background: var(--bg-soft);
+            background: var(--bg-card);
             color: var(--text);
             box-shadow: var(--shadow-sm);
         }
 
         .btn-secondary:hover {
             border-color: var(--accent-border);
-            background: var(--bg-card);
+            background: var(--bg-soft);
             box-shadow: var(--shadow-md);
             transform: translateY(-1px);
         }
 
-        .chips {
+        .hero-social {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .social-icon-btn {
+            width: 38px;
+            height: 38px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: var(--bg-card);
+            color: var(--text-2);
+            box-shadow: var(--shadow-sm);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 160ms ease, border-color 160ms ease, color 160ms ease, background-color 160ms ease, box-shadow 160ms ease;
+        }
+
+        .social-icon-btn:hover {
+            color: var(--accent);
+            border-color: var(--accent-border);
+            background: var(--bg-soft);
+            box-shadow: var(--shadow-md);
+            transform: translateY(-1px);
+        }
+
+        .hero-highlights {
             display: flex;
             flex-wrap: wrap;
             gap: 8px;
         }
 
-        .chip {
+        .hero-chip {
             border: 1px solid var(--border);
             border-radius: 999px;
             padding: 5px 12px;
@@ -491,14 +602,24 @@
             font-size: 12px;
             background: var(--bg-soft);
             box-shadow: var(--shadow-sm);
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
             transition: border-color 160ms ease, color 160ms ease, transform 160ms ease, box-shadow 160ms ease;
         }
 
-        .chip:hover {
+        .hero-chip:hover {
             border-color: var(--accent-border);
             color: var(--text);
             transform: translateY(-1px);
             box-shadow: var(--shadow-md);
+        }
+
+        .chip-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--accent);
         }
 
         .now-card {
@@ -1097,8 +1218,9 @@
                 padding-top: 52px;
             }
 
-            h1 {
+            h1, .hero-title {
                 font-size: 34px;
+                line-height: 1.15;
             }
 
             .timeline-event {
@@ -1154,6 +1276,11 @@
                 font-size: 14px;
             }
 
+            .hero-title {
+                font-size: 28px;
+                letter-spacing: -0.6px;
+            }
+
             .hero-actions {
                 width: 100%;
             }
@@ -1161,6 +1288,13 @@
             .hero-actions .btn {
                 width: 100%;
                 justify-content: center;
+            }
+
+            .hero-social {
+                width: 100%;
+                justify-content: flex-start;
+                gap: 10px;
+                margin-top: 2px;
             }
 
             .now-card {
@@ -1248,19 +1382,51 @@
 
     <main class="container">
         <section id="top" class="hero">
-            <div>
-                <div class="kicker">Data Architecture & Computer Science</div>
-                <h1>Engineering data platforms and <span class="accent">intelligent systems</span>.</h1>
-                <p>I am Lazar Gugleta, a PhD researcher in AI security at the University of Vienna and Product Owner in Data Architecture at Helvetia. I write about software engineering, data systems, and machine learning.</p>
-                <div class="hero-actions">
-                    <a class="btn btn-primary" href="src/Lazar_Gugleta_CV.pdf" target="_blank" rel="noopener">Open CV</a>
-                    <a class="btn btn-secondary" href="mailto:lazar.gugleta@gmail.com">lazar.gugleta@gmail.com</a>
-                    <a class="btn btn-secondary" href="tel:+436781258420">+43 678 1258420</a>
+            <div class="hero-main">
+                <div class="hero-brand">
+                    <div class="hero-avatar" aria-hidden="true">
+                        <span class="avatar-monogram">LG</span>
+                        <span class="avatar-status" title="Available for advisory & projects"></span>
+                    </div>
+                    <div class="hero-identity">
+                        <div class="hero-name">Lazar Gugleta</div>
+                        <div class="hero-tagline">Data Architect &amp; AI Security Researcher</div>
+                    </div>
                 </div>
-                <div class="chips">
-                    <span class="chip">Vienna, Austria</span>
-                    <span class="chip">Consulting & Advisory</span>
-                    <span class="chip">Technical Essays</span>
+
+                <h1 class="hero-title">Architecting resilient data systems.<br>Advancing <span class="accent">AI security</span>.</h1>
+
+                <p class="hero-bio">
+                    Product Owner &amp; Data Architect at <strong>Helvetia</strong> and PhD candidate in AI security at the <strong>University of Vienna</strong>. I design mission-critical data platforms and research trust boundaries in autonomous AI.
+                </p>
+
+                <div class="hero-actions">
+                    <a class="btn btn-primary" href="src/Lazar_Gugleta_CV.pdf" target="_blank" rel="noopener">
+                        <span>Open CV</span>
+                        <svg class="btn-icon" width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 12L12 4M5 4h7v7"/></svg>
+                    </a>
+                    <a class="btn btn-secondary" href="mailto:lazar.gugleta@gmail.com">
+                        <svg class="btn-icon" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2" y="3.5" width="12" height="9" rx="2"/><path d="M2.5 4.5L8 9l5.5-4.5"/></svg>
+                        <span>Get in touch</span>
+                    </a>
+                    <div class="hero-social">
+                        <a class="social-icon-btn" href="https://github.com/lazargugleta" target="_blank" rel="noopener" aria-label="GitHub Profile" title="GitHub">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+                        </a>
+                        <a class="social-icon-btn" href="https://www.linkedin.com/in/lazargugleta/" target="_blank" rel="noopener" aria-label="LinkedIn Profile" title="LinkedIn">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+                        </a>
+                        <a class="social-icon-btn" href="https://medium.com/@lazar.gugleta" target="_blank" rel="noopener" aria-label="Medium Articles" title="Medium (40k+ readers)">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.54 12a6.8 6.8 0 01-6.77 6.82A6.8 6.8 0 010 12a6.8 6.8 0 016.77-6.82A6.8 6.8 0 0113.54 12zM20.96 12c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42M24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="hero-highlights">
+                    <span class="hero-chip"><span class="chip-dot"></span>Vienna, Austria</span>
+                    <span class="hero-chip">Helvetia Data Architecture</span>
+                    <span class="hero-chip">PhD Security @ Uni Wien</span>
+                    <span class="hero-chip">Consulting &amp; Advisory</span>
                 </div>
             </div>
 
