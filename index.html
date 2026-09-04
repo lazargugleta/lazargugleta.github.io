@@ -2309,7 +2309,7 @@
 
             <div class="hero-main">
                 <div class="hero-kicker">Data Architecture &amp; AI Security</div>
-                <h1 class="hero-title">Architecting resilient data systems<span class="conduit-dot-anchor">.</span><br>Advancing <span class="accent conduit-ai-anchor">AI security</span>.</h1>
+                <h1 class="hero-title">Architecting resilient data systems<span class="conduit-dot-anchor">.</span><br>Advancing <span class="accent conduit-ai-anchor">A<span class="conduit-ai-i">I</span> security</span>.</h1>
 
                 <p class="hero-bio">
                     Product Owner &amp; Data Architect at <strong>Helvetia</strong> and PhD candidate in AI security at the <strong>University of Vienna</strong>. I design mission-critical data platforms and research trust boundaries in autonomous AI.
@@ -3198,11 +3198,13 @@
                 const card = document.getElementById('now-card') || document.querySelector('.now-card');
                 const dot = document.querySelector('.conduit-dot-anchor');
                 const ai = document.querySelector('.conduit-ai-anchor');
+                const aiI = document.querySelector('.conduit-ai-i');
 
                 if (!hero || !track || !card || !dot || !ai) return;
 
                 let trackLen = 0;
                 let impactPoint = { x: 0, y: 0 };
+                let aiEnterRatio = 0.22;
                 let animFrameId = null;
                 let cycleStartTime = null;
                 let isVisible = true;
@@ -3223,14 +3225,19 @@
                     const dRect = dot.getBoundingClientRect();
                     const aRect = ai.getBoundingClientRect();
                     const cRect = card.getBoundingClientRect();
+                    const iRect = aiI ? aiI.getBoundingClientRect() : null;
 
                     const r = 8;
                     const xStart = Math.round(dRect.right - hRect.left);
                     const yStart = Math.round(dRect.top + dRect.height / 2 - hRect.top);
 
-                    const xRightTurn = Math.round(xStart + 32);
+                    // Pass directly through the center stem of letter "I" in "AI"
+                    const xDropThroughI = iRect 
+                        ? Math.round(iRect.left + iRect.width / 2 - hRect.left)
+                        : Math.round(aRect.left - hRect.left + 36);
+
+                    const xRightTurn = Math.max(Math.round(xStart + 32), xDropThroughI + 28);
                     const yMidTrace = Math.round(aRect.top - hRect.top - 8);
-                    const xLeftTurn = Math.round(aRect.left - hRect.left - 10);
                     const yBottomTrace = Math.round(aRect.bottom - hRect.top + 14);
                     const xCard = Math.round(cRect.left - hRect.left);
 
@@ -3240,10 +3247,10 @@
                         'A ' + r + ' ' + r + ' 0 0 1 ' + xRightTurn + ' ' + (yStart + r),
                         'V ' + (yMidTrace - r),
                         'A ' + r + ' ' + r + ' 0 0 1 ' + (xRightTurn - r) + ' ' + yMidTrace,
-                        'H ' + (xLeftTurn + r),
-                        'A ' + r + ' ' + r + ' 0 0 0 ' + xLeftTurn + ' ' + (yMidTrace + r),
+                        'H ' + (xDropThroughI + r),
+                        'A ' + r + ' ' + r + ' 0 0 0 ' + xDropThroughI + ' ' + (yMidTrace + r),
                         'V ' + (yBottomTrace - r),
-                        'A ' + r + ' ' + r + ' 0 0 0 ' + (xLeftTurn + r) + ' ' + yBottomTrace,
+                        'A ' + r + ' ' + r + ' 0 0 0 ' + (xDropThroughI + r) + ' ' + yBottomTrace,
                         'H ' + xCard
                     ].join(' ');
 
@@ -3255,6 +3262,11 @@
 
                     trackLen = track.getTotalLength();
                     impactPoint = { x: xCard, y: yBottomTrace };
+
+                    if (trackLen > 0) {
+                        const topRun = (xRightTurn - xStart) + (yMidTrace - yStart) + (xRightTurn - xDropThroughI);
+                        aiEnterRatio = Math.max(0.15, Math.min(0.35, topRun / trackLen));
+                    }
                     return true;
                 }
 
@@ -3301,12 +3313,12 @@
                         ballGroup.style.display = 'block';
                         ballGroup.setAttribute('transform', 'translate(' + pt.x + ', ' + pt.y + ')');
 
-                        if (pathP < 0.35) {
+                        if (pathP < aiEnterRatio) {
                             ball.setAttribute('fill', greenColor);
                             ballGlow.setAttribute('fill', greenColor);
                             ai.classList.remove('conduit-ai-active');
                             card.classList.remove('conduit-impacted');
-                        } else if (pathP >= 0.35 && pathP < 0.98) {
+                        } else if (pathP >= aiEnterRatio && pathP < 0.98) {
                             ball.setAttribute('fill', blueColor);
                             ballGlow.setAttribute('fill', blueColor);
                             ai.classList.add('conduit-ai-active');
