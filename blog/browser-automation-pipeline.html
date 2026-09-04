@@ -296,6 +296,20 @@
     <script>
         (function () {
             const STORAGE_KEY = "theme";
+            function getStorage(key, fallback) {
+                try {
+                    const val = localStorage.getItem(key);
+                    return val !== null ? val : fallback;
+                } catch (e) {
+                    return fallback;
+                }
+            }
+            function setStorage(key, value) {
+                try {
+                    localStorage.setItem(key, value);
+                } catch (e) {}
+            }
+
             const body = document.body;
             const button = document.getElementById("theme-toggle");
 
@@ -307,13 +321,15 @@
                 }
             }
 
-            applyTheme(localStorage.getItem(STORAGE_KEY) || "dark");
+            applyTheme(getStorage(STORAGE_KEY, "dark"));
 
-            button.addEventListener("click", function () {
-                const next = body.classList.contains("light") ? "dark" : "light";
-                localStorage.setItem(STORAGE_KEY, next);
-                applyTheme(next);
-            });
+            if (button) {
+                button.addEventListener("click", function () {
+                    const next = body.classList.contains("light") ? "dark" : "light";
+                    setStorage(STORAGE_KEY, next);
+                    applyTheme(next);
+                });
+            }
         })();
     </script>
 </body>

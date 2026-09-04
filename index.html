@@ -257,6 +257,8 @@
             align-items: center;
             justify-content: center;
             color: var(--text-2);
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
             transition: transform 160ms ease, border-color 160ms ease, background-color 160ms ease, box-shadow 160ms ease, color 160ms ease;
         }
 
@@ -285,6 +287,8 @@
             justify-content: center;
             position: relative;
             color: var(--text-2);
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
             transition: transform 160ms ease, border-color 160ms ease, color 160ms ease, background-color 160ms ease, box-shadow 160ms ease;
         }
 
@@ -360,6 +364,8 @@
             align-items: center;
             gap: 8px;
             line-height: 1;
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
             box-shadow: var(--shadow-sm);
             transition: transform 160ms ease, border-color 160ms ease, background-color 160ms ease, color 160ms ease, box-shadow 160ms ease;
         }
@@ -846,6 +852,7 @@
             position: relative;
             display: block;
             outline: none;
+            touch-action: manipulation;
             -webkit-tap-highlight-color: transparent;
         }
 
@@ -1700,6 +1707,16 @@
                 height: auto;
             }
 
+            .lamp-night-tooltip {
+                right: 0;
+                top: calc(100% + 4px);
+                max-width: min(300px, calc(100vw - 32px));
+                white-space: normal;
+                border-radius: 14px;
+                padding: 8px 12px;
+                gap: 8px;
+            }
+
             .contact-card {
                 padding: 11px;
             }
@@ -1806,9 +1823,9 @@
                 </div>
                 <div class="timeline-filter" aria-label="Timeline filter">
                     <span class="timeline-filter-label">Filter</span>
-                    <button class="filter-chip is-active" data-filter="all" type="button">All <span class="filter-count" data-count-for="all">0</span></button>
-                    <button class="filter-chip" data-filter="work" type="button">Work <span class="filter-count" data-count-for="work">0</span></button>
-                    <button class="filter-chip" data-filter="study" type="button">Study <span class="filter-count" data-count-for="study">0</span></button>
+                    <button class="filter-chip is-active" data-filter="all" type="button">All <span class="filter-count" data-count-for="all">11</span></button>
+                    <button class="filter-chip" data-filter="work" type="button">Work <span class="filter-count" data-count-for="work">8</span></button>
+                    <button class="filter-chip" data-filter="study" type="button">Study <span class="filter-count" data-count-for="study">3</span></button>
                 </div>
             </div>
 
@@ -2185,108 +2202,37 @@
     <script>
         (function () {
             const STORAGE_KEY = "theme";
+            const LAMP_STORAGE_KEY = "reading_lamp_lit";
+
+            function getStorage(key, fallback) {
+                try {
+                    const val = localStorage.getItem(key);
+                    return val !== null ? val : fallback;
+                } catch (e) {
+                    return fallback;
+                }
+            }
+
+            function setStorage(key, value) {
+                try {
+                    localStorage.setItem(key, value);
+                } catch (e) {}
+            }
+
+            // Top-level DOM references declared upfront
             const body = document.body;
-            const button = document.getElementById("theme-toggle");
-            const menuButton = document.getElementById("menu-toggle");
+            const themeToggleBtn = document.getElementById("theme-toggle");
+            const menuToggleBtn = document.getElementById("menu-toggle");
             const navNode = document.querySelector(".nav");
             const timelineSection = document.getElementById("timeline");
             const filterButtons = timelineSection ? Array.from(timelineSection.querySelectorAll(".filter-chip")) : [];
             const timelineEvents = timelineSection ? Array.from(timelineSection.querySelectorAll(".timeline-event")) : [];
-
-            function applyTheme(theme) {
-                if (theme === "light") {
-                    body.classList.add("light");
-                    if (typeof setLampState === "function") {
-                        setLampState(false, false);
-                    }
-                } else {
-                    body.classList.remove("light");
-                }
-            }
-
-            const saved = localStorage.getItem(STORAGE_KEY);
-            applyTheme(saved || "dark");
-
-            button.addEventListener("click", function () {
-                const next = body.classList.contains("light") ? "dark" : "light";
-                localStorage.setItem(STORAGE_KEY, next);
-                applyTheme(next);
-            });
-
-            if (menuButton && navNode) {
-                menuButton.addEventListener("click", function () {
-                    const open = navNode.classList.toggle("is-open");
-                    menuButton.setAttribute("aria-expanded", open ? "true" : "false");
-                });
-
-                navNode.querySelectorAll("a").forEach(function (link) {
-                    link.addEventListener("click", function () {
-                        navNode.classList.remove("is-open");
-                        menuButton.setAttribute("aria-expanded", "false");
-                    });
-                });
-            }
-
-            function updateTimelineBoundaries() {
-                timelineEvents.forEach(function (eventNode) {
-                    eventNode.classList.remove("first-visible", "last-visible");
-                });
-                const visible = timelineEvents.filter(function (eventNode) {
-                    return !eventNode.classList.contains("is-hidden");
-                });
-                if (visible.length > 0) {
-                    visible[0].classList.add("first-visible");
-                    visible[visible.length - 1].classList.add("last-visible");
-                }
-            }
-
-            function setFilter(filterType) {
-                timelineEvents.forEach(function (eventNode) {
-                    const show = filterType === "all" || eventNode.dataset.type === filterType;
-                    eventNode.classList.toggle("is-hidden", !show);
-                });
-                filterButtons.forEach(function (btn) {
-                    const isActive = btn.dataset.filter === filterType;
-                    btn.classList.toggle("is-active", isActive);
-                    btn.setAttribute("aria-pressed", isActive ? "true" : "false");
-                });
-                updateTimelineBoundaries();
-            }
-
-            function updateFilterCounts() {
-                const counts = { all: timelineEvents.length, work: 0, study: 0 };
-                timelineEvents.forEach(function (eventNode) {
-                    if (eventNode.dataset.type === "study") {
-                        counts.study += 1;
-                    } else {
-                        counts.work += 1;
-                    }
-                });
-                const allCount = timelineSection.querySelector('[data-count-for="all"]');
-                const workCount = timelineSection.querySelector('[data-count-for="work"]');
-                const studyCount = timelineSection.querySelector('[data-count-for="study"]');
-                if (allCount) allCount.textContent = String(counts.all);
-                if (workCount) workCount.textContent = String(counts.work);
-                if (studyCount) studyCount.textContent = String(counts.study);
-            }
-
-            if (timelineSection) {
-                updateFilterCounts();
-                setFilter("all");
-                filterButtons.forEach(function (btn) {
-                    btn.addEventListener("click", function () {
-                        setFilter(btn.dataset.filter || "all");
-                    });
-                });
-            }
-
-            // --- Interactive Desk Reading Lamp Controller (Night / Dark Mode Only) ---
             const writingSection = document.getElementById("writing");
             const lampBtn = document.getElementById("reading-lamp-btn");
             const lampPullChain = document.getElementById("lamp-pull-chain");
             const nightTooltip = document.getElementById("lamp-night-tooltip");
             const nightSwitchBtn = document.getElementById("lamp-night-switch-btn");
-            const LAMP_STORAGE_KEY = "reading_lamp_lit";
+
             let nightTooltipTimeout;
 
             function showNightTooltip() {
@@ -2341,7 +2287,7 @@
                     osc2.start(now + 0.032);
                     osc2.stop(now + 0.055);
                 } catch (e) {
-                    // AudioContext unavailable or blocked, graceful silent fallback
+                    // AudioContext unavailable or blocked by autoplay policy, silent fallback
                 }
             }
 
@@ -2356,7 +2302,7 @@
                     lampBtn.setAttribute("aria-checked", isLit ? "true" : "false");
                     lampBtn.setAttribute("title", isLit ? "Pull cord to turn off reading lamp" : "Pull cord to turn on reading lamp");
                 }
-                localStorage.setItem(LAMP_STORAGE_KEY, isLit ? "1" : "0");
+                setStorage(LAMP_STORAGE_KEY, isLit ? "1" : "0");
                 if (playSound) {
                     playSwitchSound(isLit);
                 }
@@ -2375,7 +2321,7 @@
                     }, 550);
                 }
 
-                // If currently in light mode, tell user it only works at night!
+                // If currently in light mode, notify user it only works in dark mode
                 if (body.classList.contains("light")) {
                     playSwitchSound(false);
                     showNightTooltip();
@@ -2387,9 +2333,104 @@
                 setLampState(isLit, true);
             }
 
+            function applyTheme(theme) {
+                if (theme === "light") {
+                    body.classList.add("light");
+                    setLampState(false, false);
+                } else {
+                    body.classList.remove("light");
+                }
+            }
+
+            // Apply initial theme
+            const savedTheme = getStorage(STORAGE_KEY, "dark");
+            applyTheme(savedTheme);
+
+            // Theme toggle listener (desktop + mobile touch)
+            if (themeToggleBtn) {
+                themeToggleBtn.addEventListener("click", function (e) {
+                    e.preventDefault();
+                    const next = body.classList.contains("light") ? "dark" : "light";
+                    setStorage(STORAGE_KEY, next);
+                    applyTheme(next);
+                });
+            }
+
+            // Mobile menu toggle
+            if (menuToggleBtn && navNode) {
+                menuToggleBtn.addEventListener("click", function (e) {
+                    e.preventDefault();
+                    const open = navNode.classList.toggle("is-open");
+                    menuToggleBtn.setAttribute("aria-expanded", open ? "true" : "false");
+                });
+
+                navNode.querySelectorAll("a").forEach(function (link) {
+                    link.addEventListener("click", function () {
+                        navNode.classList.remove("is-open");
+                        menuToggleBtn.setAttribute("aria-expanded", "false");
+                    });
+                });
+            }
+
+            // Timeline filtering
+            function updateTimelineBoundaries() {
+                timelineEvents.forEach(function (eventNode) {
+                    eventNode.classList.remove("first-visible", "last-visible");
+                });
+                const visible = timelineEvents.filter(function (eventNode) {
+                    return !eventNode.classList.contains("is-hidden");
+                });
+                if (visible.length > 0) {
+                    visible[0].classList.add("first-visible");
+                    visible[visible.length - 1].classList.add("last-visible");
+                }
+            }
+
+            function setFilter(filterType) {
+                timelineEvents.forEach(function (eventNode) {
+                    const show = filterType === "all" || eventNode.dataset.type === filterType;
+                    eventNode.classList.toggle("is-hidden", !show);
+                });
+                filterButtons.forEach(function (btn) {
+                    const isActive = btn.dataset.filter === filterType;
+                    btn.classList.toggle("is-active", isActive);
+                    btn.setAttribute("aria-pressed", isActive ? "true" : "false");
+                });
+                updateTimelineBoundaries();
+            }
+
+            function updateFilterCounts() {
+                if (!timelineSection) return;
+                const counts = { all: timelineEvents.length, work: 0, study: 0 };
+                timelineEvents.forEach(function (eventNode) {
+                    if (eventNode.dataset.type === "study") {
+                        counts.study += 1;
+                    } else {
+                        counts.work += 1;
+                    }
+                });
+                const allCount = timelineSection.querySelector('[data-count-for="all"]');
+                const workCount = timelineSection.querySelector('[data-count-for="work"]');
+                const studyCount = timelineSection.querySelector('[data-count-for="study"]');
+                if (allCount) allCount.textContent = String(counts.all);
+                if (workCount) workCount.textContent = String(counts.work);
+                if (studyCount) studyCount.textContent = String(counts.study);
+            }
+
+            if (timelineSection) {
+                updateFilterCounts();
+                setFilter("all");
+                filterButtons.forEach(function (btn) {
+                    btn.addEventListener("click", function (e) {
+                        e.preventDefault();
+                        setFilter(btn.dataset.filter || "all");
+                    });
+                });
+            }
+
+            // Lamp Switch setup
             if (lampBtn && writingSection) {
-                const savedLamp = localStorage.getItem(LAMP_STORAGE_KEY);
-                // Only restore lit state if in dark mode
+                const savedLamp = getStorage(LAMP_STORAGE_KEY, "0");
                 if (savedLamp === "1" && !body.classList.contains("light")) {
                     setLampState(true, false);
                 }
@@ -2411,7 +2452,7 @@
                         e.preventDefault();
                         e.stopPropagation();
                         hideNightTooltip();
-                        localStorage.setItem(STORAGE_KEY, "dark");
+                        setStorage(STORAGE_KEY, "dark");
                         applyTheme("dark");
                         setTimeout(function () {
                             setLampState(true, true);
@@ -2427,7 +2468,6 @@
                     }
                 });
             }
-
         })();
     </script>
 </body>
