@@ -456,8 +456,7 @@
 
         .now-key {
             color: var(--faint);
-            font-family: "JetBrains Mono", monospace;
-            font-size: 11px;
+            font-size: 12px;
         }
 
         .now-value {
@@ -503,7 +502,14 @@
             display: grid;
             grid-template-columns: 175px 48px 1fr;
             position: relative;
-            transition: opacity 200ms ease;
+            border-radius: 8px;
+            padding: 4px 8px;
+            margin: 0 -8px;
+            transition: background 200ms ease, opacity 200ms ease;
+        }
+
+        .timeline-event:hover {
+            background: var(--bg-soft);
         }
 
         .timeline-event-inner {
@@ -522,7 +528,7 @@
         }
 
         .timeline-event:hover .timeline-date {
-            color: var(--text-2);
+            color: var(--text);
         }
 
         .timeline-spine {
@@ -570,6 +576,15 @@
             font-family: "JetBrains Mono", monospace;
             font-size: 10px;
             font-weight: 600;
+            transition: transform 200ms ease, border-color 200ms ease, color 200ms ease, box-shadow 200ms ease, background 200ms ease;
+        }
+
+        .timeline-event:hover .timeline-dot {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: var(--bg-card);
+            transform: scale(1.12);
+            box-shadow: 0 0 0 3px var(--accent-soft);
         }
 
         .timeline-dot.work {
