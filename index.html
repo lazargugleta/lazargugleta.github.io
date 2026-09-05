@@ -537,9 +537,29 @@
             overflow: visible;
         }
 
+        .conduit-terminal-node {
+            stroke: rgba(59, 130, 246, 0.55);
+            display: none;
+            transition: stroke 0.3s ease;
+        }
+
+        body.light .conduit-terminal-node {
+            stroke: rgba(37, 99, 235, 0.5);
+        }
+
+        .conduit-terminal-node.active {
+            stroke: #60a5fa !important;
+            stroke-width: 2.5px;
+        }
+
+        body.light .conduit-terminal-node.active {
+            stroke: #2563eb !important;
+            stroke-width: 2.5px;
+        }
+
         @media (max-width: 980px) {
-            .hero-conduit-svg {
-                display: none !important;
+            .conduit-terminal-node {
+                display: block;
             }
         }
 
@@ -2417,6 +2437,7 @@
             <svg class="hero-conduit-svg" id="hero-conduit-svg" aria-hidden="true">
                 <path class="conduit-track-bg" id="conduit-track" d="" />
                 <circle class="conduit-origin-node" id="conduit-node" r="2.5" fill="none" stroke-width="1.5" />
+                <circle class="conduit-terminal-node" id="conduit-node-term" r="2.5" fill="none" stroke-width="1.5" />
                 <g class="conduit-ball-group" id="conduit-ball-group" style="display: none;">
                     <circle id="conduit-ball-glow" r="7" opacity="0.38" />
                     <circle id="conduit-ball" r="3.5" />
@@ -3327,6 +3348,7 @@
                 const hero = document.getElementById('top');
                 const track = document.getElementById('conduit-track');
                 const node = document.getElementById('conduit-node');
+                const termNode = document.getElementById('conduit-node-term');
                 const ballGroup = document.getElementById('conduit-ball-group');
                 const ball = document.getElementById('conduit-ball');
                 const ballGlow = document.getElementById('conduit-ball-glow');
@@ -3336,7 +3358,7 @@
                 const ai = document.querySelector('.conduit-ai-anchor');
                 const aiI = document.querySelector('.conduit-ai-i');
 
-                if (!hero || !track || !card || !dot || !ai) return;
+                if (!hero || !track || !dot || !ai) return;
 
                 let trackLen = 0;
                 let impactPoint = { x: 0, y: 0 };
@@ -3350,19 +3372,15 @@
                 const TRAVEL_RATIO = 0.72; // 72% travel along path, 28% splash and recharge
 
                 function updatePath() {
-                    if (window.innerWidth <= 980) {
-                        track.setAttribute('d', '');
-                        if (node) node.setAttribute('cx', '-999');
-                        ballGroup.style.display = 'none';
-                        return false;
-                    }
-
                     const hRect = hero.getBoundingClientRect();
                     const dRect = dot.getBoundingClientRect();
                     const aRect = ai.getBoundingClientRect();
-                    const cRect = card.getBoundingClientRect();
+                    const cRect = card ? card.getBoundingClientRect() : null;
                     const iRect = aiI ? aiI.getBoundingClientRect() : null;
 
+                    if (hRect.width === 0 || dRect.width === 0) return false;
+
+                    const isMobile = window.innerWidth <= 980;
                     const r = 8;
                     const xStart = Math.round(dRect.right - hRect.left);
                     const yStart = Math.round(dRect.top + dRect.height / 2 - hRect.top);
@@ -3372,10 +3390,29 @@
                         ? Math.round(iRect.left + iRect.width / 2 - hRect.left)
                         : Math.round(aRect.left - hRect.left + 36);
 
-                    const xRightTurn = Math.max(Math.round(xStart + 32), xDropThroughI + 28);
-                    const yMidTrace = Math.round(aRect.top - hRect.top + 2);
-                    const yBottomTrace = Math.round(aRect.bottom - hRect.top + 14);
-                    const xCard = Math.round(cRect.left - hRect.left);
+                    let xRightTurn, xEnd, yMidTrace, yBottomTrace;
+
+                    if (isMobile) {
+                        xRightTurn = Math.min(Math.round(hRect.width - 16), Math.max(Math.round(xStart + 36), Math.round(aRect.right - hRect.left - 10)));
+                        yMidTrace = Math.round(aRect.top - hRect.top + 2);
+                        yBottomTrace = Math.round(aRect.bottom - hRect.top + 12);
+                        xEnd = Math.min(Math.round(hRect.width - 24), Math.round(aRect.right - hRect.left + 26));
+
+                        if (termNode) {
+                            termNode.setAttribute('cx', xEnd);
+                            termNode.setAttribute('cy', yBottomTrace);
+                            termNode.style.display = 'block';
+                        }
+                    } else {
+                        xRightTurn = Math.max(Math.round(xStart + 32), xDropThroughI + 28);
+                        yMidTrace = Math.round(aRect.top - hRect.top + 2);
+                        yBottomTrace = Math.round(aRect.bottom - hRect.top + 14);
+                        xEnd = cRect ? Math.round(cRect.left - hRect.left) : Math.round(hRect.width - 20);
+
+                        if (termNode) {
+                            termNode.style.display = 'none';
+                        }
+                    }
 
                     const pathD = [
                         'M ' + xStart + ' ' + yStart,
@@ -3387,7 +3424,7 @@
                         'A ' + r + ' ' + r + ' 0 0 0 ' + xDropThroughI + ' ' + (yMidTrace + r),
                         'V ' + (yBottomTrace - r),
                         'A ' + r + ' ' + r + ' 0 0 0 ' + (xDropThroughI + r) + ' ' + yBottomTrace,
-                        'H ' + xCard
+                        'H ' + xEnd
                     ].join(' ');
 
                     track.setAttribute('d', pathD);
@@ -3397,11 +3434,11 @@
                     }
 
                     trackLen = track.getTotalLength();
-                    impactPoint = { x: xCard, y: yBottomTrace };
+                    impactPoint = { x: xEnd, y: yBottomTrace };
 
                     if (trackLen > 0) {
                         const topRun = (xRightTurn - xStart) + (yMidTrace - yStart) + (xRightTurn - xDropThroughI);
-                        aiEnterRatio = Math.max(0.15, Math.min(0.35, topRun / trackLen));
+                        aiEnterRatio = Math.max(0.15, Math.min(0.40, topRun / trackLen));
                     }
                     return true;
                 }
@@ -3422,13 +3459,22 @@
                             s.classList.add('active');
                         });
                     }
-                    card.classList.add('conduit-impacted');
+                    if (window.innerWidth <= 980) {
+                        if (termNode) {
+                            termNode.classList.remove('active');
+                            void termNode.offsetWidth;
+                            termNode.classList.add('active');
+                        }
+                    } else {
+                        if (card) card.classList.add('conduit-impacted');
+                    }
                 }
 
                 function frame(timestamp) {
-                    if (!isVisible || window.innerWidth <= 980 || trackLen === 0) {
+                    if (!isVisible || trackLen === 0) {
                         if (ai) ai.classList.remove('conduit-ai-active');
                         if (card) card.classList.remove('conduit-impacted');
+                        if (termNode) termNode.classList.remove('active');
                         animFrameId = requestAnimationFrame(frame);
                         return;
                     }
@@ -3453,12 +3499,14 @@
                             ball.setAttribute('fill', redColor);
                             ballGlow.setAttribute('fill', redColor);
                             ai.classList.remove('conduit-ai-active');
-                            card.classList.remove('conduit-impacted');
+                            if (card) card.classList.remove('conduit-impacted');
+                            if (termNode) termNode.classList.remove('active');
                         } else if (pathP >= aiEnterRatio && pathP < 0.98) {
                             ball.setAttribute('fill', blueColor);
                             ballGlow.setAttribute('fill', blueColor);
                             ai.classList.add('conduit-ai-active');
-                            card.classList.remove('conduit-impacted');
+                            if (card) card.classList.remove('conduit-impacted');
+                            if (termNode) termNode.classList.remove('active');
                         } else {
                             ai.classList.remove('conduit-ai-active');
                         }
@@ -3472,7 +3520,8 @@
                         }
 
                         if (progress > 0.88) {
-                            card.classList.remove('conduit-impacted');
+                            if (card) card.classList.remove('conduit-impacted');
+                            if (termNode) termNode.classList.remove('active');
                         }
                     }
 
@@ -3496,9 +3545,10 @@
 
                 document.addEventListener('visibilitychange', () => {
                     isVisible = document.visibilityState === 'visible';
-                    if (!isVisible && card) {
-                        card.classList.remove('conduit-impacted');
+                    if (!isVisible) {
+                        if (card) card.classList.remove('conduit-impacted');
                         if (ai) ai.classList.remove('conduit-ai-active');
+                        if (termNode) termNode.classList.remove('active');
                     }
                 });
 
