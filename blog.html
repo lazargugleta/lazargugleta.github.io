@@ -265,44 +265,76 @@
             }
         }
 
-        @keyframes takeLightInVortex {
+        @keyframes buttonPutOutPulse {
             0% {
-                transform: scale(2.4);
-                opacity: 0;
-                border: 2px solid rgba(147, 197, 253, 0.4);
-                box-shadow: 0 0 20px 4px rgba(59, 130, 246, 0.3);
-                background: radial-gradient(circle, transparent 25%, rgba(147, 197, 253, 0.3) 55%, rgba(59, 130, 246, 0.5) 80%, transparent 100%);
-            }
-            25% {
-                opacity: 0.95;
-                border-color: rgba(96, 165, 250, 0.95);
-                box-shadow: 0 0 16px 3px rgba(59, 130, 246, 0.7);
+                border-color: rgba(251, 191, 36, 0.85);
+                box-shadow: 0 0 16px -2px rgba(251, 191, 36, 0.55);
             }
             100% {
-                transform: scale(0.15);
+                border-color: var(--border-soft);
+                box-shadow: var(--shadow-sm);
+            }
+        }
+
+        /* Smooth contraction vortex */
+        @keyframes takeLightInVortex {
+            0% {
+                transform: scale(2.3);
                 opacity: 0;
-                border: 2px solid rgba(147, 197, 253, 0.9);
-                box-shadow: 0 0 8px 1px rgba(59, 130, 246, 0.8);
-                background: radial-gradient(circle, rgba(147, 197, 253, 0.9) 0%, rgba(59, 130, 246, 0.8) 50%, transparent 70%);
+                border: 1.5px solid rgba(147, 197, 253, 0.4);
+                box-shadow: 0 0 24px 4px rgba(59, 130, 246, 0.35), inset 0 0 14px rgba(147, 197, 253, 0.25);
+                background: radial-gradient(circle, rgba(147, 197, 253, 0.15) 0%, rgba(59, 130, 246, 0.35) 60%, transparent 80%);
+            }
+            20% {
+                opacity: 0.9;
+                border-color: rgba(147, 197, 253, 0.85);
+                box-shadow: 0 0 20px 4px rgba(59, 130, 246, 0.55), inset 0 0 12px rgba(147, 197, 253, 0.4);
+            }
+            70% {
+                opacity: 0.85;
+                transform: scale(0.65);
+                border-color: rgba(191, 219, 254, 0.95);
+                box-shadow: 0 0 14px 2px rgba(59, 130, 246, 0.75), inset 0 0 8px rgba(191, 219, 254, 0.6);
+                background: radial-gradient(circle, rgba(224, 242, 254, 0.7) 0%, rgba(59, 130, 246, 0.65) 50%, transparent 75%);
+            }
+            100% {
+                transform: scale(0.12);
+                opacity: 0;
+                border: 1.5px solid rgba(224, 242, 254, 1);
+                box-shadow: 0 0 6px 1px rgba(59, 130, 246, 0.9);
+                background: radial-gradient(circle, rgba(255, 255, 255, 0.95) 0%, rgba(59, 130, 246, 0.8) 50%, transparent 70%);
+            }
+        }
+
+        @keyframes buttonTakeLightPulse {
+            0% {
+                border-color: var(--border-soft);
+                box-shadow: var(--shadow-sm);
+            }
+            45% {
+                border-color: rgba(96, 165, 250, 0.85);
+                box-shadow: 0 0 16px -1px rgba(59, 130, 246, 0.5);
+            }
+            100% {
+                border-color: var(--border-soft);
+                box-shadow: var(--shadow-sm);
             }
         }
 
         .theme-toggle.anim-put-out-light .theme-fx-wave {
-            animation: putOutLightFlare 0.52s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-
-        .theme-toggle.anim-take-light-in .theme-fx-wave {
-            animation: takeLightInVortex 0.55s cubic-bezier(0.3, 0, 0.15, 1) forwards;
+            animation: putOutLightFlare 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
         .theme-toggle.anim-put-out-light {
-            border-color: rgba(251, 191, 36, 0.7) !important;
-            box-shadow: 0 0 16px -2px rgba(251, 191, 36, 0.5) !important;
+            animation: buttonPutOutPulse 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .theme-toggle.anim-take-light-in .theme-fx-wave {
+            animation: takeLightInVortex 0.62s cubic-bezier(0.22, 1, 0.36, 1) forwards;
         }
 
         .theme-toggle.anim-take-light-in {
-            border-color: rgba(59, 130, 246, 0.7) !important;
-            box-shadow: 0 0 16px -2px rgba(59, 130, 246, 0.5) !important;
+            animation: buttonTakeLightPulse 0.62s cubic-bezier(0.22, 1, 0.36, 1) forwards;
         }
 
         .theme-toggle svg {
@@ -673,7 +705,7 @@
                     clearTimeout(themeAnimTimeout);
                     themeAnimTimeout = setTimeout(function () {
                         button.classList.remove("anim-put-out-light", "anim-take-light-in");
-                    }, 580);
+                    }, 650);
 
                     setStorage(STORAGE_KEY, next);
                     applyTheme(next);
