@@ -295,6 +295,7 @@
             color: var(--text-2);
             touch-action: manipulation;
             -webkit-tap-highlight-color: transparent;
+            overflow: visible;
             transition: transform 160ms ease, border-color 160ms ease, color 160ms ease, background-color 160ms ease, box-shadow 160ms ease;
         }
 
@@ -305,31 +306,114 @@
             transform: translateY(-1px);
         }
 
+        .theme-toggle:active {
+            transform: scale(0.94);
+        }
+
+        .theme-fx-wave {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 32px;
+            height: 32px;
+            margin-left: -16px;
+            margin-top: -16px;
+            border-radius: 50%;
+            pointer-events: none;
+            transform: scale(0);
+            opacity: 0;
+            z-index: 10;
+        }
+
+        /* 1. Put out light (Dark -> Light) */
+        @keyframes putOutLightFlare {
+            0% {
+                transform: scale(0.4);
+                opacity: 1;
+                border: 2px solid rgba(251, 191, 36, 0.95);
+                box-shadow: 0 0 12px 2px rgba(251, 191, 36, 0.9),
+                            inset 0 0 10px rgba(251, 191, 36, 0.8);
+                background: radial-gradient(circle, rgba(254, 240, 138, 0.95) 0%, rgba(251, 191, 36, 0.7) 45%, transparent 70%);
+            }
+            60% {
+                opacity: 0.85;
+            }
+            100% {
+                transform: scale(2.2);
+                opacity: 0;
+                border: 1.5px solid rgba(251, 191, 36, 0);
+                box-shadow: 0 0 24px 6px rgba(245, 158, 11, 0),
+                            inset 0 0 16px rgba(251, 191, 36, 0);
+                background: radial-gradient(circle, rgba(254, 240, 138, 0.3) 0%, rgba(251, 191, 36, 0.1) 50%, transparent 75%);
+            }
+        }
+
+        /* 2. Take light into the button (Light -> Dark) */
+        @keyframes takeLightInVortex {
+            0% {
+                transform: scale(2.4);
+                opacity: 0;
+                border: 2px solid rgba(147, 197, 253, 0.4);
+                box-shadow: 0 0 20px 4px rgba(59, 130, 246, 0.3);
+                background: radial-gradient(circle, transparent 25%, rgba(147, 197, 253, 0.3) 55%, rgba(59, 130, 246, 0.5) 80%, transparent 100%);
+            }
+            25% {
+                opacity: 0.95;
+                border-color: rgba(96, 165, 250, 0.95);
+                box-shadow: 0 0 16px 3px rgba(59, 130, 246, 0.7);
+            }
+            100% {
+                transform: scale(0.15);
+                opacity: 0;
+                border: 2px solid rgba(147, 197, 253, 0.9);
+                box-shadow: 0 0 8px 1px rgba(59, 130, 246, 0.8);
+                background: radial-gradient(circle, rgba(147, 197, 253, 0.9) 0%, rgba(59, 130, 246, 0.8) 50%, transparent 70%);
+            }
+        }
+
+        .theme-toggle.anim-put-out-light .theme-fx-wave {
+            animation: putOutLightFlare 0.52s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .theme-toggle.anim-take-light-in .theme-fx-wave {
+            animation: takeLightInVortex 0.55s cubic-bezier(0.3, 0, 0.15, 1) forwards;
+        }
+
+        .theme-toggle.anim-put-out-light {
+            border-color: rgba(251, 191, 36, 0.7) !important;
+            box-shadow: 0 0 16px -2px rgba(251, 191, 36, 0.5) !important;
+        }
+
+        .theme-toggle.anim-take-light-in {
+            border-color: rgba(59, 130, 246, 0.7) !important;
+            box-shadow: 0 0 16px -2px rgba(59, 130, 246, 0.5) !important;
+        }
+
         .theme-toggle svg {
             width: 14px;
             height: 14px;
             position: absolute;
-            transition: opacity 160ms ease, transform 160ms ease;
+            transition: opacity 160ms ease, transform 200ms cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .theme-icon-sun {
             opacity: 0;
-            transform: scale(0.75);
+            transform: scale(0.65) rotate(-35deg);
         }
 
         .theme-icon-moon {
             opacity: 1;
-            transform: scale(1);
+            transform: scale(1) rotate(0deg);
         }
 
         body.light .theme-icon-sun {
             opacity: 1;
-            transform: scale(1);
+            transform: scale(1) rotate(0deg);
         }
 
         body.light .theme-icon-moon {
             opacity: 0;
-            transform: scale(0.75);
+            transform: scale(0.65) rotate(35deg);
         }
 
         .timeline-head {
@@ -452,6 +536,14 @@
 
         .conduit-ball-group {
             will-change: transform;
+            pointer-events: none;
+        }
+
+        .conduit-dot-anchor {
+            display: inline-block;
+            width: 8px;
+            height: 12px;
+            vertical-align: middle;
             pointer-events: none;
         }
 
@@ -2272,8 +2364,9 @@
                 <a href="#contact">Contact</a>
             </nav>
             <button id="theme-toggle" class="theme-toggle" aria-label="Toggle color theme" title="Toggle color theme">
+                <span class="theme-fx-wave" aria-hidden="true"></span>
                 <svg class="theme-icon-moon" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                    <path d="M11.25 10.75A6 6 0 015.25 2.5a6 6 0 106 8.25z" fill="currentColor"></path>
+                    <path d="M13.75 10.25A6 6 0 017.75 2a6 6 0 106 8.25z" fill="currentColor"></path>
                 </svg>
                 <svg class="theme-icon-sun" viewBox="0 0 16 16" fill="none" aria-hidden="true">
                     <circle cx="8" cy="8" r="3" stroke="currentColor" stroke-width="1.4"></circle>
@@ -2309,7 +2402,7 @@
 
             <div class="hero-main">
                 <div class="hero-kicker">Data Architecture &amp; AI Security</div>
-                <h1 class="hero-title">Architecting resilient data systems<span class="conduit-dot-anchor">.</span><br>Advancing <span class="accent conduit-ai-anchor">A<span class="conduit-ai-i">I</span> security</span>.</h1>
+                <h1 class="hero-title">Architecting resilient data systems<span class="conduit-dot-anchor"></span><br>Advancing <span class="accent conduit-ai-anchor">A<span class="conduit-ai-i">I</span> security</span></h1>
 
                 <p class="hero-bio">
                     Product Owner &amp; Data Architect at <strong>Helvetia</strong> and PhD candidate in AI security at the <strong>University of Vienna</strong>. I design mission-critical data platforms and research trust boundaries in autonomous AI.
@@ -3065,9 +3158,21 @@
 
             // Theme toggle listener (desktop + mobile touch)
             if (themeToggleBtn) {
+                let themeAnimTimeout;
                 themeToggleBtn.addEventListener("click", function (e) {
                     e.preventDefault();
-                    const next = body.classList.contains("light") ? "dark" : "light";
+                    const isDark = !body.classList.contains("light");
+                    const next = isDark ? "light" : "dark";
+
+                    themeToggleBtn.classList.remove("anim-put-out-light", "anim-take-light-in");
+                    void themeToggleBtn.offsetWidth;
+                    themeToggleBtn.classList.add(isDark ? "anim-put-out-light" : "anim-take-light-in");
+
+                    clearTimeout(themeAnimTimeout);
+                    themeAnimTimeout = setTimeout(function () {
+                        themeToggleBtn.classList.remove("anim-put-out-light", "anim-take-light-in");
+                    }, 580);
+
                     setStorage(STORAGE_KEY, next);
                     applyTheme(next);
                 });
