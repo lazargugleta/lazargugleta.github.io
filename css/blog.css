@@ -209,61 +209,56 @@ h1 {
     margin-top: 8px;
 }
 
-/* Publisher Badges:
-   Octoparse blue
-   chat4data grey
-   medium black
+/* Publisher Sources (Clean Editorial Typography):
+   Octoparse: sky blue
+   Chat4Data: slate grey
+   Medium: pure black / white
 */
 .pub-badge {
     display: inline-flex;
     align-items: center;
-    padding: 2.5px 8px;
-    border-radius: 999px;
-    font-size: 10.5px;
+    padding: 0;
+    background: none;
+    border: none;
+    font-size: 11px;
     font-weight: 600;
-    letter-spacing: 0.4px;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
-    line-height: 1.25;
+    line-height: 1.2;
     font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "SF Pro", "Inter", -apple-system-body, "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 /* Octoparse blue */
 .pub-badge.pub-octoparse {
     color: #38bdf8;
-    background: rgba(56, 189, 248, 0.12);
-    border: 1px solid rgba(56, 189, 248, 0.3);
+    background: none;
+    border: none;
+}
+
+:is(html.light, body.light) .pub-badge.pub-octoparse {
+    color: #0284c7;
 }
 
 /* Chat4Data grey */
 .pub-badge.pub-chat4data {
-    color: #cbd5e1;
-    background: rgba(148, 163, 184, 0.14);
-    border: 1px solid rgba(148, 163, 184, 0.28);
+    color: #94a3b8;
+    background: none;
+    border: none;
 }
 
-/* Medium black */
+:is(html.light, body.light) .pub-badge.pub-chat4data {
+    color: #64748b;
+}
+
+/* Medium black / white */
 .pub-badge.pub-medium {
-    color: #f8fafc;
-    background: #000000;
-    border: 1px solid rgba(255, 255, 255, 0.24);
+    color: var(--text-2);
+    background: none;
+    border: none;
 }
 
-html.light .pub-badge.pub-octoparse {
-    color: #0284c7;
-    background: rgba(2, 132, 199, 0.09);
-    border: 1px solid rgba(2, 132, 199, 0.28);
-}
-
-html.light .pub-badge.pub-chat4data {
-    color: #475569;
-    background: rgba(100, 116, 139, 0.1);
-    border: 1px solid rgba(100, 116, 139, 0.25);
-}
-
-html.light .pub-badge.pub-medium {
-    color: #ffffff;
-    background: #000000;
-    border: 1px solid #000000;
+:is(html.light, body.light) .pub-badge.pub-medium {
+    color: #18181b;
 }
 
 /* Responsive Breakpoints */
