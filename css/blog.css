@@ -66,36 +66,38 @@ h1 {
     background: var(--bg-card);
 }
 
-.pub-ext-dot {
-    width: 6.5px;
-    height: 6.5px;
-    border-radius: 50%;
+.pub-ext-logo {
+    width: 15px;
+    height: 15px;
     flex-shrink: 0;
+    transition: transform 180ms cubic-bezier(0.16, 1, 0.3, 1), color 180ms ease;
+    display: inline-block;
+    vertical-align: middle;
 }
 
-.dot-medium {
-    background: var(--text-2);
+.logo-medium {
+    color: var(--text-2);
 }
-:is(html.light, body.light) .dot-medium {
-    background: #18181b;
-}
-
-.dot-octoparse {
-    background: #38bdf8;
-    box-shadow: 0 0 6px rgba(56, 189, 248, 0.4);
-}
-:is(html.light, body.light) .dot-octoparse {
-    background: #0284c7;
-    box-shadow: none;
+:is(html.light, body.light) .logo-medium {
+    color: #18181b;
 }
 
-.dot-chat4data {
-    background: #fb923c;
-    box-shadow: 0 0 6px rgba(251, 146, 60, 0.4);
+.logo-octoparse {
+    color: #38bdf8;
 }
-:is(html.light, body.light) .dot-chat4data {
-    background: #ea580c;
-    box-shadow: none;
+:is(html.light, body.light) .logo-octoparse {
+    color: #0284c7;
+}
+
+.logo-chat4data {
+    color: #fb923c;
+}
+:is(html.light, body.light) .logo-chat4data {
+    color: #ea580c;
+}
+
+.pub-ext-link:hover .pub-ext-logo {
+    transform: scale(1.08);
 }
 
 .pub-ext-name {
@@ -129,6 +131,12 @@ h1 {
 }
 :is(html.light, body.light) .pub-ext-medium:hover {
     border-color: rgba(24, 24, 27, 0.45);
+}
+.pub-ext-medium:hover .logo-medium {
+    color: var(--text);
+}
+:is(html.light, body.light) .pub-ext-medium:hover .logo-medium {
+    color: #09090b;
 }
 
 .pub-ext-octoparse:hover {
