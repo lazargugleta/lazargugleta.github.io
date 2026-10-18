@@ -20,8 +20,18 @@ jobs:
       id-token: write
     steps:
       - uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Verify site integrity
+        run: node scripts/verify-site.js
+      - name: Run browser runtime suite
+        run: node scripts/browser-check.js
+      - name: Stage public site
+        run: node scripts/stage-site.js
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: '.'
+          path: '_site'
       - id: deployment
         uses: actions/deploy-pages@v4

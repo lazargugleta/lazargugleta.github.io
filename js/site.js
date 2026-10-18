@@ -1,0 +1,122 @@
+/**
+ * Shared site-wide scripts: theme controls, navigation, and motion handling.
+ */
+(function () {
+    'use strict';
+
+    const STORAGE_KEY = 'theme';
+
+    function getStorage(key, fallback) {
+        try {
+            const val = localStorage.getItem(key);
+            return val !== null ? val : fallback;
+        } catch (e) {
+            return fallback;
+        }
+    }
+
+    function setStorage(key, value) {
+        try {
+            localStorage.setItem(key, value);
+        } catch (e) {}
+    }
+
+    function isReducedMotion() {
+        return window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    }
+
+    function applyTheme(theme) {
+        const isLight = theme === 'light';
+        document.documentElement.classList.toggle('light', isLight);
+        if (document.body) {
+            document.body.classList.toggle('light', isLight);
+        }
+        window.dispatchEvent(new CustomEvent('themechange', { detail: { theme: theme, isLight: isLight } }));
+    }
+
+    // Apply saved theme immediately
+    const initialTheme = getStorage(STORAGE_KEY, 'dark');
+    applyTheme(initialTheme);
+
+    function initThemeToggle() {
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        if (!themeToggleBtn) return;
+
+        let themeAnimTimeout = null;
+
+        themeToggleBtn.addEventListener('click', function (e) {
+            e.preventDefault();
+            const currentIsLight = document.documentElement.classList.contains('light');
+            const nextTheme = currentIsLight ? 'dark' : 'light';
+
+            if (!isReducedMotion()) {
+                themeToggleBtn.classList.remove('anim-put-out-light', 'anim-take-light-in');
+                requestAnimationFrame(function () {
+                    themeToggleBtn.classList.add(currentIsLight ? 'anim-take-light-in' : 'anim-put-out-light');
+                });
+
+                clearTimeout(themeAnimTimeout);
+                themeAnimTimeout = setTimeout(function () {
+                    themeToggleBtn.classList.remove('anim-put-out-light', 'anim-take-light-in');
+                }, 650);
+            }
+
+            setStorage(STORAGE_KEY, nextTheme);
+            applyTheme(nextTheme);
+        });
+    }
+
+    function initNavigation() {
+        const menuToggleBtn = document.getElementById('menu-toggle');
+        const navNode = document.querySelector('.nav');
+        if (!menuToggleBtn || !navNode) return;
+
+        menuToggleBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            const isOpen = navNode.classList.toggle('is-open');
+            menuToggleBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        });
+
+        navNode.querySelectorAll('a').forEach(function (link) {
+            link.addEventListener('click', function () {
+                navNode.classList.remove('is-open');
+                menuToggleBtn.setAttribute('aria-expanded', 'false');
+            });
+        });
+
+        document.addEventListener('click', function (e) {
+            if (navNode.classList.contains('is-open')) {
+                if (!navNode.contains(e.target) && !menuToggleBtn.contains(e.target)) {
+                    navNode.classList.remove('is-open');
+                    menuToggleBtn.setAttribute('aria-expanded', 'false');
+                }
+            }
+        });
+    }
+
+    function initProjectCardCars() {
+        const cvCard = document.querySelector('.project-card-cv');
+        if (!cvCard) return;
+
+        if ('IntersectionObserver' in window) {
+            const cvObserver = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    cvCard.classList.toggle('anim-paused', !entry.isIntersecting);
+                });
+            }, { threshold: 0.05 });
+            cvObserver.observe(cvCard);
+        }
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function () {
+            initThemeToggle();
+            initNavigation();
+            initProjectCardCars();
+        });
+    } else {
+        initThemeToggle();
+        initNavigation();
+        initProjectCardCars();
+    }
+})();
