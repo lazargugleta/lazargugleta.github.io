@@ -321,7 +321,7 @@ async function runTests() {
         assert(title.includes('Lazar Gugleta'), `Page title loaded: "${title}"`);
 
         const cssLoaded = await client.evaluate(`
-            Boolean(document.querySelector('link[href="css/shared.css"]') && document.querySelector('link[href="css/home.css"]'))
+            Boolean(document.querySelector('link[href^="css/shared.css"]') && document.querySelector('link[href^="css/home.css"]'))
         `);
         assert(cssLoaded, 'External cacheable CSS links loaded');
 
@@ -406,6 +406,21 @@ async function runTests() {
             imgCurrentSrc && imgCurrentSrc.includes('.avif'),
             `Article preview prefers modern AVIF format (${imgCurrentSrc})`
         );
+        const writingOctoColor = await client.evaluate(`
+            (() => {
+                const el = document.querySelector('.writing-card[data-publisher="octoparse"] .pub-badge.pub-octoparse');
+                if (!el) return null;
+                const col = window.getComputedStyle(el).color;
+                const m = col.match(/oklab\\(([^\\s]+)\\s+([^\\s]+)\\s+([^\\s]+)\\)/);
+                if (m) {
+                    const b = parseFloat(m[3]);
+                    return b < -0.08 ? 'blue' : col;
+                }
+                return (col.includes('59, 130, 246') || col.includes('37, 99, 235')) ? 'blue' : col;
+            })()
+        `);
+        assert(writingOctoColor === 'blue', 'Octoparse publisher badge in writing card matches brand blue');
+
         assertZeroErrors('lazy image scroll');
 
         console.log('\n--- Test 3: Theme Toggle & First Paint Flash Prevention ---');

@@ -1215,12 +1215,16 @@
             font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "SF Pro", "Inter", -apple-system-body, "Helvetica Neue", Helvetica, Arial, sans-serif;
         }
 
-        .pub-badge.pub-octoparse {
+        .pub-badge.pub-octoparse,
+        .writing-card .pub-badge.pub-octoparse,
+        #writing:not(.is-lit) .writing-card[data-publisher="octoparse"] .pub-badge.pub-octoparse {
             color: #3b82f6;
             background: none;
             border: none;
         }
-        :is(html.light, body.light) .pub-badge.pub-octoparse {
+        :is(html.light, body.light) .pub-badge.pub-octoparse,
+        :is(html.light, body.light) .writing-card .pub-badge.pub-octoparse,
+        :is(html.light, body.light) #writing:not(.is-lit) .writing-card[data-publisher="octoparse"] .pub-badge.pub-octoparse {
             color: #2563eb;
         }
 
