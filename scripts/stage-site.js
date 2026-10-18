@@ -22,6 +22,8 @@ const filesToCopy = [
     'favicon.ico',
     'favicon.svg',
     'site.webmanifest',
+    'robots.txt',
+    'sitemap.xml',
     '_headers',
     '_redirects'
 ];

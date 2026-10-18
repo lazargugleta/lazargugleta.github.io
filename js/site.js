@@ -31,6 +31,10 @@
         if (document.body) {
             document.body.classList.toggle('light', isLight);
         }
+        const themeMeta = document.querySelectorAll('meta[name="theme-color"]');
+        themeMeta.forEach(function (m) {
+            m.setAttribute('content', isLight ? '#fafaf9' : '#171923');
+        });
         window.dispatchEvent(new CustomEvent('themechange', { detail: { theme: theme, isLight: isLight } }));
     }
 
@@ -90,6 +94,14 @@
                     navNode.classList.remove('is-open');
                     menuToggleBtn.setAttribute('aria-expanded', 'false');
                 }
+            }
+        });
+
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape' && navNode.classList.contains('is-open')) {
+                navNode.classList.remove('is-open');
+                menuToggleBtn.setAttribute('aria-expanded', 'false');
+                menuToggleBtn.focus();
             }
         });
     }

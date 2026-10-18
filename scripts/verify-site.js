@@ -123,6 +123,12 @@ htmlFiles.forEach(relPath => {
     }
 });
 
+console.log('\n--- 2b. Validating SEO & Indexing Assets ---');
+assert(fs.existsSync('robots.txt'), 'robots.txt exists');
+assert(fs.readFileSync('robots.txt', 'utf8').includes('sitemap.xml'), 'robots.txt references sitemap.xml');
+assert(fs.existsSync('sitemap.xml'), 'sitemap.xml exists');
+assert(fs.readFileSync('sitemap.xml', 'utf8').includes('https://lazargugleta.github.io/'), 'sitemap.xml references canonical home URL');
+
 console.log('\n--- 3. Validating CSS Stylesheets & Assets ---');
 const cssFiles = ['css/shared.css', 'css/home.css', 'css/blog.css'];
 cssFiles.forEach(relPath => {
