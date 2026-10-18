@@ -90,10 +90,10 @@ h1 {
 }
 
 .logo-chat4data {
-    color: #fb923c;
+    color: var(--text);
 }
 :is(html.light, body.light) .logo-chat4data {
-    color: #ea580c;
+    color: #18181b;
 }
 
 .pub-ext-link:hover .pub-ext-logo {
@@ -167,6 +167,12 @@ h1 {
 }
 :is(html.light, body.light) .pub-ext-chat4data:hover .pub-ext-name {
     color: #ea580c;
+}
+.pub-ext-chat4data:hover .logo-chat4data {
+    color: var(--text);
+}
+:is(html.light, body.light) .pub-ext-chat4data:hover .logo-chat4data {
+    color: #09090b;
 }
 
 .pub-ext-chat4data .pub-accent {
