@@ -759,6 +759,45 @@ async function runTests() {
         `);
         assert(blogActive && blogActive.text === 'Blog', 'Blog nav link is marked active on blog.html');
         assert(blogActive && blogActive.hasBorder, 'Active Blog link displays subtle border indicator');
+
+        // Test publisher-specific hover colors
+        const c4dCardPos = await client.evaluate(`(() => {
+            const el = document.querySelector('.blog-card[data-publisher="chat4data"]');
+            const r = el.getBoundingClientRect();
+            return { x: r.left + r.width / 2, y: r.top + r.height / 2 };
+        })()`);
+        await client.send('Input.dispatchMouseEvent', { type: 'mouseMoved', x: c4dCardPos.x, y: c4dCardPos.y });
+        await sleep(150);
+        const c4dHoverColor = await client.evaluate(`window.getComputedStyle(document.querySelector('.blog-card[data-publisher="chat4data"] .blog-card-title')).color`);
+        const c4dIsOrange = await client.evaluate(`(() => {
+            const col = window.getComputedStyle(document.querySelector('.blog-card[data-publisher="chat4data"] .blog-card-title')).color;
+            const m = col.match(/oklab\\(([^\\s]+)\\s+([^\\s]+)\\s+([^\\s]+)\\)/);
+            if (m) {
+                const a = parseFloat(m[2]), b = parseFloat(m[3]);
+                return a > 0.05 && b > 0.08;
+            }
+            return col.includes('251, 146, 60') || col.includes('234, 88, 12');
+        })()`);
+        assert(c4dIsOrange, 'Chat4Data article card hover title is single orange');
+
+        const octoCardPos = await client.evaluate(`(() => {
+            const el = document.querySelector('.blog-card[data-publisher="octoparse"]');
+            const r = el.getBoundingClientRect();
+            return { x: r.left + r.width / 2, y: r.top + r.height / 2 };
+        })()`);
+        await client.send('Input.dispatchMouseEvent', { type: 'mouseMoved', x: octoCardPos.x, y: octoCardPos.y });
+        await sleep(150);
+        const octoIsBlue = await client.evaluate(`(() => {
+            const col = window.getComputedStyle(document.querySelector('.blog-card[data-publisher="octoparse"] .blog-card-title')).color;
+            const m = col.match(/oklab\\(([^\\s]+)\\s+([^\\s]+)\\s+([^\\s]+)\\)/);
+            if (m) {
+                const a = parseFloat(m[2]), b = parseFloat(m[3]);
+                return a < -0.04 && b < -0.05;
+            }
+            return col.includes('56, 189, 248') || col.includes('2, 132, 199');
+        })()`);
+        assert(octoIsBlue, 'Octoparse article card hover title is sky blue');
+
         assertZeroErrors('blog.html navigation');
 
         await client.send('Page.navigate', { url: `http://127.0.0.1:${PORT}/404.html` });

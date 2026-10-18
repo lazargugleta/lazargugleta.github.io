@@ -173,6 +173,81 @@ h1 {
     color: var(--accent);
 }
 
+/* Publisher-Specific Hover Styles:
+   Octoparse -> Sky Blue
+   Chat4Data -> Single Orange
+   Medium    -> Pure White (Dark) / Pure Black (Light)
+*/
+
+/* Octoparse */
+.blog-card[data-publisher="octoparse"]:hover,
+.blog-card:has(.pub-octoparse):hover {
+    border-color: rgba(56, 189, 248, 0.45);
+    box-shadow: 0 14px 34px -4px rgba(56, 189, 248, 0.16), var(--shadow-md);
+}
+
+.blog-card[data-publisher="octoparse"]:hover .blog-card-title,
+.blog-card:has(.pub-octoparse):hover .blog-card-title {
+    color: #38bdf8;
+}
+
+:is(html.light, body.light) .blog-card[data-publisher="octoparse"]:hover,
+:is(html.light, body.light) .blog-card:has(.pub-octoparse):hover {
+    border-color: rgba(2, 132, 199, 0.35);
+    box-shadow: 0 14px 34px -4px rgba(2, 132, 199, 0.12), var(--shadow-md);
+}
+
+:is(html.light, body.light) .blog-card[data-publisher="octoparse"]:hover .blog-card-title,
+:is(html.light, body.light) .blog-card:has(.pub-octoparse):hover .blog-card-title {
+    color: #0284c7;
+}
+
+/* Chat4Data (Single Orange) */
+.blog-card[data-publisher="chat4data"]:hover,
+.blog-card:has(.pub-chat4data):hover {
+    border-color: rgba(251, 146, 60, 0.45);
+    box-shadow: 0 14px 34px -4px rgba(251, 146, 60, 0.16), var(--shadow-md);
+}
+
+.blog-card[data-publisher="chat4data"]:hover .blog-card-title,
+.blog-card:has(.pub-chat4data):hover .blog-card-title {
+    color: #fb923c;
+}
+
+:is(html.light, body.light) .blog-card[data-publisher="chat4data"]:hover,
+:is(html.light, body.light) .blog-card:has(.pub-chat4data):hover {
+    border-color: rgba(234, 88, 12, 0.35);
+    box-shadow: 0 14px 34px -4px rgba(234, 88, 12, 0.12), var(--shadow-md);
+}
+
+:is(html.light, body.light) .blog-card[data-publisher="chat4data"]:hover .blog-card-title,
+:is(html.light, body.light) .blog-card:has(.pub-chat4data):hover .blog-card-title {
+    color: #ea580c;
+}
+
+/* Medium (Monochrome Black / White) */
+.blog-card[data-publisher="medium"]:hover,
+.blog-card:has(.pub-medium):hover {
+    border-color: rgba(255, 255, 255, 0.4);
+    box-shadow: 0 14px 34px -4px rgba(255, 255, 255, 0.08), var(--shadow-md);
+}
+
+.blog-card[data-publisher="medium"]:hover .blog-card-title,
+.blog-card:has(.pub-medium):hover .blog-card-title {
+    color: #ffffff;
+}
+
+:is(html.light, body.light) .blog-card[data-publisher="medium"]:hover,
+:is(html.light, body.light) .blog-card:has(.pub-medium):hover {
+    border-color: rgba(24, 24, 27, 0.45);
+    box-shadow: 0 14px 34px -4px rgba(24, 24, 27, 0.1), var(--shadow-md);
+}
+
+:is(html.light, body.light) .blog-card[data-publisher="medium"]:hover .blog-card-title,
+:is(html.light, body.light) .blog-card:has(.pub-medium):hover .blog-card-title {
+    color: #09090b;
+}
+
 .blog-card-top {
     display: flex;
     justify-content: space-between;
