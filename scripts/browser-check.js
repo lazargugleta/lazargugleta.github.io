@@ -83,7 +83,11 @@ class CDPClient {
 
     connect() {
         return new Promise((resolve, reject) => {
-            this.ws = new WebSocket(this.wsUrl);
+            const WebSocketImpl = globalThis.WebSocket || (typeof WebSocket !== 'undefined' ? WebSocket : null);
+            if (!WebSocketImpl) {
+                return reject(new Error('WebSocket is not available in this Node runtime. Run with Node 22+ or --experimental-websocket.'));
+            }
+            this.ws = new WebSocketImpl(this.wsUrl);
             this.ws.onopen = () => resolve();
             this.ws.onerror = (err) => reject(err);
             this.ws.onmessage = (event) => {
@@ -310,6 +314,45 @@ async function runTests() {
             })()
         `);
         assert(scriptsDeferred, 'All external JavaScript assets load with defer attribute');
+
+        console.log('\n--- Test 1b: Locked Header & Active Navigation Indicator ---');
+        await client.evaluate('window.scrollTo(0, 850)');
+        await sleep(250);
+        const headerState = await client.evaluate(`
+            (() => {
+                const header = document.querySelector('.topbar');
+                const rect = header.getBoundingClientRect();
+                const computed = window.getComputedStyle(header);
+                return {
+                    top: rect.top,
+                    position: computed.position,
+                    zIndex: parseInt(computed.zIndex, 10),
+                    scrollY: window.scrollY
+                };
+            })()
+        `);
+        assert(headerState.scrollY >= 400, `Page scrolled (scrollY=${headerState.scrollY})`);
+        assert(headerState.top === 0, `Header is locked at top of viewport (rect.top=${headerState.top})`);
+        assert(headerState.position === 'sticky', `Header has position: sticky (got "${headerState.position}")`);
+        assert(headerState.zIndex >= 50, `Header has high z-index stacking layer (${headerState.zIndex})`);
+
+        const activeNavState = await client.evaluate(`
+            (() => {
+                const activeLink = document.querySelector('.nav a.active');
+                if (!activeLink) return null;
+                const style = window.getComputedStyle(activeLink);
+                return {
+                    text: activeLink.textContent.trim(),
+                    hasBorder: style.borderColor !== 'transparent' && style.borderColor !== 'rgba(0, 0, 0, 0)'
+                };
+            })()
+        `);
+        assert(activeNavState !== null, 'Active section link exists while scrolled');
+        assert(activeNavState && activeNavState.hasBorder, `Active link "${activeNavState?.text}" renders subtle border indicator`);
+
+        // Return to top
+        await client.evaluate('window.scrollTo(0, 0)');
+        await sleep(200);
 
         console.log('\n--- Test 2: Network Transfer & Modern Image Delivery ---');
         console.log(`  Initial total encoded transfer: ${(transferredBytes / 1024).toFixed(1)} KB`);
@@ -658,6 +701,20 @@ async function runTests() {
         await sleep(800);
         const blogCardsCount = await client.evaluate('document.querySelectorAll(".blog-card").length');
         assert(blogCardsCount >= 5, `Blog page rendered ${blogCardsCount} article cards`);
+
+        const blogActive = await client.evaluate(`
+            (() => {
+                const link = document.querySelector('.nav a.active');
+                if (!link) return null;
+                const style = window.getComputedStyle(link);
+                return {
+                    text: link.textContent.trim(),
+                    hasBorder: style.borderColor !== 'transparent' && style.borderColor !== 'rgba(0, 0, 0, 0)'
+                };
+            })()
+        `);
+        assert(blogActive && blogActive.text === 'Blog', 'Blog nav link is marked active on blog.html');
+        assert(blogActive && blogActive.hasBorder, 'Active Blog link displays subtle border indicator');
         assertZeroErrors('blog.html navigation');
 
         await client.send('Page.navigate', { url: `http://127.0.0.1:${PORT}/blog/browser-automation-pipeline.html` });

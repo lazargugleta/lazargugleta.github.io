@@ -108,15 +108,73 @@
         }
     }
 
+    function initScrollSpy() {
+        const navLinks = Array.from(document.querySelectorAll('.nav a[href^="#"]'));
+        if (navLinks.length === 0) return;
+
+        const sectionIds = navLinks.map(function (link) {
+            return link.getAttribute('href').slice(1);
+        });
+        const sections = sectionIds.map(function (id) {
+            return document.getElementById(id);
+        }).filter(Boolean);
+        if (sections.length === 0) return;
+
+        function updateActiveLink() {
+            const scrollPos = window.scrollY + 140; // offset for locked header
+            let currentSectionId = null;
+
+            if (window.scrollY < 180) {
+                // Near top / hero
+                navLinks.forEach(function (link) {
+                    link.classList.remove('active');
+                });
+                return;
+            }
+
+            const atBottom = (window.innerHeight + window.scrollY) >= (document.documentElement.scrollHeight - 60);
+            if (atBottom) {
+                currentSectionId = sectionIds[sectionIds.length - 1];
+            } else {
+                for (let i = sections.length - 1; i >= 0; i--) {
+                    const section = sections[i];
+                    if (section.offsetTop <= scrollPos) {
+                        currentSectionId = section.id;
+                        break;
+                    }
+                }
+            }
+
+            navLinks.forEach(function (link) {
+                const targetId = link.getAttribute('href').slice(1);
+                link.classList.toggle('active', targetId === currentSectionId);
+            });
+        }
+
+        let scrollTimer = null;
+        window.addEventListener('scroll', function () {
+            if (!scrollTimer) {
+                scrollTimer = requestAnimationFrame(function () {
+                    scrollTimer = null;
+                    updateActiveLink();
+                });
+            }
+        }, { passive: true });
+
+        updateActiveLink();
+    }
+
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', function () {
             initThemeToggle();
             initNavigation();
             initProjectCardCars();
+            initScrollSpy();
         });
     } else {
         initThemeToggle();
         initNavigation();
         initProjectCardCars();
+        initScrollSpy();
     }
 })();

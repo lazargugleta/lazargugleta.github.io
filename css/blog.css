@@ -115,13 +115,23 @@ h1 {
 
 /* Article Styles */
 .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
     color: var(--text-2);
     font-size: 13px;
-    transition: color 160ms ease;
+    font-weight: 500;
+    padding: 6px 12px;
+    border-radius: 8px;
+    border: 1px solid var(--border-soft);
+    background: var(--bg-soft);
+    box-shadow: var(--shadow-sm);
+    transition: color 150ms ease, border-color 150ms ease, background-color 150ms ease;
 }
 
 .back-link:hover {
     color: var(--text);
+    border-color: var(--accent-border);
 }
 
 article {

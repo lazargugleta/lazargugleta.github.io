@@ -54,12 +54,13 @@ body.light {
 
 html {
     scroll-behavior: smooth;
-    overflow-x: hidden;
+    scroll-padding-top: 80px;
+    overflow-x: clip;
 }
 
 body {
     min-height: 100vh;
-    overflow-x: hidden;
+    overflow-x: clip;
     background-color: var(--bg);
     background-image: var(--ambient-top), var(--ambient-side);
     background-repeat: no-repeat;
@@ -83,11 +84,13 @@ a {
 }
 
 .topbar {
+    position: -webkit-sticky;
     position: sticky;
     top: 0;
-    z-index: 30;
-    backdrop-filter: blur(12px) saturate(180%);
-    -webkit-backdrop-filter: blur(12px) saturate(180%);
+    z-index: 100;
+    width: 100%;
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
     background: var(--header-bg);
     border-bottom: 1px solid var(--border-soft);
     box-shadow: 0 4px 20px -2px oklch(0 0 0 / 0.08);
@@ -131,19 +134,32 @@ a {
 .nav {
     display: flex;
     align-items: center;
-    gap: 22px;
+    gap: 6px;
     margin-left: auto;
 }
 
 .nav a {
     color: var(--text-2);
     font-size: 13px;
-    transition: color 160ms ease;
+    font-weight: 500;
+    padding: 6px 12px;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    transition: color 150ms ease, border-color 150ms ease, background-color 150ms ease, box-shadow 150ms ease;
 }
 
-.nav a:hover,
-.nav a.active {
+.nav a:hover {
     color: var(--text);
+    border-color: var(--border-soft);
+    background: var(--bg-soft);
+}
+
+.nav a.active,
+.nav a[aria-current="page"] {
+    color: var(--text);
+    border-color: var(--border-soft);
+    background: var(--bg-soft);
+    box-shadow: var(--shadow-sm);
 }
 
 .menu-toggle {
@@ -341,10 +357,10 @@ body.light .theme-icon-moon {
         left: 18px;
         right: 18px;
         margin: 0;
-        padding: 18px 16px 20px;
+        padding: 16px 14px 18px;
         flex-direction: column;
         align-items: center;
-        gap: 14px;
+        gap: 8px;
         background: var(--header-bg);
         border: 1px solid var(--border-soft);
         border-radius: 10px;
@@ -358,7 +374,8 @@ body.light .theme-icon-moon {
     .nav a {
         text-align: center;
         width: 100%;
-        padding: 2px 0;
+        padding: 8px 12px;
+        border-radius: 8px;
     }
 
     .theme-toggle {
