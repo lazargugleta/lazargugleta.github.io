@@ -452,7 +452,7 @@
         }
 
         .section {
-            padding: 56px 0;
+            padding: 36px 0 56px;
             border-top: 1px solid var(--border-soft);
         }
 
