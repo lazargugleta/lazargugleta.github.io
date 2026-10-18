@@ -733,7 +733,7 @@ async function runTests() {
                 return visible.length;
             })()
         `);
-        assert(aiMcpVisible === 7, `Filtering by ai-mcp displays 7 cards (got ${aiMcpVisible})`);
+        assert(aiMcpVisible === 9, `Filtering by ai-mcp displays 9 cards (got ${aiMcpVisible})`);
 
         await client.evaluate('document.querySelector(".filter-chip[data-filter=\\"all\\"]").click()');
         await sleep(200);
