@@ -125,6 +125,7 @@ h1 {
     font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
     font-size: 10.5px;
     font-weight: 500;
+    pointer-events: none;
 }
 
 .filter-chip.is-active .filter-count {
@@ -140,8 +141,8 @@ h1 {
 }
 
 .blog-card {
-    display: flex !important;
-    flex-direction: column !important;
+    display: flex;
+    flex-direction: column;
     justify-content: flex-start;
     border: 1px solid var(--border);
     border-radius: 10px;
@@ -152,6 +153,11 @@ h1 {
     transition: transform 220ms cubic-bezier(0.16, 1, 0.3, 1), border-color 220ms ease, box-shadow 220ms ease;
     text-decoration: none;
     color: inherit;
+}
+
+.blog-card[hidden],
+.blog-card.is-hidden {
+    display: none !important;
 }
 
 .blog-card:hover {

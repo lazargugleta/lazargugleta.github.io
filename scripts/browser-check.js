@@ -717,8 +717,34 @@ async function runTests() {
 
         await client.send('Page.navigate', { url: `http://127.0.0.1:${PORT}/blog.html` });
         await sleep(800);
+        const blogHeading = await client.evaluate('document.querySelector("h1").textContent.trim()');
+        assert(blogHeading === 'Blogs', `Blog page heading is "${blogHeading}" (expected "Blogs")`);
+
         const blogCardsCount = await client.evaluate('document.querySelectorAll(".blog-card").length');
         assert(blogCardsCount >= 5, `Blog page rendered ${blogCardsCount} article cards`);
+
+        // Test category filter interactivity
+        await client.evaluate('document.querySelector(".filter-chip[data-filter=\\"ai-mcp\\"]").click()');
+        await sleep(200);
+        const aiMcpVisible = await client.evaluate(`
+            (() => {
+                const cards = Array.from(document.querySelectorAll('.blog-card'));
+                const visible = cards.filter(c => window.getComputedStyle(c).display !== 'none');
+                return visible.length;
+            })()
+        `);
+        assert(aiMcpVisible === 7, `Filtering by ai-mcp displays 7 cards (got ${aiMcpVisible})`);
+
+        await client.evaluate('document.querySelector(".filter-chip[data-filter=\\"all\\"]").click()');
+        await sleep(200);
+        const allVisible = await client.evaluate(`
+            (() => {
+                const cards = Array.from(document.querySelectorAll('.blog-card'));
+                const visible = cards.filter(c => window.getComputedStyle(c).display !== 'none');
+                return visible.length;
+            })()
+        `);
+        assert(allVisible === blogCardsCount, `Filtering by all restores ${blogCardsCount} cards (got ${allVisible})`);
 
         const blogActive = await client.evaluate(`
             (() => {

@@ -93,7 +93,7 @@
     <main class="container">
         <section class="hero">
             <div class="kicker">Writing</div>
-            <h1>Articles &amp; Notes</h1>
+            <h1>Blogs</h1>
             <p>Articles and tutorials on data systems, AI tooling, web scraping, and Python.</p>
 
             <div class="author-publications">
@@ -497,7 +497,9 @@
 
             function applyFilter(category, updateUrl) {
                 chips.forEach(function (chip) {
-                    chip.classList.toggle('is-active', chip.getAttribute('data-filter') === category);
+                    var isActive = chip.getAttribute('data-filter') === category;
+                    chip.classList.toggle('is-active', isActive);
+                    chip.setAttribute('aria-pressed', isActive ? 'true' : 'false');
                 });
 
                 cards.forEach(function (card) {
@@ -505,10 +507,12 @@
                     var matches = (category === 'all' || cardCat === category);
                     if (matches) {
                         card.hidden = false;
-                        card.style.display = '';
+                        card.classList.remove('is-hidden');
+                        card.style.removeProperty('display');
                     } else {
                         card.hidden = true;
-                        card.style.display = 'none';
+                        card.classList.add('is-hidden');
+                        card.style.setProperty('display', 'none', 'important');
                     }
                 });
 
@@ -519,15 +523,23 @@
             }
 
             chips.forEach(function (chip) {
+                chip.setAttribute('aria-pressed', chip.classList.contains('is-active') ? 'true' : 'false');
                 chip.addEventListener('click', function () {
                     applyFilter(chip.getAttribute('data-filter'), true);
                 });
             });
 
-            var initialHash = window.location.hash.replace('#', '');
-            if (initialHash && document.querySelector('.filter-chip[data-filter="' + initialHash + '"]')) {
-                applyFilter(initialHash, false);
+            function syncWithHash() {
+                var hash = window.location.hash.replace('#', '') || 'all';
+                if (document.querySelector('.filter-chip[data-filter="' + hash + '"]')) {
+                    applyFilter(hash, false);
+                } else {
+                    applyFilter('all', false);
+                }
             }
+
+            window.addEventListener('hashchange', syncWithHash);
+            syncWithHash();
         })();
     </script>
 </body>
