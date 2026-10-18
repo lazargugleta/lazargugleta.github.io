@@ -791,12 +791,12 @@ async function runTests() {
             const col = window.getComputedStyle(document.querySelector('.blog-card[data-publisher="octoparse"] .blog-card-title')).color;
             const m = col.match(/oklab\\(([^\\s]+)\\s+([^\\s]+)\\s+([^\\s]+)\\)/);
             if (m) {
-                const a = parseFloat(m[2]), b = parseFloat(m[3]);
-                return a < -0.04 && b < -0.05;
+                const b = parseFloat(m[3]);
+                return b < -0.08;
             }
-            return col.includes('56, 189, 248') || col.includes('2, 132, 199');
+            return col.includes('59, 130, 246') || col.includes('37, 99, 235');
         })()`);
-        assert(octoIsBlue, 'Octoparse article card hover title is sky blue');
+        assert(octoIsBlue, 'Octoparse article card hover title is brand blue');
 
         assertZeroErrors('blog.html navigation');
 

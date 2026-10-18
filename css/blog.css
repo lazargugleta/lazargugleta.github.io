@@ -83,10 +83,10 @@ h1 {
 }
 
 .logo-octoparse {
-    color: #38bdf8;
+    color: #3b82f6;
 }
 :is(html.light, body.light) .logo-octoparse {
-    color: #0284c7;
+    color: #2563eb;
 }
 
 .logo-chat4data {
@@ -140,18 +140,18 @@ h1 {
 }
 
 .pub-ext-octoparse:hover {
-    border-color: rgba(56, 189, 248, 0.5);
-    color: #38bdf8;
+    border-color: rgba(59, 130, 246, 0.5);
+    color: #3b82f6;
 }
 :is(html.light, body.light) .pub-ext-octoparse:hover {
-    border-color: rgba(2, 132, 199, 0.4);
-    color: #0284c7;
+    border-color: rgba(37, 99, 235, 0.4);
+    color: #2563eb;
 }
 .pub-ext-octoparse:hover .pub-ext-name {
-    color: #38bdf8;
+    color: #3b82f6;
 }
 :is(html.light, body.light) .pub-ext-octoparse:hover .pub-ext-name {
-    color: #0284c7;
+    color: #2563eb;
 }
 
 .pub-ext-chat4data:hover {
@@ -289,7 +289,7 @@ h1 {
 }
 
 /* Publisher-Specific Hover Styles:
-   Octoparse -> Sky Blue
+   Octoparse -> Brand Blue (#3b82f6 / #2563eb)
    Chat4Data -> Single Orange
    Medium    -> Pure White (Dark) / Pure Black (Light)
 */
@@ -297,24 +297,24 @@ h1 {
 /* Octoparse */
 .blog-card[data-publisher="octoparse"]:hover,
 .blog-card:has(.pub-octoparse):hover {
-    border-color: rgba(56, 189, 248, 0.45);
-    box-shadow: 0 14px 34px -4px rgba(56, 189, 248, 0.16), var(--shadow-md);
+    border-color: rgba(59, 130, 246, 0.45);
+    box-shadow: 0 14px 34px -4px rgba(59, 130, 246, 0.16), var(--shadow-md);
 }
 
 .blog-card[data-publisher="octoparse"]:hover .blog-card-title,
 .blog-card:has(.pub-octoparse):hover .blog-card-title {
-    color: #38bdf8;
+    color: #3b82f6;
 }
 
 :is(html.light, body.light) .blog-card[data-publisher="octoparse"]:hover,
 :is(html.light, body.light) .blog-card:has(.pub-octoparse):hover {
-    border-color: rgba(2, 132, 199, 0.35);
-    box-shadow: 0 14px 34px -4px rgba(2, 132, 199, 0.12), var(--shadow-md);
+    border-color: rgba(37, 99, 235, 0.35);
+    box-shadow: 0 14px 34px -4px rgba(37, 99, 235, 0.12), var(--shadow-md);
 }
 
 :is(html.light, body.light) .blog-card[data-publisher="octoparse"]:hover .blog-card-title,
 :is(html.light, body.light) .blog-card:has(.pub-octoparse):hover .blog-card-title {
-    color: #0284c7;
+    color: #2563eb;
 }
 
 /* Chat4Data (Single Orange) */
@@ -400,7 +400,7 @@ h1 {
 }
 
 /* Publisher Sources (Clean Editorial Typography):
-   Octoparse: sky blue
+   Octoparse: brand blue (#3b82f6 / #2563eb)
    Chat4Data: slate grey
    Medium: pure black / white
 */
@@ -420,13 +420,13 @@ h1 {
 
 /* Octoparse blue */
 .pub-badge.pub-octoparse {
-    color: #38bdf8;
+    color: #3b82f6;
     background: none;
     border: none;
 }
 
 :is(html.light, body.light) .pub-badge.pub-octoparse {
-    color: #0284c7;
+    color: #2563eb;
 }
 
 /* Chat4Data: grey first part, orange second part */
