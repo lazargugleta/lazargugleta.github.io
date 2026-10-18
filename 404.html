@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        if (location.protocol === "http:" && location.hostname !== "localhost" && location.hostname !== "127.0.0.1") {
+            location.replace("https://" + location.host + location.pathname + location.search + location.hash);
+        }
+    </script>
+    <script>
+        (function () {
+            try {
+                if (localStorage.getItem("theme") === "light") {
+                    document.documentElement.classList.add("light");
+                }
+            } catch (e) {}
+        })();
+    </script>
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Page not found - Lazar Gugleta">
+    <meta name="author" content="Lazar Gugleta">
+    <meta name="theme-color" content="#171923" media="(prefers-color-scheme: dark)">
+    <meta name="theme-color" content="#fafaf9" media="(prefers-color-scheme: light)">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png?v=5">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png?v=5">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg?v=5">
+    <link rel="alternate icon" href="favicon.ico?v=5" sizes="any">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=5">
+    <link rel="manifest" href="site.webmanifest?v=5">
+    <title>404 - Page Not Found | Lazar Gugleta</title>
+    <link rel="stylesheet" href="css/shared.css">
+    <link rel="stylesheet" href="css/blog.css">
+</head>
+<body>
+    <header class="topbar">
+        <div class="container topbar-inner">
+            <a class="brand" href="index.html">
+                <span class="brand-mark">lg</span>
+                <span class="brand-name">Lazar Gugleta</span>
+            </a>
+            <nav class="nav">
+                <a href="index.html#timeline">Timeline</a>
+                <a href="index.html#writing">Writing</a>
+                <a href="blog.html">Blog</a>
+                <a href="index.html#projects">Projects</a>
+                <a href="index.html#contact">Contact</a>
+            </nav>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle color theme" title="Toggle color theme">
+                <span class="theme-fx-wave" aria-hidden="true"></span>
+                <svg class="theme-icon-moon" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                    <path d="M13.75 10.25A6 6 0 017.75 2a6 6 0 106 8.25z" fill="currentColor"></path>
+                </svg>
+                <svg class="theme-icon-sun" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                    <circle cx="8" cy="8" r="3" stroke="currentColor" stroke-width="1.4"></circle>
+                    <path d="M8 1.4v1.8M8 12.8v1.8M12.6 8h1.8M1.6 8h1.8M11.25 4.75l1.25-1.25M3.5 12.5l1.25-1.25M11.25 11.25l1.25 1.25M3.5 3.5l1.25 1.25" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"></path>
+                </svg>
+            </button>
+            <button id="menu-toggle" class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false" title="Menu">
+                <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                    <path d="M2 4.5h12M2 8h12M2 11.5h12" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"></path>
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="hero" style="min-height: 55vh; display: flex; flex-direction: column; justify-content: center;">
+            <div class="kicker">404 &mdash; Page Not Found</div>
+            <h1>Lost in the digital garden?</h1>
+            <p style="margin-bottom: 28px;">The page you requested doesn't exist, has moved, or was pruned during a cleanup.</p>
+            <div style="display: flex; gap: 14px; flex-wrap: wrap;">
+                <a href="index.html" class="blog-card" style="display: inline-block; padding: 12px 20px; font-weight: 500; font-size: 14px;">&larr; Return to Homepage</a>
+                <a href="blog.html" class="blog-card" style="display: inline-block; padding: 12px 20px; font-weight: 500; font-size: 14px;">Read the Blog &rarr;</a>
+            </div>
+        </section>
+
+        <footer class="footer" style="margin-top: 40px;">
+            <span>Copyright 2026 Lazar Gugleta &mdash; built in Vienna</span>
+            <span><a href="index.html">&larr; Back to home</a></span>
+        </footer>
+    </main>
+
+    <script src="js/site.js" defer></script>
+</body>
+</html>

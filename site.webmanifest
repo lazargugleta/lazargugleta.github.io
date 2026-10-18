@@ -1,6 +1,9 @@
 {
   "name": "Lazar Gugleta",
   "short_name": "Lazar Gugleta",
+  "description": "Data Architect, AI Engineer, and PhD candidate in AI security.",
+  "start_url": "/",
+  "id": "/",
   "icons": [
     {
       "src": "apple-touch-icon.png",
@@ -18,7 +21,7 @@
       "type": "image/png"
     }
   ],
-  "theme_color": "#2563eb",
-  "background_color": "#0a0a0a",
+  "theme_color": "#171923",
+  "background_color": "#171923",
   "display": "standalone"
 }

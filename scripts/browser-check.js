@@ -148,6 +148,13 @@ async function runTests() {
     const chromeArgs = [
         '--headless=new',
         `--remote-debugging-port=${CHROME_PORT}`,
+        '--remote-debugging-address=127.0.0.1',
+        '--disable-gpu',
+        '--disable-software-rasterizer',
+        '--disable-background-networking',
+        '--disable-sync',
+        '--disable-default-apps',
+        '--disable-component-update',
         '--no-first-run',
         '--no-default-browser-check',
         '--autoplay-policy=no-user-gesture-required',
@@ -155,10 +162,21 @@ async function runTests() {
         '--window-size=1280,800'
     ];
     if (process.platform !== 'win32') {
-        chromeArgs.push('--no-sandbox', '--disable-dev-shm-usage');
+        chromeArgs.push('--no-sandbox', '--disable-dev-shm-usage', '--disable-setuid-sandbox');
     }
 
     const chrome = spawn(chromePath, chromeArgs);
+    chrome.stderr.on('data', (d) => {
+        const text = d.toString();
+        if (process.env.DEBUG) {
+            console.error('[Chrome stderr]', text.trim());
+        }
+    });
+    chrome.on('exit', (code, signal) => {
+        if (code !== null && code !== 0) {
+            console.error(`[Chrome process exit] code=${code}, signal=${signal}`);
+        }
+    });
 
     let passed = 0;
     let failed = 0;
@@ -175,7 +193,7 @@ async function runTests() {
 
     try {
         let versionData = null;
-        for (let i = 0; i < 20; i++) {
+        for (let i = 0; i < 60; i++) {
             await sleep(250);
             try {
                 const res = await fetch(`http://127.0.0.1:${CHROME_PORT}/json/version`);
@@ -186,7 +204,7 @@ async function runTests() {
             } catch (e) {}
         }
 
-        if (!versionData) throw new Error('Could not connect to headless Chrome CDP');
+        if (!versionData) throw new Error(`Could not connect to headless Chrome CDP at http://127.0.0.1:${CHROME_PORT}/json/version after 15s`);
         console.log('Connected to Chrome: ' + versionData.Browser);
 
         const newTarget = await (await fetch(`http://127.0.0.1:${CHROME_PORT}/json/new`, { method: 'PUT' })).json();
@@ -722,6 +740,12 @@ async function runTests() {
         const articleHeading = await client.evaluate('document.querySelector("h1").textContent');
         assert(articleHeading.includes('browser automation'), `Article page rendered: "${articleHeading}"`);
         assertZeroErrors('article page navigation');
+
+        await client.send('Page.navigate', { url: `http://127.0.0.1:${PORT}/404.html` });
+        await sleep(500);
+        const notFoundHeading = await client.evaluate('document.querySelector("h1").textContent');
+        assert(notFoundHeading.includes('digital garden'), `404 page rendered: "${notFoundHeading}"`);
+        assertZeroErrors('404.html navigation');
 
         console.log('\n--- Test 10: Cumulative Suite Integrity ---');
         assertZeroErrors('all combined interactions and page transitions');
