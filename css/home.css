@@ -1030,7 +1030,8 @@
             background: linear-gradient(160deg, #fffdf8 0%, var(--bg-card) 100%);
         }
 
-        #writing.is-lit .writing-card-top span:first-child {
+        #writing.is-lit .writing-card-top span:first-child,
+        #writing.is-lit .pub-badge {
             color: #f59e0b;
         }
 
@@ -1142,6 +1143,7 @@
             flex-direction: column;
             min-height: 160px;
             box-shadow: var(--shadow-sm);
+            text-decoration: none;
             transition: transform 220ms cubic-bezier(0.16, 1, 0.3, 1), border-color 220ms ease, box-shadow 220ms ease;
             font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "SF Pro", "Inter", -apple-system-body, "Helvetica Neue", Helvetica, Arial, sans-serif;
             -webkit-font-smoothing: antialiased;
@@ -1168,26 +1170,136 @@
             letter-spacing: 0.4px;
         }
 
-        .writing-card-top span:first-child {
-            color: var(--accent);
-            font-weight: 600;
-            text-transform: uppercase;
-        }
-
-        .writing-card-top span:last-child {
+        .writing-card-date {
             color: var(--faint);
             font-weight: 450;
+            font-size: 11px;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "SF Pro", "Inter", -apple-system-body, "Helvetica Neue", Helvetica, Arial, sans-serif;
         }
 
         .writing-card-title {
             color: var(--text);
             font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "SF Pro", "Inter", -apple-system-body, "Helvetica Neue", Helvetica, Arial, sans-serif;
-            font-size: 14px;
-            line-height: 1.35;
+            font-size: 14.5px;
+            line-height: 1.4;
             font-weight: 500;
             letter-spacing: -0.012em;
-            flex: 1;
             transition: color 200ms ease;
+        }
+
+        .writing-card-desc {
+            color: var(--muted);
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "SF Pro", "Inter", -apple-system-body, "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-size: 13px;
+            line-height: 1.55;
+            letter-spacing: -0.006em;
+            margin-top: 8px;
+        }
+
+        /* Publisher Sources:
+           Octoparse: sky blue
+           Chat4Data: slate grey + orange 4Data
+           Medium: pure black / white
+        */
+        .pub-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0;
+            background: none;
+            border: none;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            line-height: 1.2;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "SF Pro", "Inter", -apple-system-body, "Helvetica Neue", Helvetica, Arial, sans-serif;
+        }
+
+        .pub-badge.pub-octoparse {
+            color: #38bdf8;
+            background: none;
+            border: none;
+        }
+        :is(html.light, body.light) .pub-badge.pub-octoparse {
+            color: #0284c7;
+        }
+
+        .pub-badge.pub-chat4data {
+            color: #94a3b8;
+            background: none;
+            border: none;
+        }
+        :is(html.light, body.light) .pub-badge.pub-chat4data {
+            color: #64748b;
+        }
+
+        .pub-badge.pub-chat4data .pub-accent {
+            color: #fb923c;
+            transition: color 200ms ease;
+        }
+        :is(html.light, body.light) .pub-badge.pub-chat4data .pub-accent {
+            color: #ea580c;
+        }
+
+        .pub-badge.pub-medium {
+            color: var(--text-2);
+            background: none;
+            border: none;
+        }
+        :is(html.light, body.light) .pub-badge.pub-medium {
+            color: #18181b;
+        }
+
+        .pub-tag-sep {
+            color: var(--border);
+            font-size: 10px;
+            margin: 0 6px;
+        }
+
+        /* Publisher-specific Card Hover States (Octoparse blue, Chat4Data orange, Medium ink/white) */
+        #writing:not(.is-lit) .writing-card[data-publisher="octoparse"]:hover {
+            border-color: rgba(56, 189, 248, 0.45);
+            box-shadow: 0 14px 34px -4px rgba(56, 189, 248, 0.16), var(--shadow-md);
+        }
+        #writing:not(.is-lit) .writing-card[data-publisher="octoparse"]:hover .writing-card-title {
+            color: #38bdf8;
+        }
+        :is(html.light, body.light) #writing:not(.is-lit) .writing-card[data-publisher="octoparse"]:hover {
+            border-color: rgba(2, 132, 199, 0.35);
+            box-shadow: 0 14px 34px -4px rgba(2, 132, 199, 0.12), var(--shadow-md);
+        }
+        :is(html.light, body.light) #writing:not(.is-lit) .writing-card[data-publisher="octoparse"]:hover .writing-card-title {
+            color: #0284c7;
+        }
+
+        #writing:not(.is-lit) .writing-card[data-publisher="chat4data"]:hover {
+            border-color: rgba(251, 146, 60, 0.45);
+            box-shadow: 0 14px 34px -4px rgba(251, 146, 60, 0.16), var(--shadow-md);
+        }
+        #writing:not(.is-lit) .writing-card[data-publisher="chat4data"]:hover .writing-card-title {
+            color: #fb923c;
+        }
+        :is(html.light, body.light) #writing:not(.is-lit) .writing-card[data-publisher="chat4data"]:hover {
+            border-color: rgba(234, 88, 12, 0.35);
+            box-shadow: 0 14px 34px -4px rgba(234, 88, 12, 0.12), var(--shadow-md);
+        }
+        :is(html.light, body.light) #writing:not(.is-lit) .writing-card[data-publisher="chat4data"]:hover .writing-card-title {
+            color: #ea580c;
+        }
+
+        #writing:not(.is-lit) .writing-card[data-publisher="medium"]:hover {
+            border-color: rgba(255, 255, 255, 0.4);
+            box-shadow: 0 14px 34px -4px rgba(255, 255, 255, 0.08), var(--shadow-md);
+        }
+        #writing:not(.is-lit) .writing-card[data-publisher="medium"]:hover .writing-card-title {
+            color: #ffffff;
+        }
+        :is(html.light, body.light) #writing:not(.is-lit) .writing-card[data-publisher="medium"]:hover {
+            border-color: rgba(24, 24, 27, 0.45);
+            box-shadow: 0 14px 34px -4px rgba(24, 24, 27, 0.1), var(--shadow-md);
+        }
+        :is(html.light, body.light) #writing:not(.is-lit) .writing-card[data-publisher="medium"]:hover .writing-card-title {
+            color: #09090b;
         }
 
         .projects-grid {
