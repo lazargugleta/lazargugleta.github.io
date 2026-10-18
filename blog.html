@@ -19,17 +19,17 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Published articles, technical deep-dives, and tutorials by Lazar Gugleta across Medium, Octoparse, and Chat4Data.">
+    <meta name="description" content="Articles and tutorials by Lazar Gugleta across Medium, Octoparse, and Chat4Data.">
     <meta name="author" content="Lazar Gugleta">
-    <meta property="og:title" content="Lazar Gugleta - Blog & Writing">
-    <meta property="og:description" content="Published articles, technical deep-dives, and tutorials across Medium, Octoparse, and Chat4Data.">
+    <meta property="og:title" content="Lazar Gugleta - Blog">
+    <meta property="og:description" content="Articles and tutorials on data systems, AI tooling, web scraping, and Python.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://lazargugleta.github.io/blog.html">
     <meta property="og:image" content="https://lazargugleta.github.io/src/polars-vs-pandas.png">
     <meta name="twitter:card" content="summary_large_image">
     <meta property="og:locale" content="en_US">
-    <meta name="twitter:title" content="Lazar Gugleta - Blog & Writing">
-    <meta name="twitter:description" content="Published articles, technical deep-dives, and tutorials across Medium, Octoparse, and Chat4Data.">
+    <meta name="twitter:title" content="Lazar Gugleta - Blog">
+    <meta name="twitter:description" content="Articles and tutorials on data systems, AI tooling, web scraping, and Python.">
     <meta name="twitter:image" content="https://lazargugleta.github.io/src/polars-vs-pandas.png">
     <meta name="theme-color" content="#171923" media="(prefers-color-scheme: dark)">
     <meta name="theme-color" content="#fafaf9" media="(prefers-color-scheme: light)">
@@ -40,14 +40,14 @@
     <link rel="alternate icon" href="favicon.ico?v=5" sizes="any">
     <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=5">
     <link rel="manifest" href="site.webmanifest?v=5">
-    <title>Lazar Gugleta - Blog & Writing</title>
+    <title>Lazar Gugleta - Blog</title>
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "Blog",
       "name": "Lazar Gugleta Blog",
       "url": "https://lazargugleta.github.io/blog.html",
-      "description": "Published articles, technical deep-dives, and tutorials by Lazar Gugleta across Medium, Octoparse, and Chat4Data.",
+      "description": "Articles and tutorials by Lazar Gugleta across Medium, Octoparse, and Chat4Data.",
       "author": {
         "@type": "Person",
         "name": "Lazar Gugleta",
@@ -92,637 +92,574 @@
 
     <main class="container">
         <section class="hero">
-            <div class="kicker">Essays &amp; Publications</div>
-            <h1>Blog &amp; Writing</h1>
-            <p>A structured catalog of published articles, technical guides, and architectural notes across Medium, Octoparse, and Chat4Data — organized by domain.</p>
+            <div class="kicker">Writing</div>
+            <h1>Articles &amp; Notes</h1>
+            <p>Articles and tutorials on data systems, AI tooling, web scraping, and Python.</p>
 
-            <div class="category-nav-wrapper">
-                <nav class="category-nav" aria-label="Article categories">
-                    <a class="category-nav-link" href="#ai-mcp">
+            <div class="author-publications">
+                <span class="pub-label">Published on:</span>
+                <a class="pub-link" target="_blank" rel="noopener" href="https://medium.com/@lazar.gugleta">Medium (@lazar.gugleta) &rarr;</a>
+                <span class="pub-sep">&bull;</span>
+                <a class="pub-link" target="_blank" rel="noopener" href="https://www.octoparse.com/blog/author/lazar-gugleta">Octoparse &rarr;</a>
+                <span class="pub-sep">&bull;</span>
+                <a class="pub-link" target="_blank" rel="noopener" href="https://chat4data.ai/blog/author/lazar_gugleta">Chat4Data &rarr;</a>
+            </div>
+
+            <!-- Selectable Category Filter Tabs -->
+            <div class="category-filter-wrapper">
+                <div class="category-filter-bar" role="tablist" aria-label="Filter articles by category">
+                    <button type="button" class="category-btn active" role="tab" aria-selected="true" data-category="all" data-name="All Topics">
+                        <span>All</span>
+                        <span class="count">39</span>
+                    </button>
+                    <button type="button" class="category-btn" role="tab" aria-selected="false" data-category="ai-mcp" data-name="AI &amp; MCP">
                         <span>AI &amp; MCP</span>
-                        <span class="category-nav-count">7</span>
-                    </a>
-                    <a class="category-nav-link" href="#data-engineering">
+                        <span class="count">7</span>
+                    </button>
+                    <button type="button" class="category-btn" role="tab" aria-selected="false" data-category="data-engineering" data-name="Data Engineering">
                         <span>Data Engineering</span>
-                        <span class="category-nav-count">4</span>
-                    </a>
-                    <a class="category-nav-link" href="#browser-automation">
+                        <span class="count">4</span>
+                    </button>
+                    <button type="button" class="category-btn" role="tab" aria-selected="false" data-category="browser-automation" data-name="Browser Automation">
                         <span>Browser Automation</span>
-                        <span class="category-nav-count">6</span>
-                    </a>
-                    <a class="category-nav-link" href="#scraping-guides">
-                        <span>Web Scraping Guides</span>
-                        <span class="category-nav-count">15</span>
-                    </a>
-                    <a class="category-nav-link" href="#python-craft">
-                        <span>Python Craft</span>
-                        <span class="category-nav-count">5</span>
-                    </a>
-                    <a class="category-nav-link" href="#essays">
+                        <span class="count">6</span>
+                    </button>
+                    <button type="button" class="category-btn" role="tab" aria-selected="false" data-category="scraping-guides" data-name="Web Scraping">
+                        <span>Web Scraping</span>
+                        <span class="count">15</span>
+                    </button>
+                    <button type="button" class="category-btn" role="tab" aria-selected="false" data-category="python" data-name="Python">
+                        <span>Python</span>
+                        <span class="count">5</span>
+                    </button>
+                    <button type="button" class="category-btn" role="tab" aria-selected="false" data-category="essays" data-name="Essays">
                         <span>Essays</span>
-                        <span class="category-nav-count">2</span>
-                    </a>
-                </nav>
-
-                <div class="author-channels">
-                    <span class="author-channel-label">Published on:</span>
-                    <a class="author-channel-link" target="_blank" rel="noopener" href="https://medium.com/@lazar.gugleta">
-                        Medium (@lazar.gugleta) &nearr;
-                    </a>
-                    <a class="author-channel-link" target="_blank" rel="noopener" href="https://www.octoparse.com/blog/author/lazar-gugleta">
-                        Octoparse Column &nearr;
-                    </a>
-                    <a class="author-channel-link" target="_blank" rel="noopener" href="https://chat4data.ai/blog/author/lazar_gugleta">
-                        Chat4Data Blog &nearr;
-                    </a>
+                        <span class="count">2</span>
+                    </button>
+                </div>
+                <div class="filter-status" id="filter-status" aria-live="polite">
+                    <span id="filter-status-text">Showing all 39 articles</span>
                 </div>
             </div>
         </section>
 
-        <!-- Category 1: AI & Model Context Protocol -->
-        <section id="ai-mcp" class="blog-section">
-            <div class="blog-section-head">
-                <div class="blog-section-kicker">Category 01 &bull; 7 Articles</div>
-                <div class="blog-section-title-row">
-                    <h2>AI &amp; Model Context Protocol (MCP)</h2>
-                    <span class="section-count-badge">7 articles</span>
+        <!-- Unified Articles Grid -->
+        <div class="blog-grid" id="articles-grid">
+
+            <!-- AI & MCP -->
+            <a class="blog-card" data-category="ai-mcp" target="_blank" rel="noopener" href="https://chat4data.ai/blog/use-claude-mcp-for-web-scraping">
+                <div class="blog-card-top">
+                    <span class="platform-pill platform-chat4data">Chat4Data</span>
+                    <span class="blog-card-meta">Feb 2026</span>
                 </div>
-                <p class="blog-section-desc">Architectures, workflows, and integrations bridging LLM reasoning engines with live web data via Anthropic's Model Context Protocol (MCP), Cursor IDE, and local models.</p>
-            </div>
-            <div class="blog-grid">
-                <a class="blog-card" target="_blank" rel="noopener" href="https://chat4data.ai/blog/use-claude-mcp-for-web-scraping">
-                    <div class="blog-card-top">
-                        <span class="platform-pill platform-chat4data">Chat4Data</span>
-                        <span class="blog-card-meta">Feb 2026 &bull; MCP Tooling</span>
-                    </div>
-                    <div class="blog-card-title">Use Claude MCP for Web Scraping</div>
-                    <div class="blog-card-desc">Practical setup guide connecting Claude Desktop with Model Context Protocol servers for autonomous, conversational web data extraction.</div>
-                    <div class="blog-card-footer">
-                        <span>Read on Chat4Data</span>
-                        <span class="blog-card-arrow">&nearr;</span>
-                    </div>
-                </a>
-
-                <a class="blog-card" target="_blank" rel="noopener" href="https://www.octoparse.com/blog/best-mcp-servers">
-                    <div class="blog-card-top">
-                        <span class="platform-pill platform-octoparse">Octoparse</span>
-                        <span class="blog-card-meta">2026 &bull; MCP Directory</span>
-                    </div>
-                    <div class="blog-card-title">Zapier, GitHub &amp; More: 11 Best MCP Servers for Claude &amp; AI Assistants (2026)</div>
-                    <div class="blog-card-desc">Curated directory and architectural breakdown of production-ready Model Context Protocol servers for Claude, Cursor, and agentic workflows.</div>
-                    <div class="blog-card-footer">
-                        <span>Read on Octoparse</span>
-                        <span class="blog-card-arrow">&nearr;</span>
-                    </div>
-                </a>
-
-                <a class="blog-card" target="_blank" rel="noopener" href="https://www.octoparse.com/blog/ai-scraping-use-cases-with-mcp">
-                    <div class="blog-card-top">
-                        <span class="platform-pill platform-octoparse">Octoparse</span>
-                        <span class="blog-card-meta">2026 &bull; Agent Workflows</span>
-                    </div>
-                    <div class="blog-card-title">9 AI Scraping Use Cases (With Octoparse MCP &amp; Live Data Examples)</div>
-                    <div class="blog-card-desc">Real-world implementation patterns connecting LLM reasoning engines with live DOM extraction feeds for automated market synthesis.</div>
-                    <div class="blog-card-footer">
-                        <span>Read on Octoparse</span>
-                        <span class="blog-card-arrow">&nearr;</span>
-                    </div>
-                </a>
-
-                <a class="blog-card" target="_blank" rel="noopener" href="https://www.octoparse.com/blog/mcp-web-scraping">
-                    <div class="blog-card-top">
-                        <span class="platform-pill platform-octoparse">Octoparse</span>
-                        <span class="blog-card-meta">2026 &bull; No-Code Guide</span>
-                    </div>
-                    <div class="blog-card-title">Scrape Web Data Using MCP: 5 Easy Steps Explained</div>
-                    <div class="blog-card-desc">Connect AI agent context windows directly to live web scrapers without having to write custom API wrappers or middleware.</div>
-                    <div class="blog-card-footer">
-                        <span>Read on Octoparse</span>
-                        <span class="blog-card-arrow">&nearr;</span>
-                    </div>
-                </a>
-
-                <a class="blog-card" target="_blank" rel="noopener" href="https://www.octoparse.com/blog/cursor-octoparse-mcp">
-                    <div class="blog-card-top">
-                        <span class="platform-pill platform-octoparse">Octoparse</span>
-                        <span class="blog-card-meta">2026 &bull; Developer Tooling</span>
-                    </div>
-                    <div class="blog-card-title">Let Cursor AI Extract Web Data Using Octoparse MCP</div>
-                    <div class="blog-card-desc">Integrate live web data retrieval into the Cursor IDE to ground code generation and debugging in real-time documentation.</div>
-                    <div class="blog-card-footer">
-                        <span>Read on Octoparse</span>
-                        <span class="blog-card-arrow">&nearr;</span>
-                    </div>
-                </a>
-
-                <a class="blog-card" target="_blank" rel="noopener" href="https://www.octoparse.com/blog/connecting-octoparse-mcp-to-chatgpt-for-web-scraping">
-                    <div class="blog-card-top">
-                        <span class="platform-pill platform-octoparse">Octoparse</span>
-                        <span class="blog-card-meta">2026 &bull; LLM Tooling</span>
-                    </div>
-                    <div class="blog-card-title">How to Connect Octoparse MCP to ChatGPT for AI-Powered Web Scraping</div>
-                    <div class="blog-card-desc">A 3-minute setup bridging OpenAI custom GPT actions and live web scraping workflows via Model Context Protocol.</div>
-                    <div class="blog-card-footer">
-                        <span>Read on Octoparse</span>
-                        <span class="blog-card-arrow">&nearr;</span>
-                    </div>
-                </a>
-
-                <a class="blog-card" target="_blank" rel="noopener" href="https://medium.com/@lazar.gugleta">
-                    <div class="blog-card-top">
-                        <span class="platform-pill platform-medium">Medium</span>
-                        <span class="blog-card-meta">Medium &bull; Local LLMs</span>
-                    </div>
-                    <div class="blog-card-title">How Can Powerful AI Run Even Faster Locally for Free for Chart Generation?</div>
-                    <div class="blog-card-desc">Using local open-source models with AnythingLLM and agentic workflows to autonomously generate and render data charts without cloud APIs.</div>
-                    <div class="blog-card-footer">
-                        <span>Read on Medium</span>
-                        <span class="blog-card-arrow">&nearr;</span>
-                    </div>
-                </a>
-            </div>
-        </section>
-
-        <!-- Category 2: Data Engineering & Performance -->
-        <section id="data-engineering" class="blog-section">
-            <div class="blog-section-head">
-                <div class="blog-section-kicker">Category 02 &bull; 4 Articles</div>
-                <div class="blog-section-title-row">
-                    <h2>Data Engineering &amp; Performance</h2>
-                    <span class="section-count-badge">4 articles</span>
+                <div class="blog-card-title">Use Claude MCP for Web Scraping</div>
+                <div class="blog-card-desc">How to set up Claude Desktop with MCP to scrape and query live web data conversationally.</div>
+                <div class="blog-card-footer">
+                    <span>Read on Chat4Data</span>
+                    <span class="blog-card-arrow">&rarr;</span>
                 </div>
-                <p class="blog-section-desc">Vectorized query engines, GPU acceleration, data pipeline resilience, and test-driven development for high-throughput data systems.</p>
-            </div>
-            <div class="blog-grid">
-                <a class="blog-card" target="_blank" rel="noopener" href="https://medium.com/towards-artificial-intelligence/why-polars-destroys-pandas-in-all-possible-ways-for-data-scientists-cea244fedd53?sk=40a845fb81afbd5cb9e562cb15994635">
-                    <div class="blog-card-top">
-                        <span class="platform-pill platform-medium">Medium</span>
-                        <span class="blog-card-meta">Towards AI &bull; Aug 2024 &bull; 41k+ reads</span>
-                    </div>
-                    <div class="blog-card-title">Why Polars Destroys Pandas in All Possible Ways for Data Scientists</div>
-                    <div class="blog-card-desc">In-depth benchmark-driven comparison demonstrating where Rust-backed Polars outperforms Pandas and where each tool still fits best.</div>
-                    <div class="blog-card-footer">
-                        <span>Read on Towards AI</span>
-                        <span class="blog-card-arrow">&nearr;</span>
-                    </div>
-                </a>
+            </a>
 
-                <a class="blog-card" target="_blank" rel="noopener" href="https://medium.com/towards-artificial-intelligence/polars-just-got-even-faster-4b684f67645b">
-                    <div class="blog-card-top">
-                        <span class="platform-pill platform-medium">Medium</span>
-                        <span class="blog-card-meta">Towards AI &bull; Oct 2024 &bull; GPU Engine</span>
-                    </div>
-                    <div class="blog-card-title">Polars Just Got Even Faster</div>
-                    <div class="blog-card-desc">Accelerating Polars lazy execution pipelines with NVIDIA cuDF GPU engine integration for order-of-magnitude performance boosts.</div>
-                    <div class="blog-card-footer">
-                        <span>Read on Towards AI</span>
-                        <span class="blog-card-arrow">&nearr;</span>
-                    </div>
-                </a>
-
-                <a class="blog-card" target="_blank" rel="noopener" href="https://medium.com/towards-artificial-intelligence/data-scientists-use-test-driven-development-15b3b9d82f7f?sk=9379bfff498646aa57b52a5fb0edd45e">
-                    <div class="blog-card-top">
-                        <span class="platform-pill platform-medium">Medium</span>
-                        <span class="blog-card-meta">Towards AI &bull; Nov 2025 &bull; Engineering</span>
-                    </div>
-                    <div class="blog-card-title">Why are Data Scientists afraid to use Test Driven Development?</div>
-                    <div class="blog-card-desc">Why TDD is vital for preventing silent pipeline regressions and data leakage, and how data teams can adopt it seamlessly.</div>
-                    <div class="blog-card-footer">
-                        <span>Read on Towards AI</span>
-                        <span class="blog-card-arrow">&nearr;</span>
-                    </div>
-                </a>
-
-                <a class="blog-card" target="_blank" rel="noopener" href="https://medium.com/@lazargugleta/advanced-topic-modeling-using-listly-80df2208d51a">
-                    <div class="blog-card-top">
-                        <span class="platform-pill platform-medium">Medium</span>
-                        <span class="blog-card-meta">Medium &bull; NLP &amp; Extraction</span>
-                    </div>
-                    <div class="blog-card-title">Advanced Topic Modeling Using Listly</div>
-                    <div class="blog-card-desc">Extracting semi-structured web community discussions and uncovering latent semantic themes with unsupervised NLP models.</div>
-                    <div class="blog-card-footer">
-                        <span>Read on Medium</span>
-                        <span class="blog-card-arrow">&nearr;</span>
-                    </div>
-                </a>
-            </div>
-        </section>
-
-        <!-- Category 3: Browser Automation & Architecture -->
-        <section id="browser-automation" class="blog-section">
-            <div class="blog-section-head">
-                <div class="blog-section-kicker">Category 03 &bull; 6 Articles</div>
-                <div class="blog-section-title-row">
-                    <h2>Browser Automation &amp; Architecture</h2>
-                    <span class="section-count-badge">6 articles</span>
+            <a class="blog-card" data-category="ai-mcp" target="_blank" rel="noopener" href="https://www.octoparse.com/blog/best-mcp-servers">
+                <div class="blog-card-top">
+                    <span class="platform-pill platform-octoparse">Octoparse</span>
+                    <span class="blog-card-meta">2026</span>
                 </div>
-                <p class="blog-section-desc">Modern headless architectures, anti-bot mitigation protocols, dynamic XPath selectors, and comparative infrastructure teardowns.</p>
-            </div>
-            <div class="blog-grid">
-                <a class="blog-card" target="_blank" rel="noopener" href="https://www.octoparse.com/blog/guide-to-browser-automation">
-                    <div class="blog-card-top">
-                        <span class="platform-pill platform-octoparse">Octoparse</span>
-                        <span class="blog-card-meta">Mar 2026 &bull; Architecture</span>
-                    </div>
-                    <div class="blog-card-title">Comprehensive Guide to Browser Automation in 2026: From Selenium to No-Code</div>
-                    <div class="blog-card-desc">Modern headless architectures, anti-bot mitigation, CDP protocols, and choosing between code-based frameworks and visual automation.</div>
-                    <div class="blog-card-footer">
-                        <span>Read on Octoparse</span>
-                        <span class="blog-card-arrow">&nearr;</span>
-                    </div>
-                </a>
-
-                <a class="blog-card" target="_blank" rel="noopener" href="https://www.octoparse.com/blog/xpath-cheatsheet">
-                    <div class="blog-card-top">
-                        <span class="platform-pill platform-octoparse">Octoparse</span>
-                        <span class="blog-card-meta">2026 &bull; Developer Reference</span>
-                    </div>
-                    <div class="blog-card-title">XPath Cheatsheet: Syntax, Axes &amp; Functions for Web Scraping</div>
-                    <div class="blog-card-desc">A complete syntax reference for complex DOM traversal, dynamic axis matching, and authoring robust scraping selectors.</div>
-                    <div class="blog-card-footer">
-                        <span>Read on Octoparse</span>
-                        <span class="blog-card-arrow">&nearr;</span>
-                    </div>
-                </a>
-
-                <a class="blog-card" target="_blank" rel="noopener" href="https://www.octoparse.com/blog/anonymous-proxies">
-                    <div class="blog-card-top">
-                        <span class="platform-pill platform-octoparse">Octoparse</span>
-                        <span class="blog-card-meta">2026 &bull; Network Infrastructure</span>
-                    </div>
-                    <div class="blog-card-title">What Are Anonymous Proxies and Why Use Them for Scraping</div>
-                    <div class="blog-card-desc">Residential vs datacenter proxies, IP rotation protocols, and bypassing automated rate-limiting algorithms safely.</div>
-                    <div class="blog-card-footer">
-                        <span>Read on Octoparse</span>
-                        <span class="blog-card-arrow">&nearr;</span>
-                    </div>
-                </a>
-
-                <a class="blog-card" target="_blank" rel="noopener" href="https://www.octoparse.com/blog/browse-ai-alternatives">
-                    <div class="blog-card-top">
-                        <span class="platform-pill platform-octoparse">Octoparse</span>
-                        <span class="blog-card-meta">2026 &bull; Tool Comparison</span>
-                    </div>
-                    <div class="blog-card-title">7 Best Browse AI Alternatives in 2026 (No-Code to Developer-Ready)</div>
-                    <div class="blog-card-desc">Hands-on evaluation of modern visual scraping tools, webhook triggers, maintenance overhead, and enterprise scalability.</div>
-                    <div class="blog-card-footer">
-                        <span>Read on Octoparse</span>
-                        <span class="blog-card-arrow">&nearr;</span>
-                    </div>
-                </a>
-
-                <a class="blog-card" target="_blank" rel="noopener" href="https://www.octoparse.com/blog/competitor-analysis-tools">
-                    <div class="blog-card-top">
-                        <span class="platform-pill platform-octoparse">Octoparse</span>
-                        <span class="blog-card-meta">2026 &bull; Market Intelligence</span>
-                    </div>
-                    <div class="blog-card-title">8 Competitor Analysis Tools Compared: Similarweb, Semrush, Octoparse &amp; More</div>
-                    <div class="blog-card-desc">Combining traffic telemetry with automated web extraction for comprehensive competitive data pipelines and market insights.</div>
-                    <div class="blog-card-footer">
-                        <span>Read on Octoparse</span>
-                        <span class="blog-card-arrow">&nearr;</span>
-                    </div>
-                </a>
-
-                <a class="blog-card" target="_blank" rel="noopener" href="https://www.octoparse.com/blog/tiktok-video-scraper">
-                    <div class="blog-card-top">
-                        <span class="platform-pill platform-octoparse">Octoparse</span>
-                        <span class="blog-card-meta">2026 &bull; Social Data</span>
-                    </div>
-                    <div class="blog-card-title">TikTok Video Scraper: The Complete Guide (Templates, Workflows &amp; Python)</div>
-                    <div class="blog-card-desc">Extracting engagement metrics, video metadata, and trending sound patterns at scale using visual templates and Python.</div>
-                    <div class="blog-card-footer">
-                        <span>Read on Octoparse</span>
-                        <span class="blog-card-arrow">&nearr;</span>
-                    </div>
-                </a>
-            </div>
-        </section>
-
-        <!-- Category 4: Web Scraping & Data Extraction Guides -->
-        <section id="scraping-guides" class="blog-section">
-            <div class="blog-section-head">
-                <div class="blog-section-kicker">Category 04 &bull; 15 Articles</div>
-                <div class="blog-section-title-row">
-                    <h2>Web Scraping &amp; Data Extraction Guides</h2>
-                    <span class="section-count-badge">15 articles</span>
+                <div class="blog-card-title">Zapier, GitHub &amp; More: 11 Best MCP Servers for Claude &amp; AI Assistants (2026)</div>
+                <div class="blog-card-desc">A practical walkthrough of useful Model Context Protocol servers for Claude, Cursor, and custom agents.</div>
+                <div class="blog-card-footer">
+                    <span>Read on Octoparse</span>
+                    <span class="blog-card-arrow">&rarr;</span>
                 </div>
-                <p class="blog-section-desc">Practical, tactical extraction walkthroughs covering Google Maps, SERP, Amazon, Facebook social graphs, and media scraping at scale.</p>
-            </div>
-            <div class="blog-grid">
-                <a class="blog-card" target="_blank" rel="noopener" href="https://www.octoparse.com/blog/apify-google-maps-scraper-vs-octoparse">
-                    <div class="blog-card-top">
-                        <span class="platform-pill platform-octoparse">Octoparse</span>
-                        <span class="blog-card-meta">2026 &bull; Benchmark</span>
-                    </div>
-                    <div class="blog-card-title">Apify vs. Octoparse: The Ultimate Google Maps Scraper Comparison</div>
-                    <div class="blog-card-desc">Direct comparison of crawling speed, pricing tiers, proxy reliability, and field accuracy when extracting local business data.</div>
-                    <div class="blog-card-footer">
-                        <span>Read on Octoparse</span>
-                        <span class="blog-card-arrow">&nearr;</span>
-                    </div>
-                </a>
+            </a>
 
-                <a class="blog-card" target="_blank" rel="noopener" href="https://chat4data.ai/blog/scrape-data-from-google-maps">
-                    <div class="blog-card-top">
-                        <span class="platform-pill platform-chat4data">Chat4Data</span>
-                        <span class="blog-card-meta">2026 &bull; Tutorial</span>
-                    </div>
-                    <div class="blog-card-title">How to Scrape Data from Google Maps: 3 Methods from No-Code to Python</div>
-                    <div class="blog-card-desc">Full tutorial comparing visual extraction tools, Playwright automation scripts, and direct internal network requests.</div>
-                    <div class="blog-card-footer">
-                        <span>Read on Chat4Data</span>
-                        <span class="blog-card-arrow">&nearr;</span>
-                    </div>
-                </a>
-
-                <a class="blog-card" target="_blank" rel="noopener" href="https://chat4data.ai/blog/google-maps-scraper">
-                    <div class="blog-card-top">
-                        <span class="platform-pill platform-chat4data">Chat4Data</span>
-                        <span class="blog-card-meta">2026 &bull; Tools Ranking</span>
-                    </div>
-                    <div class="blog-card-title">The Best Google Maps Scraper Tools in 2026 (Free &amp; Paid)</div>
-                    <div class="blog-card-desc">Tested ranking of scraping tools for collecting phone numbers, geo-coordinates, verified reviews, and opening hours.</div>
-                    <div class="blog-card-footer">
-                        <span>Read on Chat4Data</span>
-                        <span class="blog-card-arrow">&nearr;</span>
-                    </div>
-                </a>
-
-                <a class="blog-card" target="_blank" rel="noopener" href="https://www.octoparse.com/blog/google-places-api">
-                    <div class="blog-card-top">
-                        <span class="platform-pill platform-octoparse">Octoparse</span>
-                        <span class="blog-card-meta">2026 &bull; Cost Analysis</span>
-                    </div>
-                    <div class="blog-card-title">Google Places API vs Scraping: Which Provides Fuller Business Details at Scale?</div>
-                    <div class="blog-card-desc">Balancing cost limits against data freshness when extracting extensive local business directories.</div>
-                    <div class="blog-card-footer">
-                        <span>Read on Octoparse</span>
-                        <span class="blog-card-arrow">&nearr;</span>
-                    </div>
-                </a>
-
-                <a class="blog-card" target="_blank" rel="noopener" href="https://chat4data.ai/blog/amazon-data-scraper">
-                    <div class="blog-card-top">
-                        <span class="platform-pill platform-chat4data">Chat4Data</span>
-                        <span class="blog-card-meta">2026 &bull; E-commerce Guide</span>
-                    </div>
-                    <div class="blog-card-title">The Complete Guide to Amazon Data Scrapers: What You Can Collect and How</div>
-                    <div class="blog-card-desc">Parsing structured product specifications, inventory status, price histories, and verified buyer reviews.</div>
-                    <div class="blog-card-footer">
-                        <span>Read on Chat4Data</span>
-                        <span class="blog-card-arrow">&nearr;</span>
-                    </div>
-                </a>
-
-                <a class="blog-card" target="_blank" rel="noopener" href="https://chat4data.ai/blog/how-to-scrape-amazon">
-                    <div class="blog-card-top">
-                        <span class="platform-pill platform-chat4data">Chat4Data</span>
-                        <span class="blog-card-meta">2026 &bull; Anti-Bot Tactics</span>
-                    </div>
-                    <div class="blog-card-title">How to Scrape Amazon in 2026: 3 Methods Compared (No-Code, API, Python)</div>
-                    <div class="blog-card-desc">Navigating anti-scraping protections, DOM selector changes, and CAPTCHA handling for e-commerce intelligence.</div>
-                    <div class="blog-card-footer">
-                        <span>Read on Chat4Data</span>
-                        <span class="blog-card-arrow">&nearr;</span>
-                    </div>
-                </a>
-
-                <a class="blog-card" target="_blank" rel="noopener" href="https://chat4data.ai/blog/scrape-google-search-results">
-                    <div class="blog-card-top">
-                        <span class="platform-pill platform-chat4data">Chat4Data</span>
-                        <span class="blog-card-meta">2026 &bull; SERP Extraction</span>
-                    </div>
-                    <div class="blog-card-title">How to Scrape Google Search Results (Without Getting Blocked)</div>
-                    <div class="blog-card-desc">Bypassing SERP bot detection mechanisms, handling cookie consent prompts, and extracting clean search results.</div>
-                    <div class="blog-card-footer">
-                        <span>Read on Chat4Data</span>
-                        <span class="blog-card-arrow">&nearr;</span>
-                    </div>
-                </a>
-
-                <a class="blog-card" target="_blank" rel="noopener" href="https://chat4data.ai/blog/google-serp-scrapers">
-                    <div class="blog-card-top">
-                        <span class="platform-pill platform-chat4data">Chat4Data</span>
-                        <span class="blog-card-meta">2026 &bull; Benchmark</span>
-                    </div>
-                    <div class="blog-card-title">7 Best Google SERP Scrapers in 2026 (Tested &amp; Ranked)</div>
-                    <div class="blog-card-desc">Benchmarking latency, parser resilience, and proxy health across the leading search engine scraping platforms.</div>
-                    <div class="blog-card-footer">
-                        <span>Read on Chat4Data</span>
-                        <span class="blog-card-arrow">&nearr;</span>
-                    </div>
-                </a>
-
-                <a class="blog-card" target="_blank" rel="noopener" href="https://chat4data.ai/blog/google-image-scraper">
-                    <div class="blog-card-top">
-                        <span class="platform-pill platform-chat4data">Chat4Data</span>
-                        <span class="blog-card-meta">May 2026 &bull; Media Extraction</span>
-                    </div>
-                    <div class="blog-card-title">7 Best Google Image Scrapers: No-Code, API, and Free Options</div>
-                    <div class="blog-card-desc">Gathering full-resolution image URLs, thumbnail grids, and metadata for computer vision and training datasets.</div>
-                    <div class="blog-card-footer">
-                        <span>Read on Chat4Data</span>
-                        <span class="blog-card-arrow">&nearr;</span>
-                    </div>
-                </a>
-
-                <a class="blog-card" target="_blank" rel="noopener" href="https://www.octoparse.com/blog/twitter-scraping-vs-twitter-apis">
-                    <div class="blog-card-top">
-                        <span class="platform-pill platform-octoparse">Octoparse</span>
-                        <span class="blog-card-meta">2026 &bull; Social Intelligence</span>
-                    </div>
-                    <div class="blog-card-title">Twitter Scraping vs Twitter APIs: Which Works for Long-Term Monitoring?</div>
-                    <div class="blog-card-desc">Evaluating API cost tiers against resilient browser extraction for long-term social sentiment monitoring.</div>
-                    <div class="blog-card-footer">
-                        <span>Read on Octoparse</span>
-                        <span class="blog-card-arrow">&nearr;</span>
-                    </div>
-                </a>
-
-                <a class="blog-card" target="_blank" rel="noopener" href="https://chat4data.ai/blog/facebook-scraper">
-                    <div class="blog-card-top">
-                        <span class="platform-pill platform-chat4data">Chat4Data</span>
-                        <span class="blog-card-meta">2026 &bull; Social Scraping</span>
-                    </div>
-                    <div class="blog-card-title">The Ultimate Guide to Finding the Best Facebook Scraper in 2026</div>
-                    <div class="blog-card-desc">Handling modern client-side hydration, dynamic infinite scroll, and aggressive account-level checkpointing.</div>
-                    <div class="blog-card-footer">
-                        <span>Read on Chat4Data</span>
-                        <span class="blog-card-arrow">&nearr;</span>
-                    </div>
-                </a>
-
-                <a class="blog-card" target="_blank" rel="noopener" href="https://chat4data.ai/blog/facebook-profile-scraper">
-                    <div class="blog-card-top">
-                        <span class="platform-pill platform-chat4data">Chat4Data</span>
-                        <span class="blog-card-meta">2026 &bull; Public Profiles</span>
-                    </div>
-                    <div class="blog-card-title">Facebook Profile Scraper: 3 Methods to Extract Data in 2026</div>
-                    <div class="blog-card-desc">Extracting public page details, contact info, and business bio data without violating platform guidelines.</div>
-                    <div class="blog-card-footer">
-                        <span>Read on Chat4Data</span>
-                        <span class="blog-card-arrow">&nearr;</span>
-                    </div>
-                </a>
-
-                <a class="blog-card" target="_blank" rel="noopener" href="https://chat4data.ai/blog/facebook-post-search-engine">
-                    <div class="blog-card-top">
-                        <span class="platform-pill platform-chat4data">Chat4Data</span>
-                        <span class="blog-card-meta">2026 &bull; Post Analytics</span>
-                    </div>
-                    <div class="blog-card-title">Facebook Post Search Engine: How to Find, Extract &amp; Analyze Any Public Post</div>
-                    <div class="blog-card-desc">Monitoring brand mentions and public group conversations in real time with automated scraping pipelines.</div>
-                    <div class="blog-card-footer">
-                        <span>Read on Chat4Data</span>
-                        <span class="blog-card-arrow">&nearr;</span>
-                    </div>
-                </a>
-
-                <a class="blog-card" target="_blank" rel="noopener" href="https://chat4data.ai/blog/facebook-marketplace-scraper">
-                    <div class="blog-card-top">
-                        <span class="platform-pill platform-chat4data">Chat4Data</span>
-                        <span class="blog-card-meta">2026 &bull; Marketplace Monitoring</span>
-                    </div>
-                    <div class="blog-card-title">Facebook Marketplace Scraper: 5 Best Tools to Scrape Data in 2026</div>
-                    <div class="blog-card-desc">Monitoring localized classifieds, vehicle pricing, and retail deal arbitrage with automated alerts.</div>
-                    <div class="blog-card-footer">
-                        <span>Read on Chat4Data</span>
-                        <span class="blog-card-arrow">&nearr;</span>
-                    </div>
-                </a>
-
-                <a class="blog-card" target="_blank" rel="noopener" href="https://chat4data.ai/blog/facebook-scraper-python">
-                    <div class="blog-card-top">
-                        <span class="platform-pill platform-chat4data">Chat4Data</span>
-                        <span class="blog-card-meta">2026 &bull; Python Scripting</span>
-                    </div>
-                    <div class="blog-card-title">Facebook Scraper Python: The Ultimate Guide to Extracting Data (3 Methods)</div>
-                    <div class="blog-card-desc">Building Python scripts using requests-html, Selenium sessions, and headless cookie persistence.</div>
-                    <div class="blog-card-footer">
-                        <span>Read on Chat4Data</span>
-                        <span class="blog-card-arrow">&nearr;</span>
-                    </div>
-                </a>
-            </div>
-        </section>
-
-        <!-- Category 5: Python & Software Craft -->
-        <section id="python-craft" class="blog-section">
-            <div class="blog-section-head">
-                <div class="blog-section-kicker">Category 05 &bull; 5 Articles</div>
-                <div class="blog-section-title-row">
-                    <h2>Python &amp; Software Craft</h2>
-                    <span class="section-count-badge">5 articles</span>
+            <a class="blog-card" data-category="ai-mcp" target="_blank" rel="noopener" href="https://www.octoparse.com/blog/ai-scraping-use-cases-with-mcp">
+                <div class="blog-card-top">
+                    <span class="platform-pill platform-octoparse">Octoparse</span>
+                    <span class="blog-card-meta">2026</span>
                 </div>
-                <p class="blog-section-desc">Rapid desktop GUI prototyping, real-time public data ingestion, algorithmic Wordle solvers, and career navigation with Python.</p>
-            </div>
-            <div class="blog-grid">
-                <a class="blog-card" target="_blank" rel="noopener" href="https://medium.com/towards-data-science/python-gui-app-in-no-time-ea7282e33024?sk=a686482bbe99407e54bc1a55f3896bf9">
-                    <div class="blog-card-top">
-                        <span class="platform-pill platform-medium">Medium</span>
-                        <span class="blog-card-meta">Towards Data Science &bull; Feb 2020</span>
-                    </div>
-                    <div class="blog-card-title">Python GUI App In No Time</div>
-                    <div class="blog-card-desc">A developer guide to rapid desktop application prototyping using PySimpleGUI with clean event-driven loops.</div>
-                    <div class="blog-card-footer">
-                        <span>Read on Towards Data Science</span>
-                        <span class="blog-card-arrow">&nearr;</span>
-                    </div>
-                </a>
-
-                <a class="blog-card" target="_blank" rel="noopener" href="https://medium.com/towards-data-science/how-to-track-coronavirus-with-python-a5320b778c8e?sk=1bc1c462333efbcdbfd5a0a2db65ea2c">
-                    <div class="blog-card-top">
-                        <span class="platform-pill platform-medium">Medium</span>
-                        <span class="blog-card-meta">Towards Data Science &bull; Apr 2020</span>
-                    </div>
-                    <div class="blog-card-title">How To Track Coronavirus In Your Country with Python</div>
-                    <div class="blog-card-desc">Consuming real-time public APIs to map pandemic spread, calculate logarithmic velocity, and chart country curves.</div>
-                    <div class="blog-card-footer">
-                        <span>Read on Towards Data Science</span>
-                        <span class="blog-card-arrow">&nearr;</span>
-                    </div>
-                </a>
-
-                <a class="blog-card" target="_blank" rel="noopener" href="https://medium.com/@lazargugleta/how-to-make-your-onw-impressive-wordle-multilanguage-solver-online-44c11b854a8e">
-                    <div class="blog-card-top">
-                        <span class="platform-pill platform-medium">Medium</span>
-                        <span class="blog-card-meta">Medium &bull; Streamlit &amp; Algorithms</span>
-                    </div>
-                    <div class="blog-card-title">How To Make Your Own Impressive Wordle Multilanguage Solver Online</div>
-                    <div class="blog-card-desc">Designing an interactive multilingual letter-frequency elimination engine and deploying it online with Streamlit.</div>
-                    <div class="blog-card-footer">
-                        <span>Read on Medium</span>
-                        <span class="blog-card-arrow">&nearr;</span>
-                    </div>
-                </a>
-
-                <a class="blog-card" target="_blank" rel="noopener" href="https://medium.com/towards-data-science/how-to-get-a-job-with-python-575f1b79fa11?sk=9de408f8cbf98dfde7f14c09dbd7b110">
-                    <div class="blog-card-top">
-                        <span class="platform-pill platform-medium">Medium</span>
-                        <span class="blog-card-meta">Towards Data Science &bull; Dec 2019</span>
-                    </div>
-                    <div class="blog-card-title">How to Get a Job with Python</div>
-                    <div class="blog-card-desc">Scraping tech job boards to uncover the most demanded Python library combinations and career trajectories.</div>
-                    <div class="blog-card-footer">
-                        <span>Read on Towards Data Science</span>
-                        <span class="blog-card-arrow">&nearr;</span>
-                    </div>
-                </a>
-
-                <a class="blog-card" target="_blank" rel="noopener" href="https://medium.com/swlh/why-is-python-so-powerful-today-c7ceef7727e0">
-                    <div class="blog-card-top">
-                        <span class="platform-pill platform-medium">Medium</span>
-                        <span class="blog-card-meta">The Startup &bull; Language Design</span>
-                    </div>
-                    <div class="blog-card-title">Why is Python so Powerful Today?</div>
-                    <div class="blog-card-desc">Exploring the design choices and community network effects that made Python the foundational layer of modern AI.</div>
-                    <div class="blog-card-footer">
-                        <span>Read on The Startup</span>
-                        <span class="blog-card-arrow">&nearr;</span>
-                    </div>
-                </a>
-            </div>
-        </section>
-
-        <!-- Category 6: Tech Essays & Reflections -->
-        <section id="essays" class="blog-section">
-            <div class="blog-section-head">
-                <div class="blog-section-kicker">Category 06 &bull; 2 Articles</div>
-                <div class="blog-section-title-row">
-                    <h2>Tech Essays &amp; Reflections</h2>
-                    <span class="section-count-badge">2 articles</span>
+                <div class="blog-card-title">9 AI Scraping Use Cases (With Octoparse MCP &amp; Live Data Examples)</div>
+                <div class="blog-card-desc">Hands-on patterns for feeding live scraped web data straight into LLM prompts for automated synthesis.</div>
+                <div class="blog-card-footer">
+                    <span>Read on Octoparse</span>
+                    <span class="blog-card-arrow">&rarr;</span>
                 </div>
-                <p class="blog-section-desc">Critical reflections on autonomous vehicle systems, computer vision safety, and engineering productivity psychology.</p>
-            </div>
-            <div class="blog-grid">
-                <a class="blog-card" target="_blank" rel="noopener" href="https://medium.com/swlh/everything-you-need-to-know-about-autonomous-driving-1358cbb5927c">
-                    <div class="blog-card-top">
-                        <span class="platform-pill platform-medium">Medium</span>
-                        <span class="blog-card-meta">The Startup &bull; Computer Vision</span>
-                    </div>
-                    <div class="blog-card-title">Everything you need to know about Autonomous driving</div>
-                    <div class="blog-card-desc">LiDAR vs vision-only neural networks, sensor fusion pipelines, real-time edge compute constraints, and vehicle safety.</div>
-                    <div class="blog-card-footer">
-                        <span>Read on The Startup</span>
-                        <span class="blog-card-arrow">&nearr;</span>
-                    </div>
-                </a>
+            </a>
 
-                <a class="blog-card" target="_blank" rel="noopener" href="https://medium.com/swlh/i-must-work-or-else-i-fail-do-you-know-that-feeling-ef89db99ad6f">
-                    <div class="blog-card-top">
-                        <span class="platform-pill platform-medium">Medium</span>
-                        <span class="blog-card-meta">The Startup &bull; Engineering Wellbeing</span>
-                    </div>
-                    <div class="blog-card-title">&ldquo;I must work or else I fail&rdquo;. Do you know that feeling?</div>
-                    <div class="blog-card-desc">An honest exploration of productivity guilt, developer burnout, and building sustainable intellectual working rhythms.</div>
-                    <div class="blog-card-footer">
-                        <span>Read on The Startup</span>
-                        <span class="blog-card-arrow">&nearr;</span>
-                    </div>
-                </a>
-            </div>
-        </section>
+            <a class="blog-card" data-category="ai-mcp" target="_blank" rel="noopener" href="https://www.octoparse.com/blog/mcp-web-scraping">
+                <div class="blog-card-top">
+                    <span class="platform-pill platform-octoparse">Octoparse</span>
+                    <span class="blog-card-meta">2026</span>
+                </div>
+                <div class="blog-card-title">Scrape Web Data Using MCP: 5 Easy Steps Explained</div>
+                <div class="blog-card-desc">A step-by-step guide to pulling web data directly into AI assistants without writing glue code.</div>
+                <div class="blog-card-footer">
+                    <span>Read on Octoparse</span>
+                    <span class="blog-card-arrow">&rarr;</span>
+                </div>
+            </a>
+
+            <a class="blog-card" data-category="ai-mcp" target="_blank" rel="noopener" href="https://www.octoparse.com/blog/cursor-octoparse-mcp">
+                <div class="blog-card-top">
+                    <span class="platform-pill platform-octoparse">Octoparse</span>
+                    <span class="blog-card-meta">2026</span>
+                </div>
+                <div class="blog-card-title">Let Cursor AI Extract Web Data Using Octoparse MCP</div>
+                <div class="blog-card-desc">Connecting Cursor to Octoparse MCP so your editor can look up live documentation and web data.</div>
+                <div class="blog-card-footer">
+                    <span>Read on Octoparse</span>
+                    <span class="blog-card-arrow">&rarr;</span>
+                </div>
+            </a>
+
+            <a class="blog-card" data-category="ai-mcp" target="_blank" rel="noopener" href="https://www.octoparse.com/blog/connecting-octoparse-mcp-to-chatgpt-for-web-scraping">
+                <div class="blog-card-top">
+                    <span class="platform-pill platform-octoparse">Octoparse</span>
+                    <span class="blog-card-meta">2026</span>
+                </div>
+                <div class="blog-card-title">How to Connect Octoparse MCP to ChatGPT for AI-Powered Web Scraping</div>
+                <div class="blog-card-desc">Hooking up ChatGPT custom actions to an MCP server for web scraping in a few steps.</div>
+                <div class="blog-card-footer">
+                    <span>Read on Octoparse</span>
+                    <span class="blog-card-arrow">&rarr;</span>
+                </div>
+            </a>
+
+            <a class="blog-card" data-category="ai-mcp" target="_blank" rel="noopener" href="https://medium.com/@lazar.gugleta">
+                <div class="blog-card-top">
+                    <span class="platform-pill platform-medium">Medium</span>
+                    <span class="blog-card-meta">Medium</span>
+                </div>
+                <div class="blog-card-title">How Can Powerful AI Run Even Faster Locally for Free for Chart Generation?</div>
+                <div class="blog-card-desc">Running local models with AnythingLLM to generate charts and visuals without cloud API costs.</div>
+                <div class="blog-card-footer">
+                    <span>Read on Medium</span>
+                    <span class="blog-card-arrow">&rarr;</span>
+                </div>
+            </a>
+
+            <!-- Data Engineering -->
+            <a class="blog-card" data-category="data-engineering" target="_blank" rel="noopener" href="https://medium.com/towards-artificial-intelligence/why-polars-destroys-pandas-in-all-possible-ways-for-data-scientists-cea244fedd53?sk=40a845fb81afbd5cb9e562cb15994635">
+                <div class="blog-card-top">
+                    <span class="platform-pill platform-medium">Medium</span>
+                    <span class="blog-card-meta">Towards AI &bull; 41k reads</span>
+                </div>
+                <div class="blog-card-title">Why Polars Destroys Pandas in All Possible Ways for Data Scientists</div>
+                <div class="blog-card-desc">Performance benchmarks and memory usage comparing Polars with Pandas on real data.</div>
+                <div class="blog-card-footer">
+                    <span>Read on Towards AI</span>
+                    <span class="blog-card-arrow">&rarr;</span>
+                </div>
+            </a>
+
+            <a class="blog-card" data-category="data-engineering" target="_blank" rel="noopener" href="https://medium.com/towards-artificial-intelligence/polars-just-got-even-faster-4b684f67645b">
+                <div class="blog-card-top">
+                    <span class="platform-pill platform-medium">Medium</span>
+                    <span class="blog-card-meta">Towards AI &bull; Oct 2024</span>
+                </div>
+                <div class="blog-card-title">Polars Just Got Even Faster</div>
+                <div class="blog-card-desc">Testing Polars lazy queries with NVIDIA cuDF GPU acceleration for high-speed pipelines.</div>
+                <div class="blog-card-footer">
+                    <span>Read on Towards AI</span>
+                    <span class="blog-card-arrow">&rarr;</span>
+                </div>
+            </a>
+
+            <a class="blog-card" data-category="data-engineering" target="_blank" rel="noopener" href="https://medium.com/towards-artificial-intelligence/data-scientists-use-test-driven-development-15b3b9d82f7f?sk=9379bfff498646aa57b52a5fb0edd45e">
+                <div class="blog-card-top">
+                    <span class="platform-pill platform-medium">Medium</span>
+                    <span class="blog-card-meta">Towards AI &bull; Nov 2025</span>
+                </div>
+                <div class="blog-card-title">Why are Data Scientists afraid to use Test Driven Development?</div>
+                <div class="blog-card-desc">Why unit testing matters for data pipelines and how to start using it without overhead.</div>
+                <div class="blog-card-footer">
+                    <span>Read on Towards AI</span>
+                    <span class="blog-card-arrow">&rarr;</span>
+                </div>
+            </a>
+
+            <a class="blog-card" data-category="data-engineering" target="_blank" rel="noopener" href="https://medium.com/@lazargugleta/advanced-topic-modeling-using-listly-80df2208d51a">
+                <div class="blog-card-top">
+                    <span class="platform-pill platform-medium">Medium</span>
+                    <span class="blog-card-meta">Medium</span>
+                </div>
+                <div class="blog-card-title">Advanced Topic Modeling Using Listly</div>
+                <div class="blog-card-desc">Scraping online discussions and clustering topics using NLP.</div>
+                <div class="blog-card-footer">
+                    <span>Read on Medium</span>
+                    <span class="blog-card-arrow">&rarr;</span>
+                </div>
+            </a>
+
+            <!-- Browser Automation -->
+            <a class="blog-card" data-category="browser-automation" target="_blank" rel="noopener" href="https://www.octoparse.com/blog/guide-to-browser-automation">
+                <div class="blog-card-top">
+                    <span class="platform-pill platform-octoparse">Octoparse</span>
+                    <span class="blog-card-meta">Mar 2026</span>
+                </div>
+                <div class="blog-card-title">Comprehensive Guide to Browser Automation in 2026: From Selenium to No-Code</div>
+                <div class="blog-card-desc">A breakdown of modern headless browsers, anti-bot systems, and practical automation options.</div>
+                <div class="blog-card-footer">
+                    <span>Read on Octoparse</span>
+                    <span class="blog-card-arrow">&rarr;</span>
+                </div>
+            </a>
+
+            <a class="blog-card" data-category="browser-automation" target="_blank" rel="noopener" href="https://www.octoparse.com/blog/xpath-cheatsheet">
+                <div class="blog-card-top">
+                    <span class="platform-pill platform-octoparse">Octoparse</span>
+                    <span class="blog-card-meta">2026</span>
+                </div>
+                <div class="blog-card-title">XPath Cheatsheet: Syntax, Axes &amp; Functions for Web Scraping</div>
+                <div class="blog-card-desc">A quick reference guide for writing reliable, flexible XPath selectors.</div>
+                <div class="blog-card-footer">
+                    <span>Read on Octoparse</span>
+                    <span class="blog-card-arrow">&rarr;</span>
+                </div>
+            </a>
+
+            <a class="blog-card" data-category="browser-automation" target="_blank" rel="noopener" href="https://www.octoparse.com/blog/anonymous-proxies">
+                <div class="blog-card-top">
+                    <span class="platform-pill platform-octoparse">Octoparse</span>
+                    <span class="blog-card-meta">2026</span>
+                </div>
+                <div class="blog-card-title">What Are Anonymous Proxies and Why Use Them for Scraping</div>
+                <div class="blog-card-desc">When and why to use datacenter versus residential proxies for automated scraping.</div>
+                <div class="blog-card-footer">
+                    <span>Read on Octoparse</span>
+                    <span class="blog-card-arrow">&rarr;</span>
+                </div>
+            </a>
+
+            <a class="blog-card" data-category="browser-automation" target="_blank" rel="noopener" href="https://www.octoparse.com/blog/browse-ai-alternatives">
+                <div class="blog-card-top">
+                    <span class="platform-pill platform-octoparse">Octoparse</span>
+                    <span class="blog-card-meta">2026</span>
+                </div>
+                <div class="blog-card-title">7 Best Browse AI Alternatives in 2026 (No-Code to Developer-Ready)</div>
+                <div class="blog-card-desc">Comparing visual scraping tools and developer libraries for automated workflows.</div>
+                <div class="blog-card-footer">
+                    <span>Read on Octoparse</span>
+                    <span class="blog-card-arrow">&rarr;</span>
+                </div>
+            </a>
+
+            <a class="blog-card" data-category="browser-automation" target="_blank" rel="noopener" href="https://www.octoparse.com/blog/competitor-analysis-tools">
+                <div class="blog-card-top">
+                    <span class="platform-pill platform-octoparse">Octoparse</span>
+                    <span class="blog-card-meta">2026</span>
+                </div>
+                <div class="blog-card-title">8 Competitor Analysis Tools Compared: Similarweb, Semrush, Octoparse &amp; More</div>
+                <div class="blog-card-desc">Comparing traffic analytics tools and targeted web scraping for market research.</div>
+                <div class="blog-card-footer">
+                    <span>Read on Octoparse</span>
+                    <span class="blog-card-arrow">&rarr;</span>
+                </div>
+            </a>
+
+            <a class="blog-card" data-category="browser-automation" target="_blank" rel="noopener" href="https://www.octoparse.com/blog/tiktok-video-scraper">
+                <div class="blog-card-top">
+                    <span class="platform-pill platform-octoparse">Octoparse</span>
+                    <span class="blog-card-meta">2026</span>
+                </div>
+                <div class="blog-card-title">TikTok Video Scraper: The Complete Guide (Templates, Workflows &amp; Python)</div>
+                <div class="blog-card-desc">Workflows and Python scripts for extracting video stats and sound trends reliably.</div>
+                <div class="blog-card-footer">
+                    <span>Read on Octoparse</span>
+                    <span class="blog-card-arrow">&rarr;</span>
+                </div>
+            </a>
+
+            <!-- Web Scraping Guides -->
+            <a class="blog-card" data-category="scraping-guides" target="_blank" rel="noopener" href="https://www.octoparse.com/blog/apify-google-maps-scraper-vs-octoparse">
+                <div class="blog-card-top">
+                    <span class="platform-pill platform-octoparse">Octoparse</span>
+                    <span class="blog-card-meta">2026</span>
+                </div>
+                <div class="blog-card-title">Apify vs. Octoparse: The Ultimate Google Maps Scraper Comparison</div>
+                <div class="blog-card-desc">Comparing speed, proxy handling, and pricing for Google Maps business data extraction.</div>
+                <div class="blog-card-footer">
+                    <span>Read on Octoparse</span>
+                    <span class="blog-card-arrow">&rarr;</span>
+                </div>
+            </a>
+
+            <a class="blog-card" data-category="scraping-guides" target="_blank" rel="noopener" href="https://chat4data.ai/blog/scrape-data-from-google-maps">
+                <div class="blog-card-top">
+                    <span class="platform-pill platform-chat4data">Chat4Data</span>
+                    <span class="blog-card-meta">2026</span>
+                </div>
+                <div class="blog-card-title">How to Scrape Data from Google Maps: 3 Methods from No-Code to Python</div>
+                <div class="blog-card-desc">Three ways to extract Google Maps data, from point-and-click tools to Playwright and Python.</div>
+                <div class="blog-card-footer">
+                    <span>Read on Chat4Data</span>
+                    <span class="blog-card-arrow">&rarr;</span>
+                </div>
+            </a>
+
+            <a class="blog-card" data-category="scraping-guides" target="_blank" rel="noopener" href="https://chat4data.ai/blog/google-maps-scraper">
+                <div class="blog-card-top">
+                    <span class="platform-pill platform-chat4data">Chat4Data</span>
+                    <span class="blog-card-meta">2026</span>
+                </div>
+                <div class="blog-card-title">The Best Google Maps Scraper Tools in 2026 (Free &amp; Paid)</div>
+                <div class="blog-card-desc">A hands-on test of free and paid tools for collecting phone numbers, reviews, and locations.</div>
+                <div class="blog-card-footer">
+                    <span>Read on Chat4Data</span>
+                    <span class="blog-card-arrow">&rarr;</span>
+                </div>
+            </a>
+
+            <a class="blog-card" data-category="scraping-guides" target="_blank" rel="noopener" href="https://www.octoparse.com/blog/google-places-api">
+                <div class="blog-card-top">
+                    <span class="platform-pill platform-octoparse">Octoparse</span>
+                    <span class="blog-card-meta">2026</span>
+                </div>
+                <div class="blog-card-title">Google Places API vs Scraping: Which Provides Fuller Business Details at Scale?</div>
+                <div class="blog-card-desc">Comparing official API costs with web scraping when building large business directories.</div>
+                <div class="blog-card-footer">
+                    <span>Read on Octoparse</span>
+                    <span class="blog-card-arrow">&rarr;</span>
+                </div>
+            </a>
+
+            <a class="blog-card" data-category="scraping-guides" target="_blank" rel="noopener" href="https://chat4data.ai/blog/amazon-data-scraper">
+                <div class="blog-card-top">
+                    <span class="platform-pill platform-chat4data">Chat4Data</span>
+                    <span class="blog-card-meta">2026</span>
+                </div>
+                <div class="blog-card-title">The Complete Guide to Amazon Data Scrapers: What You Can Collect and How</div>
+                <div class="blog-card-desc">What product data you can extract from Amazon and how to structure it cleanly.</div>
+                <div class="blog-card-footer">
+                    <span>Read on Chat4Data</span>
+                    <span class="blog-card-arrow">&rarr;</span>
+                </div>
+            </a>
+
+            <a class="blog-card" data-category="scraping-guides" target="_blank" rel="noopener" href="https://chat4data.ai/blog/how-to-scrape-amazon">
+                <div class="blog-card-top">
+                    <span class="platform-pill platform-chat4data">Chat4Data</span>
+                    <span class="blog-card-meta">2026</span>
+                </div>
+                <div class="blog-card-title">How to Scrape Amazon in 2026: 3 Methods Compared (No-Code, API, Python)</div>
+                <div class="blog-card-desc">Dealing with CAPTCHAs, dynamic pages, and rate limits when scraping product information.</div>
+                <div class="blog-card-footer">
+                    <span>Read on Chat4Data</span>
+                    <span class="blog-card-arrow">&rarr;</span>
+                </div>
+            </a>
+
+            <a class="blog-card" data-category="scraping-guides" target="_blank" rel="noopener" href="https://chat4data.ai/blog/scrape-google-search-results">
+                <div class="blog-card-top">
+                    <span class="platform-pill platform-chat4data">Chat4Data</span>
+                    <span class="blog-card-meta">2026</span>
+                </div>
+                <div class="blog-card-title">How to Scrape Google Search Results (Without Getting Blocked)</div>
+                <div class="blog-card-desc">Techniques for parsing organic Google search results without hitting block pages.</div>
+                <div class="blog-card-footer">
+                    <span>Read on Chat4Data</span>
+                    <span class="blog-card-arrow">&rarr;</span>
+                </div>
+            </a>
+
+            <a class="blog-card" data-category="scraping-guides" target="_blank" rel="noopener" href="https://chat4data.ai/blog/google-serp-scrapers">
+                <div class="blog-card-top">
+                    <span class="platform-pill platform-chat4data">Chat4Data</span>
+                    <span class="blog-card-meta">2026</span>
+                </div>
+                <div class="blog-card-title">7 Best Google SERP Scrapers in 2026 (Tested &amp; Ranked)</div>
+                <div class="blog-card-desc">Benchmarking latency, parser accuracy, and proxy reliability across SERP extraction tools.</div>
+                <div class="blog-card-footer">
+                    <span>Read on Chat4Data</span>
+                    <span class="blog-card-arrow">&rarr;</span>
+                </div>
+            </a>
+
+            <a class="blog-card" data-category="scraping-guides" target="_blank" rel="noopener" href="https://chat4data.ai/blog/google-image-scraper">
+                <div class="blog-card-top">
+                    <span class="platform-pill platform-chat4data">Chat4Data</span>
+                    <span class="blog-card-meta">May 2026</span>
+                </div>
+                <div class="blog-card-title">7 Best Google Image Scrapers: No-Code, API, and Free Options</div>
+                <div class="blog-card-desc">Tools and scripts to download full-resolution images and metadata for datasets.</div>
+                <div class="blog-card-footer">
+                    <span>Read on Chat4Data</span>
+                    <span class="blog-card-arrow">&rarr;</span>
+                </div>
+            </a>
+
+            <a class="blog-card" data-category="scraping-guides" target="_blank" rel="noopener" href="https://www.octoparse.com/blog/twitter-scraping-vs-twitter-apis">
+                <div class="blog-card-top">
+                    <span class="platform-pill platform-octoparse">Octoparse</span>
+                    <span class="blog-card-meta">2026</span>
+                </div>
+                <div class="blog-card-title">Twitter Scraping vs Twitter APIs: Which Works for Long-Term Monitoring?</div>
+                <div class="blog-card-desc">Comparing Twitter API pricing tiers with browser scraping for ongoing trend monitoring.</div>
+                <div class="blog-card-footer">
+                    <span>Read on Octoparse</span>
+                    <span class="blog-card-arrow">&rarr;</span>
+                </div>
+            </a>
+
+            <a class="blog-card" data-category="scraping-guides" target="_blank" rel="noopener" href="https://chat4data.ai/blog/facebook-scraper">
+                <div class="blog-card-top">
+                    <span class="platform-pill platform-chat4data">Chat4Data</span>
+                    <span class="blog-card-meta">2026</span>
+                </div>
+                <div class="blog-card-title">The Ultimate Guide to Finding the Best Facebook Scraper in 2026</div>
+                <div class="blog-card-desc">Handling infinite scroll, dynamic JavaScript hydration, and login checkpoints.</div>
+                <div class="blog-card-footer">
+                    <span>Read on Chat4Data</span>
+                    <span class="blog-card-arrow">&rarr;</span>
+                </div>
+            </a>
+
+            <a class="blog-card" data-category="scraping-guides" target="_blank" rel="noopener" href="https://chat4data.ai/blog/facebook-profile-scraper">
+                <div class="blog-card-top">
+                    <span class="platform-pill platform-chat4data">Chat4Data</span>
+                    <span class="blog-card-meta">2026</span>
+                </div>
+                <div class="blog-card-title">Facebook Profile Scraper: 3 Methods to Extract Data in 2026</div>
+                <div class="blog-card-desc">Extracting public profile and business page information safely.</div>
+                <div class="blog-card-footer">
+                    <span>Read on Chat4Data</span>
+                    <span class="blog-card-arrow">&rarr;</span>
+                </div>
+            </a>
+
+            <a class="blog-card" data-category="scraping-guides" target="_blank" rel="noopener" href="https://chat4data.ai/blog/facebook-post-search-engine">
+                <div class="blog-card-top">
+                    <span class="platform-pill platform-chat4data">Chat4Data</span>
+                    <span class="blog-card-meta">2026</span>
+                </div>
+                <div class="blog-card-title">Facebook Post Search Engine: How to Find, Extract &amp; Analyze Any Public Post</div>
+                <div class="blog-card-desc">Searching and collecting public discussions, keyword mentions, and post text.</div>
+                <div class="blog-card-footer">
+                    <span>Read on Chat4Data</span>
+                    <span class="blog-card-arrow">&rarr;</span>
+                </div>
+            </a>
+
+            <a class="blog-card" data-category="scraping-guides" target="_blank" rel="noopener" href="https://chat4data.ai/blog/facebook-marketplace-scraper">
+                <div class="blog-card-top">
+                    <span class="platform-pill platform-chat4data">Chat4Data</span>
+                    <span class="blog-card-meta">2026</span>
+                </div>
+                <div class="blog-card-title">Facebook Marketplace Scraper: 5 Best Tools to Scrape Data in 2026</div>
+                <div class="blog-card-desc">Monitoring localized item listings, price trends, and availability.</div>
+                <div class="blog-card-footer">
+                    <span>Read on Chat4Data</span>
+                    <span class="blog-card-arrow">&rarr;</span>
+                </div>
+            </a>
+
+            <a class="blog-card" data-category="scraping-guides" target="_blank" rel="noopener" href="https://chat4data.ai/blog/facebook-scraper-python">
+                <div class="blog-card-top">
+                    <span class="platform-pill platform-chat4data">Chat4Data</span>
+                    <span class="blog-card-meta">2026</span>
+                </div>
+                <div class="blog-card-title">Facebook Scraper Python: The Ultimate Guide to Extracting Data (3 Methods)</div>
+                <div class="blog-card-desc">Building lightweight Python scripts with requests-html, Selenium, and session cookies.</div>
+                <div class="blog-card-footer">
+                    <span>Read on Chat4Data</span>
+                    <span class="blog-card-arrow">&rarr;</span>
+                </div>
+            </a>
+
+            <!-- Python -->
+            <a class="blog-card" data-category="python" target="_blank" rel="noopener" href="https://medium.com/towards-data-science/python-gui-app-in-no-time-ea7282e33024?sk=a686482bbe99407e54bc1a55f3896bf9">
+                <div class="blog-card-top">
+                    <span class="platform-pill platform-medium">Medium</span>
+                    <span class="blog-card-meta">Towards Data Science &bull; Feb 2020</span>
+                </div>
+                <div class="blog-card-title">Python GUI App In No Time</div>
+                <div class="blog-card-desc">Building quick desktop apps using Python and PySimpleGUI with clean event loops.</div>
+                <div class="blog-card-footer">
+                    <span>Read on Towards Data Science</span>
+                    <span class="blog-card-arrow">&rarr;</span>
+                </div>
+            </a>
+
+            <a class="blog-card" data-category="python" target="_blank" rel="noopener" href="https://medium.com/towards-data-science/how-to-track-coronavirus-with-python-a5320b778c8e?sk=1bc1c462333efbcdbfd5a0a2db65ea2c">
+                <div class="blog-card-top">
+                    <span class="platform-pill platform-medium">Medium</span>
+                    <span class="blog-card-meta">Towards Data Science &bull; Apr 2020</span>
+                </div>
+                <div class="blog-card-title">How To Track Coronavirus In Your Country with Python</div>
+                <div class="blog-card-desc">Consuming public health APIs to track daily case velocity and plot regional curves.</div>
+                <div class="blog-card-footer">
+                    <span>Read on Towards Data Science</span>
+                    <span class="blog-card-arrow">&rarr;</span>
+                </div>
+            </a>
+
+            <a class="blog-card" data-category="python" target="_blank" rel="noopener" href="https://medium.com/@lazargugleta/how-to-make-your-onw-impressive-wordle-multilanguage-solver-online-44c11b854a8e">
+                <div class="blog-card-top">
+                    <span class="platform-pill platform-medium">Medium</span>
+                    <span class="blog-card-meta">Medium</span>
+                </div>
+                <div class="blog-card-title">How To Make Your Own Impressive Wordle Multilanguage Solver Online</div>
+                <div class="blog-card-desc">Building an interactive word elimination solver and deploying it online with Streamlit.</div>
+                <div class="blog-card-footer">
+                    <span>Read on Medium</span>
+                    <span class="blog-card-arrow">&rarr;</span>
+                </div>
+            </a>
+
+            <a class="blog-card" data-category="python" target="_blank" rel="noopener" href="https://medium.com/towards-data-science/how-to-get-a-job-with-python-575f1b79fa11?sk=9de408f8cbf98dfde7f14c09dbd7b110">
+                <div class="blog-card-top">
+                    <span class="platform-pill platform-medium">Medium</span>
+                    <span class="blog-card-meta">Towards Data Science &bull; Dec 2019</span>
+                </div>
+                <div class="blog-card-title">How to Get a Job with Python</div>
+                <div class="blog-card-desc">Scraping job listings with Python to see what library combinations are most in demand.</div>
+                <div class="blog-card-footer">
+                    <span>Read on Towards Data Science</span>
+                    <span class="blog-card-arrow">&rarr;</span>
+                </div>
+            </a>
+
+            <a class="blog-card" data-category="python" target="_blank" rel="noopener" href="https://medium.com/swlh/why-is-python-so-powerful-today-c7ceef7727e0">
+                <div class="blog-card-top">
+                    <span class="platform-pill platform-medium">Medium</span>
+                    <span class="blog-card-meta">The Startup</span>
+                </div>
+                <div class="blog-card-title">Why is Python so Powerful Today?</div>
+                <div class="blog-card-desc">A look at the ecosystem and design decisions that made Python the center of modern AI.</div>
+                <div class="blog-card-footer">
+                    <span>Read on The Startup</span>
+                    <span class="blog-card-arrow">&rarr;</span>
+                </div>
+            </a>
+
+            <!-- Essays -->
+            <a class="blog-card" data-category="essays" target="_blank" rel="noopener" href="https://medium.com/swlh/everything-you-need-to-know-about-autonomous-driving-1358cbb5927c">
+                <div class="blog-card-top">
+                    <span class="platform-pill platform-medium">Medium</span>
+                    <span class="blog-card-meta">The Startup</span>
+                </div>
+                <div class="blog-card-title">Everything you need to know about Autonomous driving</div>
+                <div class="blog-card-desc">Sensor fusion, vision models, edge compute constraints, and vehicle safety layers.</div>
+                <div class="blog-card-footer">
+                    <span>Read on The Startup</span>
+                    <span class="blog-card-arrow">&rarr;</span>
+                </div>
+            </a>
+
+            <a class="blog-card" data-category="essays" target="_blank" rel="noopener" href="https://medium.com/swlh/i-must-work-or-else-i-fail-do-you-know-that-feeling-ef89db99ad6f">
+                <div class="blog-card-top">
+                    <span class="platform-pill platform-medium">Medium</span>
+                    <span class="blog-card-meta">The Startup</span>
+                </div>
+                <div class="blog-card-title">&ldquo;I must work or else I fail&rdquo;. Do you know that feeling?</div>
+                <div class="blog-card-desc">Personal reflections on developer burnout, productivity guilt, and sustainable working habits.</div>
+                <div class="blog-card-footer">
+                    <span>Read on The Startup</span>
+                    <span class="blog-card-arrow">&rarr;</span>
+                </div>
+            </a>
+
+        </div>
 
         <footer class="footer">
             <span>Copyright 2026 Lazar Gugleta &bull; built in Vienna</span>
@@ -731,5 +668,64 @@
     </main>
 
     <script src="js/site.js" defer></script>
+    <script>
+        (function initCategoryFilter() {
+            var filterButtons = document.querySelectorAll('.category-btn');
+            var cards = document.querySelectorAll('.blog-card');
+            var statusText = document.getElementById('filter-status-text');
+            if (!filterButtons.length || !cards.length) return;
+
+            function applyFilter(category, updateUrl) {
+                var visibleCount = 0;
+                var categoryName = 'all topics';
+
+                filterButtons.forEach(function (btn) {
+                    var matches = btn.getAttribute('data-category') === category;
+                    btn.classList.toggle('active', matches);
+                    btn.setAttribute('aria-selected', matches ? 'true' : 'false');
+                    if (matches) {
+                        categoryName = btn.getAttribute('data-name') || btn.textContent.trim();
+                    }
+                });
+
+                cards.forEach(function (card) {
+                    var cardCat = card.getAttribute('data-category');
+                    var matches = (category === 'all' || cardCat === category);
+                    if (matches) {
+                        card.hidden = false;
+                        card.style.display = 'flex';
+                        visibleCount++;
+                    } else {
+                        card.hidden = true;
+                        card.style.display = 'none';
+                    }
+                });
+
+                if (statusText) {
+                    if (category === 'all') {
+                        statusText.textContent = 'Showing all ' + visibleCount + ' articles';
+                    } else {
+                        statusText.textContent = 'Showing ' + visibleCount + ' articles in ' + categoryName;
+                    }
+                }
+
+                if (updateUrl && history.replaceState) {
+                    var newHash = category === 'all' ? '' : '#' + category;
+                    history.replaceState(null, '', window.location.pathname + newHash);
+                }
+            }
+
+            filterButtons.forEach(function (btn) {
+                btn.addEventListener('click', function () {
+                    applyFilter(btn.getAttribute('data-category'), true);
+                });
+            });
+
+            var initialHash = window.location.hash.replace('#', '');
+            if (initialHash && document.querySelector('.category-btn[data-category="' + initialHash + '"]')) {
+                applyFilter(initialHash, false);
+            }
+        })();
+    </script>
 </body>
 </html>
