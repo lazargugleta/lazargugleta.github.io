@@ -30,7 +30,6 @@ const filesToCopy = [
 ];
 
 const dirsToCopy = [
-    'blog',
     'css',
     'js',
     'src'

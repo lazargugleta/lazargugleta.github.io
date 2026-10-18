@@ -14,16 +14,18 @@ Personal portfolio website and engineering blog for Lazar Gugleta, Data Architec
 .
 ├── index.html                           # Portfolio homepage (Hero, Timeline, Writing, Projects, Contact)
 ├── blog.html                            # Blog listing page
-├── blog/                                # Blog post pages
-│   └── browser-automation-pipeline.html # Example internal post page
-├── src/                                 # Shared media assets & documents (CV, images, icons)
+├── 404.html                             # Custom 404 error page
+├── css/                                 # Stylesheets (shared tokens, home, blog)
+├── js/                                  # Vanilla JavaScript (site navigation, theme, animations)
+├── src/                                 # Media assets & documents (CV, responsive WebP/AVIF images)
 │   ├── Lazar_Gugleta_CV.pdf
 │   └── polars-vs-pandas.png
 ├── .github/workflows/
 │   └── pages.yml                        # GitHub Actions deployment workflow to GitHub Pages
 ├── AGENTS.md                            # Design & deployment guidelines
-├── _headers                             # Web server headers configuration
-└── portfolio/                           # Legacy Next.js application codebase
+├── _headers                             # Security and cache-control headers
+├── robots.txt                           # Search engine crawling rules
+└── sitemap.xml                          # Canonical XML sitemap
 ```
 
 ## Features

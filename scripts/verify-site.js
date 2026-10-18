@@ -31,7 +31,6 @@ console.log('\n--- 2. Validating HTML Pages & Local References ---');
 const htmlFiles = [
     'index.html',
     'blog.html',
-    'blog/browser-automation-pipeline.html',
     '404.html'
 ];
 

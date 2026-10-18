@@ -735,12 +735,6 @@ async function runTests() {
         assert(blogActive && blogActive.hasBorder, 'Active Blog link displays subtle border indicator');
         assertZeroErrors('blog.html navigation');
 
-        await client.send('Page.navigate', { url: `http://127.0.0.1:${PORT}/blog/browser-automation-pipeline.html` });
-        await sleep(800);
-        const articleHeading = await client.evaluate('document.querySelector("h1").textContent');
-        assert(articleHeading.includes('browser automation'), `Article page rendered: "${articleHeading}"`);
-        assertZeroErrors('article page navigation');
-
         await client.send('Page.navigate', { url: `http://127.0.0.1:${PORT}/404.html` });
         await sleep(500);
         const notFoundHeading = await client.evaluate('document.querySelector("h1").textContent');
