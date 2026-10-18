@@ -239,7 +239,7 @@ h1 {
     color: #0284c7;
 }
 
-/* Chat4Data grey */
+/* Chat4Data: grey first part, orange second part */
 .pub-badge.pub-chat4data {
     color: #94a3b8;
     background: none;
@@ -248,6 +248,15 @@ h1 {
 
 :is(html.light, body.light) .pub-badge.pub-chat4data {
     color: #64748b;
+}
+
+.pub-badge.pub-chat4data .pub-accent {
+    color: #fb923c;
+    transition: color 200ms ease;
+}
+
+:is(html.light, body.light) .pub-badge.pub-chat4data .pub-accent {
+    color: #ea580c;
 }
 
 /* Medium black / white */
