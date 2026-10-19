@@ -638,7 +638,7 @@
 
         .writing-header {
             display: flex;
-            align-items: flex-end;
+            align-items: center;
             justify-content: space-between;
             position: relative;
             margin-bottom: 24px;
@@ -726,6 +726,7 @@
             display: flex;
             flex-direction: column;
             align-items: flex-end;
+            align-self: flex-start;
             user-select: none;
             z-index: 5;
             margin-top: 0;
@@ -2097,7 +2098,11 @@
             }
 
             .writing-header {
-                align-items: flex-end;
+                align-items: center;
+            }
+
+            .writing-lamp-fixture {
+                margin-top: -5px;
             }
 
             .writing-lamp-svg {
