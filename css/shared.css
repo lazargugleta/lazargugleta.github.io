@@ -65,7 +65,7 @@ body {
     background-image: var(--ambient-top), var(--ambient-side);
     background-repeat: no-repeat;
     color: var(--text);
-    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "SF Pro", "Inter", -apple-system-body, "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 15px;
     letter-spacing: -0.012em;
     -webkit-font-smoothing: antialiased;
@@ -130,7 +130,7 @@ a {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "SF Pro", "Inter", -apple-system-body, "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 13px;
     font-weight: 700;
     letter-spacing: -0.3px;
@@ -341,7 +341,7 @@ body.light .theme-icon-moon {
     gap: 12px;
     flex-wrap: wrap;
     color: var(--faint);
-    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "SF Pro", "Inter", -apple-system-body, "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 11.5px;
 }
 
