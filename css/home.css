@@ -638,7 +638,7 @@
 
         .writing-header {
             display: flex;
-            align-items: flex-start;
+            align-items: flex-end;
             justify-content: space-between;
             position: relative;
             margin-bottom: 24px;
@@ -2178,7 +2178,7 @@
 
             .writing-lamp-fixture {
                 align-self: flex-end;
-                margin-top: -38px;
+                margin-top: -45px;
                 margin-bottom: -10px;
             }
 
