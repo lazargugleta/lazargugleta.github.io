@@ -406,20 +406,18 @@ async function runTests() {
             imgCurrentSrc && imgCurrentSrc.includes('.avif'),
             `Article preview prefers modern AVIF format (${imgCurrentSrc})`
         );
-        const writingOctoColor = await client.evaluate(`
+        const writingAccentsMatch = await client.evaluate(`
             (() => {
-                const el = document.querySelector('.writing-card[data-publisher="octoparse"] .pub-badge.pub-octoparse');
-                if (!el) return null;
-                const col = window.getComputedStyle(el).color;
-                const m = col.match(/oklab\\(([^\\s]+)\\s+([^\\s]+)\\s+([^\\s]+)\\)/);
-                if (m) {
-                    const b = parseFloat(m[3]);
-                    return b < -0.08 ? 'blue' : col;
-                }
-                return (col.includes('59, 130, 246') || col.includes('37, 99, 235')) ? 'blue' : col;
+                const badges = [...document.querySelectorAll('#writing .pub-badge')];
+                const reference = document.createElement('span');
+                reference.style.color = 'var(--accent)';
+                document.getElementById('writing').append(reference);
+                const accent = getComputedStyle(reference).color;
+                reference.remove();
+                return badges.length === 7 && badges.every(el => getComputedStyle(el).color === accent);
             })()
         `);
-        assert(writingOctoColor === 'blue', 'Octoparse publisher badge in writing card matches brand blue');
+        assert(writingAccentsMatch, 'Writing publisher badges share the theme accent');
 
         assertZeroErrors('lazy image scroll');
 
