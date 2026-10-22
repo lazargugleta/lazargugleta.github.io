@@ -7,6 +7,3 @@
 
 ## Deployment & CI/CD Guidelines
 - **GitHub Pages Workflow**: Use explicit GitHub Actions workflows (`.github/workflows/pages.yml`) for deployment to prevent `deployment_queued` timeouts.
-
-## Tooling Notes
-- In PowerShell, use `rg -g '*.css' pattern css` instead of passing `css/*.css`; ripgrep receives that wildcard literally on Windows.
