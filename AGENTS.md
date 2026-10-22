@@ -7,3 +7,6 @@
 
 ## Deployment & CI/CD Guidelines
 - **GitHub Pages Workflow**: Use explicit GitHub Actions workflows (`.github/workflows/pages.yml`) for deployment to prevent `deployment_queued` timeouts.
+
+## Browser Test Runner
+- Chrome remote debugging requires a non-default `--user-data-dir`. Use a fresh temporary profile for each browser test run; default profiles can cause CDP startup timeouts in GitHub Actions.

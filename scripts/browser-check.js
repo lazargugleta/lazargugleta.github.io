@@ -8,6 +8,7 @@
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
+const os = require('os');
 const { spawn } = require('child_process');
 
 const PORT = 8089;
@@ -147,6 +148,7 @@ async function runTests() {
 
     const chromeArgs = [
         '--headless=new',
+        `--user-data-dir=${fs.mkdtempSync(path.join(os.tmpdir(), 'site-browser-check-'))}`,
         `--remote-debugging-port=${CHROME_PORT}`,
         '--remote-debugging-address=127.0.0.1',
         '--disable-gpu',
