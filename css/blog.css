@@ -199,7 +199,19 @@ h1 {
     color: #7c3aed;
 }
 .pub-ext-mediumatch .logo-mediumatch {
-    color: var(--text-2);
+    width: 15px;
+    height: 15px;
+    border-radius: 3.5px;
+    object-fit: cover;
+    flex-shrink: 0;
+    vertical-align: middle;
+}
+.pub-ext-mediumatch .pub-accent {
+    color: #8b5cf6;
+    transition: color 180ms ease;
+}
+:is(html.light, body.light) .pub-ext-mediumatch .pub-accent {
+    color: #7c3aed;
 }
 .pub-ext-mediumatch:hover .logo-mediumatch {
     color: #8b5cf6;
@@ -515,14 +527,12 @@ h1 {
 }
 
 .blog-card[data-publisher="mediumatch"],
-.pub-mediumatch,
-.filter-chip[data-filter="technical-writing"] {
+.pub-mediumatch {
     --mediumatch-violet: #8b5cf6;
 }
 
 :is(html.light, body.light) .blog-card[data-publisher="mediumatch"],
-:is(html.light, body.light) .pub-mediumatch,
-:is(html.light, body.light) .filter-chip[data-filter="technical-writing"] {
+:is(html.light, body.light) .pub-mediumatch {
     --mediumatch-violet: #7c3aed;
 }
 
@@ -534,13 +544,6 @@ h1 {
 .blog-card[data-publisher="mediumatch"]:is(:hover, :focus-visible) {
     border-color: color-mix(in srgb, var(--mediumatch-violet) 45%, transparent);
     box-shadow: 0 14px 34px -4px color-mix(in srgb, var(--mediumatch-violet) 16%, transparent), var(--shadow-md);
-}
-
-.filter-chip[data-filter="technical-writing"]:is(:hover, .is-active) {
-    color: var(--mediumatch-violet);
-    border-color: color-mix(in srgb, var(--mediumatch-violet) 35%, transparent);
-    background: color-mix(in srgb, var(--mediumatch-violet) 12%, transparent);
-    box-shadow: 0 2px 10px color-mix(in srgb, var(--mediumatch-violet) 14%, transparent);
 }
 
 @media (max-width: 520px) {

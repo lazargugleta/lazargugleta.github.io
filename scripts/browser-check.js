@@ -438,6 +438,11 @@ async function runTests() {
         `);
         assert(writingMediumatchColor === 'violet', 'MediuMatch publisher badge in writing card matches brand violet');
 
+        const writingCardsCount = await client.evaluate('document.querySelectorAll(".writing-grid .writing-card").length');
+        assert(writingCardsCount === 6, `Writing section rendered 6 article cards (got ${writingCardsCount})`);
+        const mmWritingCount = await client.evaluate('document.querySelectorAll(".writing-grid .writing-card[data-publisher=\\"mediumatch\\"]").length');
+        assert(mmWritingCount === 2, `Writing section includes 2 MediuMatch cards (got ${mmWritingCount})`);
+
         assertZeroErrors('lazy image scroll');
 
         console.log('\n--- Test 3: Theme Toggle & First Paint Flash Prevention ---');
@@ -755,18 +760,36 @@ async function runTests() {
         const blogCardsCount = await client.evaluate('document.querySelectorAll(".blog-card").length');
         assert(blogCardsCount >= 5, `Blog page rendered ${blogCardsCount} article cards`);
 
-        // Test MediuMatch external profile link
-        const mediumatchExtLink = await client.evaluate(`
+        // Test MediuMatch external profile link position and attributes
+        const extProfiles = await client.evaluate(`
             (() => {
-                const link = document.querySelector('.pub-ext-link.pub-ext-mediumatch');
-                if (!link) return null;
-                return {
-                    href: link.getAttribute('href'),
-                    hasName: link.querySelector('.pub-ext-name') !== null
-                };
+                const links = Array.from(document.querySelectorAll('.author-publications .pub-ext-link'));
+                return links.map(l => ({
+                    href: l.getAttribute('href'),
+                    className: l.className,
+                    text: l.textContent.trim(),
+                    imgSrc: l.querySelector('img')?.getAttribute('src') || null
+                }));
             })()
         `);
-        assert(mediumatchExtLink && mediumatchExtLink.href.includes('mediumatch.com'), 'MediuMatch profile link present in External Profiles');
+        assert(extProfiles.length === 4, `External profiles has 4 links (got ${extProfiles.length})`);
+        assert(extProfiles[1] && extProfiles[1].className.includes('pub-ext-mediumatch'), 'MediuMatch is second in External Profiles');
+        assert(extProfiles[1] && extProfiles[1].href === 'https://mediumatch.com', 'MediuMatch external link points to https://mediumatch.com');
+        assert(extProfiles[1] && extProfiles[1].imgSrc === 'src/branding/stripe-icon.png', 'MediuMatch uses stripe-icon.png branding logo');
+
+        // Test Technical Writing filter chip active color is all blue (matches var(--accent))
+        await client.evaluate('document.querySelector(".filter-chip[data-filter=\\"technical-writing\\"]").click()');
+        await sleep(200);
+        const twChipColor = await client.evaluate(`
+            (() => {
+                const chip = document.querySelector('.filter-chip[data-filter=\\"technical-writing\\"]');
+                const chipCol = window.getComputedStyle(chip).color;
+                const countCol = window.getComputedStyle(chip.querySelector('.filter-count')).color;
+                return { chipCol, countCol, isActive: chip.classList.contains('is-active') };
+            })()
+        `);
+        assert(twChipColor.isActive, 'Technical Writing filter chip is active when clicked');
+        assert(twChipColor.chipCol === twChipColor.countCol, 'Technical Writing active chip text and count share identical blue color');
 
         // Test category filter interactivity
         await client.evaluate('document.querySelector(".filter-chip[data-filter=\\"ai-mcp\\"]").click()');
