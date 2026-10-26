@@ -1505,7 +1505,7 @@
             align-items: center;
             justify-content: center;
             opacity: 0.85;
-            transition: transform 220ms ease, opacity 220ms ease;
+            transition: transform 220ms ease, opacity 220ms ease, color 220ms ease;
             pointer-events: none;
         }
 
@@ -1524,6 +1524,7 @@
 
         .project-card-logo.chat4data-logo {
             color: var(--text);
+            transition: color 220ms ease;
         }
 
         .project-card-logo.mediumatch-logo img {
@@ -1534,6 +1535,7 @@
             display: block;
         }
 
+        /* MediuMatch Project Card Hover */
         .project-card[data-project="mediumatch"]:hover {
             border-color: rgba(139, 92, 246, 0.45);
             box-shadow: 0 14px 34px -4px rgba(139, 92, 246, 0.16), var(--shadow-lg);
@@ -1547,6 +1549,44 @@
         }
         :is(html.light, body.light) .project-card[data-project="mediumatch"]:hover .project-title {
             color: #7c3aed;
+        }
+
+        /* Octoparse Project Card Hover */
+        .project-card[data-project="octoparse"]:hover {
+            border-color: rgba(59, 130, 246, 0.45);
+            box-shadow: 0 14px 34px -4px rgba(59, 130, 246, 0.16), var(--shadow-lg);
+        }
+        .project-card[data-project="octoparse"]:hover .project-title {
+            color: #3b82f6;
+        }
+        :is(html.light, body.light) .project-card[data-project="octoparse"]:hover {
+            border-color: rgba(37, 99, 235, 0.35);
+            box-shadow: 0 14px 34px -4px rgba(37, 99, 235, 0.12), var(--shadow-lg);
+        }
+        :is(html.light, body.light) .project-card[data-project="octoparse"]:hover .project-title {
+            color: #2563eb;
+        }
+
+        /* Chat4Data Project Card Hover */
+        .project-card[data-project="chat4data"]:hover {
+            border-color: rgba(251, 146, 60, 0.45);
+            box-shadow: 0 14px 34px -4px rgba(251, 146, 60, 0.16), var(--shadow-lg);
+        }
+        .project-card[data-project="chat4data"]:hover .project-title {
+            color: #fb923c;
+        }
+        .project-card[data-project="chat4data"]:hover .chat4data-logo {
+            color: #fb923c;
+        }
+        :is(html.light, body.light) .project-card[data-project="chat4data"]:hover {
+            border-color: rgba(234, 88, 12, 0.35);
+            box-shadow: 0 14px 34px -4px rgba(234, 88, 12, 0.12), var(--shadow-lg);
+        }
+        :is(html.light, body.light) .project-card[data-project="chat4data"]:hover .project-title {
+            color: #ea580c;
+        }
+        :is(html.light, body.light) .project-card[data-project="chat4data"]:hover .chat4data-logo {
+            color: #ea580c;
         }
 
         /* CV Object Tracking Card Feature */

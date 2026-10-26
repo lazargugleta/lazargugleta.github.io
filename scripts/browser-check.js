@@ -566,6 +566,49 @@ async function runTests() {
         assert(mmProject && mmProject.repo === 'mediumatch.com', 'MediuMatch project card displays mediumatch.com');
         assert(mmProject && mmProject.imgSrc === 'src/branding/stripe-icon.png', 'MediuMatch project card displays stripe-icon.png');
 
+        // Test brand hover colors on project cards
+        const octoProjPos = await client.evaluate(`(() => {
+            const el = document.querySelector('.project-card[data-project="octoparse"]');
+            el.scrollIntoView({ block: 'center', behavior: 'instant' });
+            const r = el.getBoundingClientRect();
+            return { x: r.left + r.width / 2, y: r.top + r.height / 2 };
+        })()`);
+        await client.send('Input.dispatchMouseEvent', { type: 'mouseMoved', x: octoProjPos.x, y: octoProjPos.y });
+        await sleep(150);
+        const octoProjectColor = await client.evaluate(`(() => {
+            const el = document.querySelector('.project-card[data-project="octoparse"] .project-title');
+            if (!el) return null;
+            const col = window.getComputedStyle(el).color;
+            const m = col.match(/oklab\\(([^\\s]+)\\s+([^\\s]+)\\s+([^\\s]+)\\)/);
+            if (m) {
+                const b = parseFloat(m[3]);
+                return b < -0.08 ? 'blue' : col;
+            }
+            return (col.includes('59, 130, 246') || col.includes('37, 99, 235')) ? 'blue' : col;
+        })()`);
+        assert(octoProjectColor === 'blue', 'Octoparse project card hover title is brand blue');
+
+        const c4dProjPos = await client.evaluate(`(() => {
+            const el = document.querySelector('.project-card[data-project="chat4data"]');
+            el.scrollIntoView({ block: 'center', behavior: 'instant' });
+            const r = el.getBoundingClientRect();
+            return { x: r.left + r.width / 2, y: r.top + r.height / 2 };
+        })()`);
+        await client.send('Input.dispatchMouseEvent', { type: 'mouseMoved', x: c4dProjPos.x, y: c4dProjPos.y });
+        await sleep(150);
+        const c4dProjectColor = await client.evaluate(`(() => {
+            const el = document.querySelector('.project-card[data-project="chat4data"] .project-title');
+            if (!el) return null;
+            const col = window.getComputedStyle(el).color;
+            const m = col.match(/oklab\\(([^\\s]+)\\s+([^\\s]+)\\s+([^\\s]+)\\)/);
+            if (m) {
+                const a = parseFloat(m[2]), b = parseFloat(m[3]);
+                return (a > 0.05 && b > 0.05) ? 'orange' : col;
+            }
+            return (col.includes('251, 146, 60') || col.includes('234, 88, 12')) ? 'orange' : col;
+        })()`);
+        assert(c4dProjectColor === 'orange', 'Chat4Data project card hover title is brand orange');
+
         const initialCarLeft = await client.evaluate('document.querySelector(".cv-car-unit.top-1").getBoundingClientRect().left');
         await sleep(150);
         const movedCarLeft = await client.evaluate('document.querySelector(".cv-car-unit.top-1").getBoundingClientRect().left');
