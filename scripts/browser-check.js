@@ -564,6 +564,7 @@ async function runTests() {
         `);
         assert(mmProject && mmProject.href === 'https://mediumatch.com', 'MediuMatch project card links to https://mediumatch.com');
         assert(mmProject && mmProject.repo === 'mediumatch.com', 'MediuMatch project card displays mediumatch.com');
+        assert(mmProject && mmProject.title === 'MediuMatch', 'MediuMatch project card title is "MediuMatch"');
         assert(mmProject && mmProject.imgSrc === 'src/branding/stripe-icon.png', 'MediuMatch project card displays stripe-icon.png');
 
         // Test brand hover colors on project cards
