@@ -904,6 +904,89 @@ async function runTests() {
         await client.evaluate('document.getElementById("pagination-prev").click()');
         await sleep(200);
 
+        // Test Profile Filtering (Grouped Filters)
+        await client.evaluate(`document.querySelector('.filter-chip-profile[data-profile="mediumatch"]').click()`);
+        await sleep(200);
+        const mmTotalInfo = await client.evaluate('document.getElementById("pagination-info").textContent');
+        assert(mmTotalInfo.includes('of 26 articles'), `MediuMatch profile filter displays 26 articles (got "${mmTotalInfo}")`);
+
+        await client.evaluate(`document.querySelector('.filter-chip-profile[data-profile="octoparse"]').click()`);
+        await sleep(200);
+        const octoTotalInfo = await client.evaluate('document.getElementById("pagination-info").textContent');
+        assert(octoTotalInfo.includes('of 14 articles'), `Octoparse profile filter displays 14 articles (got "${octoTotalInfo}")`);
+
+        await client.evaluate(`document.querySelector('.filter-chip-profile[data-profile="chat4data"]').click()`);
+        await sleep(200);
+        const c4dTotalInfo = await client.evaluate('document.getElementById("pagination-info").textContent');
+        assert(c4dTotalInfo.includes('of 13 articles'), `Chat4Data profile filter displays 13 articles (got "${c4dTotalInfo}")`);
+
+        await client.evaluate(`document.querySelector('.filter-chip-profile[data-profile="all"]').click()`);
+        await sleep(200);
+        const resetProfileInfo = await client.evaluate('document.getElementById("pagination-info").textContent');
+        assert(resetProfileInfo.includes('of 89 articles'), `Resetting profile filter restores 89 articles (got "${resetProfileInfo}")`);
+
+        // Test Smart Sorting Mechanisms
+        await client.evaluate(`(() => {
+            const select = document.getElementById('blog-sort-select');
+            select.value = 'newest';
+            select.dispatchEvent(new Event('change'));
+        })()`);
+        await sleep(200);
+        const newestFirstDate = await client.evaluate(`(() => {
+            const first = document.querySelector('.blog-card:not(.is-hidden)');
+            return first ? first.getAttribute('data-date') : null;
+        })()`);
+        assert(newestFirstDate === '2026-10', `Newest sort places 2026-10 articles first (got "${newestFirstDate}")`);
+
+        await client.evaluate(`(() => {
+            const select = document.getElementById('blog-sort-select');
+            select.value = 'oldest';
+            select.dispatchEvent(new Event('change'));
+        })()`);
+        await sleep(200);
+        const oldestFirstDate = await client.evaluate(`(() => {
+            const first = document.querySelector('.blog-card:not(.is-hidden)');
+            return first ? first.getAttribute('data-date') : null;
+        })()`);
+        assert(oldestFirstDate === '2019-01', `Oldest sort places 2019-01 articles first (got "${oldestFirstDate}")`);
+
+        await client.evaluate(`(() => {
+            const select = document.getElementById('blog-sort-select');
+            select.value = 'title';
+            select.dispatchEvent(new Event('change'));
+        })()`);
+        await sleep(200);
+        const titleSortedAlpha = await client.evaluate(`(() => {
+            const visible = Array.from(document.querySelectorAll('.blog-card:not(.is-hidden)'));
+            const t1 = visible[0].querySelector('.blog-card-title').textContent.trim();
+            const t2 = visible[1].querySelector('.blog-card-title').textContent.trim();
+            return t1.localeCompare(t2) <= 0;
+        })()`);
+        assert(titleSortedAlpha, 'Title sort arranges articles in alphabetical order');
+
+        // Restore sort to featured
+        await client.evaluate(`(() => {
+            const select = document.getElementById('blog-sort-select');
+            select.value = 'featured';
+            select.dispatchEvent(new Event('change'));
+        })()`);
+        await sleep(200);
+
+        // Test Faceted Combination & Empty State with Reset Filters button
+        await client.evaluate(`document.querySelector('.filter-chip-profile[data-profile="mediumatch"]').click()`);
+        await client.evaluate(`document.querySelector('.filter-chip-topic[data-topic="browser-automation"]').click()`);
+        await sleep(200);
+        const emptyStateActive = await client.evaluate(`(() => {
+            const el = document.getElementById('blog-empty-state');
+            return el && !el.hidden && window.getComputedStyle(el).display !== 'none';
+        })()`);
+        assert(emptyStateActive, 'Empty state appears when no articles match profile + topic combination');
+
+        await client.evaluate('document.getElementById("blog-reset-filters").click()');
+        await sleep(200);
+        const postResetInfo = await client.evaluate('document.getElementById("pagination-info").textContent');
+        assert(postResetInfo.includes('of 89 articles'), `Empty state reset button restores all 89 articles (got "${postResetInfo}")`);
+
         const blogActive = await client.evaluate(`
             (() => {
                 const link = document.querySelector('.nav a.active');

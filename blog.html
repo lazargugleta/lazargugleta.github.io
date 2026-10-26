@@ -56,7 +56,7 @@
     }
     </script>
     <link rel="stylesheet" href="css/shared.css?v=14">
-    <link rel="stylesheet" href="css/blog.css?v=18">
+    <link rel="stylesheet" href="css/blog.css?v=19">
 </head>
 <body>
     <header class="topbar">
@@ -130,157 +130,198 @@
 
             <!-- Timeline-Style Filter (Matching Image 1) -->
             <div class="blog-filter-section">
-                <div class="timeline-filter blog-filter" aria-label="Blog category filter">
-                    <span class="timeline-filter-label">Filter</span>
-                    <button class="filter-chip is-active" data-filter="all" type="button">All <span class="filter-count">89</span></button>
-                    <button class="filter-chip" data-filter="ai-mcp" type="button">AI &amp; MCP <span class="filter-count">9</span></button>
-                    <button class="filter-chip" data-filter="data-engineering" type="button">Data Engineering <span class="filter-count">8</span></button>
-                    <button class="filter-chip" data-filter="browser-automation" type="button">Browser Automation <span class="filter-count">9</span></button>
-                    <button class="filter-chip" data-filter="scraping-guides" type="button">Web Scraping <span class="filter-count">18</span></button>
-                    <button class="filter-chip" data-filter="python" type="button">Python <span class="filter-count">13</span></button>
-                    <button class="filter-chip" data-filter="essays" type="button">Essays <span class="filter-count">6</span></button>
-                    <button class="filter-chip" data-filter="technical-writing" type="button">Technical Writing <span class="filter-count">26</span></button>
+                <!-- Profile Filter & Smart Sorting Controls -->
+                <div class="blog-filter-toolbar">
+                    <div class="blog-filter-group blog-filter-profiles" aria-label="Filter by external profile">
+                        <span class="blog-filter-label">Profile</span>
+                        <div class="blog-filter-chips">
+                            <button class="filter-chip filter-chip-profile is-active" data-profile="all" type="button">All <span class="filter-count">89</span></button>
+                            <button class="filter-chip filter-chip-profile" data-profile="medium" type="button">Medium <span class="filter-count">36</span></button>
+                            <button class="filter-chip filter-chip-profile" data-profile="mediumatch" type="button">MediuMatch <span class="filter-count">26</span></button>
+                            <button class="filter-chip filter-chip-profile" data-profile="octoparse" type="button">Octoparse <span class="filter-count">14</span></button>
+                            <button class="filter-chip filter-chip-profile" data-profile="chat4data" type="button">Chat4Data <span class="filter-count">13</span></button>
+                        </div>
+                    </div>
+
+                    <div class="blog-sort-wrap">
+                        <label for="blog-sort-select" class="blog-sort-label">Sort</label>
+                        <div class="blog-sort-select-wrapper">
+                            <select id="blog-sort-select" class="blog-sort-select" aria-label="Sort articles">
+                                <option value="featured">Featured</option>
+                                <option value="newest">Newest First</option>
+                                <option value="oldest">Oldest First</option>
+                                <option value="title">Title (A-Z)</option>
+                            </select>
+                            <svg class="blog-sort-caret" viewBox="0 0 10 6" fill="none" aria-hidden="true">
+                                <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Topic Filter -->
+                <div class="blog-filter-group blog-filter-topics" aria-label="Filter by topic">
+                    <span class="blog-filter-label">Topic</span>
+                    <div class="timeline-filter blog-filter blog-filter-chips">
+                        <button class="filter-chip filter-chip-topic is-active" data-filter="all" data-topic="all" type="button">All <span class="filter-count">89</span></button>
+                        <button class="filter-chip filter-chip-topic" data-filter="ai-mcp" data-topic="ai-mcp" type="button">AI &amp; MCP <span class="filter-count">9</span></button>
+                        <button class="filter-chip filter-chip-topic" data-filter="data-engineering" data-topic="data-engineering" type="button">Data Engineering <span class="filter-count">8</span></button>
+                        <button class="filter-chip filter-chip-topic" data-filter="browser-automation" data-topic="browser-automation" type="button">Browser Automation <span class="filter-count">9</span></button>
+                        <button class="filter-chip filter-chip-topic" data-filter="scraping-guides" data-topic="scraping-guides" type="button">Web Scraping <span class="filter-count">18</span></button>
+                        <button class="filter-chip filter-chip-topic" data-filter="python" data-topic="python" type="button">Python <span class="filter-count">13</span></button>
+                        <button class="filter-chip filter-chip-topic" data-filter="essays" data-topic="essays" type="button">Essays <span class="filter-count">6</span></button>
+                        <button class="filter-chip filter-chip-topic" data-filter="technical-writing" data-topic="technical-writing" type="button">Technical Writing <span class="filter-count">26</span></button>
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- Unified Articles Grid (Writing Section Card Style, Image 3) -->
         <div class="blog-grid" id="articles-grid">
+            <!-- Empty state element for zero search/filter results -->
+            <div class="blog-empty-state" id="blog-empty-state" hidden>
+                <div class="blog-empty-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+                </div>
+                <div class="blog-empty-title">No articles found</div>
+                <p class="blog-empty-desc">No publications match this profile and topic combination.</p>
+                <button type="button" class="blog-empty-reset" id="blog-reset-filters">Reset filters</button>
+            </div>
             <!-- MEDIUMATCH ARTICLES START -->
-            <a class="blog-card" data-publisher="mediumatch" data-category="technical-writing" target="_blank" rel="noopener" href="https://mediumatch.com/blog/technical-content-brief-template">
-                <div class="blog-card-top"><span class="pub-badge pub-mediumatch">MediuMatch</span></div>
+            <a class="blog-card" data-publisher="mediumatch" data-category="technical-writing" data-date="2026-10" data-index="0" target="_blank" rel="noopener" href="https://mediumatch.com/blog/technical-content-brief-template">
+                <div class="blog-card-top"><span class="pub-badge pub-mediumatch">MediuMatch</span><span class="blog-card-date">Oct 2026</span></div>
                 <div class="blog-card-title">Technical Content Brief Template: Write Better Developer Tutorials</div>
                 <div class="blog-card-desc">A copyable brief, a completed tutorial assignment, and a checklist for reviewing working code.</div>
             </a>
-            <a class="blog-card" data-publisher="mediumatch" data-category="technical-writing" target="_blank" rel="noopener" href="https://mediumatch.com/blog/technical-writer-rates-sponsored-articles">
-                <div class="blog-card-top"><span class="pub-badge pub-mediumatch">MediuMatch</span></div>
+            <a class="blog-card" data-publisher="mediumatch" data-category="technical-writing" data-date="2026-10" data-index="1" target="_blank" rel="noopener" href="https://mediumatch.com/blog/technical-writer-rates-sponsored-articles">
+                <div class="blog-card-top"><span class="pub-badge pub-mediumatch">MediuMatch</span><span class="blog-card-date">Oct 2026</span></div>
                 <div class="blog-card-title">Technical Writer Rates: How to Budget for Sponsored Articles</div>
                 <div class="blog-card-desc">Compare writing scopes, plan production costs, and request quotes with a practical budget worksheet.</div>
             </a>
-            <a class="blog-card" data-publisher="mediumatch" data-category="technical-writing" target="_blank" rel="noopener" href="https://mediumatch.com/blog/api-tutorial-template">
-                <div class="blog-card-top"><span class="pub-badge pub-mediumatch">MediuMatch</span></div>
+            <a class="blog-card" data-publisher="mediumatch" data-category="technical-writing" data-date="2026-10" data-index="2" target="_blank" rel="noopener" href="https://mediumatch.com/blog/api-tutorial-template">
+                <div class="blog-card-top"><span class="pub-badge pub-mediumatch">MediuMatch</span><span class="blog-card-date">Oct 2026</span></div>
                 <div class="blog-card-title">API Tutorial Template: From First Request to Verified Result</div>
                 <div class="blog-card-desc">Plan prerequisites, authentication, requests, responses, and recovery in one tested learning path.</div>
             </a>
-            <a class="blog-card" data-publisher="mediumatch" data-category="technical-writing" target="_blank" rel="noopener" href="https://mediumatch.com/blog/subject-matter-expert-interview-questions">
-                <div class="blog-card-top"><span class="pub-badge pub-mediumatch">MediuMatch</span></div>
+            <a class="blog-card" data-publisher="mediumatch" data-category="technical-writing" data-date="2026-10" data-index="3" target="_blank" rel="noopener" href="https://mediumatch.com/blog/subject-matter-expert-interview-questions">
+                <div class="blog-card-top"><span class="pub-badge pub-mediumatch">MediuMatch</span><span class="blog-card-date">Oct 2026</span></div>
                 <div class="blog-card-title">Subject Matter Expert Interview Questions for Technical Content</div>
                 <div class="blog-card-desc">Ask better follow-ups, capture usable evidence, and turn expert knowledge into a clear article.</div>
             </a>
-            <a class="blog-card" data-publisher="mediumatch" data-category="technical-writing" target="_blank" rel="noopener" href="https://mediumatch.com/blog/technical-content-editorial-calendar">
-                <div class="blog-card-top"><span class="pub-badge pub-mediumatch">MediuMatch</span></div>
+            <a class="blog-card" data-publisher="mediumatch" data-category="technical-writing" data-date="2026-10" data-index="4" target="_blank" rel="noopener" href="https://mediumatch.com/blog/technical-content-editorial-calendar">
+                <div class="blog-card-top"><span class="pub-badge pub-mediumatch">MediuMatch</span><span class="blog-card-date">Oct 2026</span></div>
                 <div class="blog-card-title">Technical Content Editorial Calendar: Plan Writing, Review, and Releases</div>
                 <div class="blog-card-desc">Build a realistic publishing schedule around reader needs, review capacity, and clear ownership.</div>
             </a>
-            <a class="blog-card" data-publisher="mediumatch" data-category="technical-writing" target="_blank" rel="noopener" href="https://mediumatch.com/blog/freelance-technical-writer-onboarding">
-                <div class="blog-card-top"><span class="pub-badge pub-mediumatch">MediuMatch</span></div>
+            <a class="blog-card" data-publisher="mediumatch" data-category="technical-writing" data-date="2026-10" data-index="5" target="_blank" rel="noopener" href="https://mediumatch.com/blog/freelance-technical-writer-onboarding">
+                <div class="blog-card-top"><span class="pub-badge pub-mediumatch">MediuMatch</span><span class="blog-card-date">Oct 2026</span></div>
                 <div class="blog-card-title">How to Onboard a Freelance Technical Writer: A Practical Checklist</div>
                 <div class="blog-card-desc">Give writers the context, access, and feedback process they need for a successful first assignment.</div>
             </a>
-            <a class="blog-card" data-publisher="mediumatch" data-category="technical-writing" target="_blank" rel="noopener" href="https://mediumatch.com/blog/technical-troubleshooting-guide-template">
-                <div class="blog-card-top"><span class="pub-badge pub-mediumatch">MediuMatch</span></div>
+            <a class="blog-card" data-publisher="mediumatch" data-category="technical-writing" data-date="2026-10" data-index="6" target="_blank" rel="noopener" href="https://mediumatch.com/blog/technical-troubleshooting-guide-template">
+                <div class="blog-card-top"><span class="pub-badge pub-mediumatch">MediuMatch</span><span class="blog-card-date">Oct 2026</span></div>
                 <div class="blog-card-title">Technical Troubleshooting Guide Template: From Symptom to Recovery</div>
                 <div class="blog-card-desc">Create diagnostic steps that help readers identify causes and verify a fix without guessing.</div>
             </a>
-            <a class="blog-card" data-publisher="mediumatch" data-category="technical-writing" target="_blank" rel="noopener" href="https://mediumatch.com/blog/technical-blog-vs-documentation">
-                <div class="blog-card-top"><span class="pub-badge pub-mediumatch">MediuMatch</span></div>
+            <a class="blog-card" data-publisher="mediumatch" data-category="technical-writing" data-date="2026-10" data-index="7" target="_blank" rel="noopener" href="https://mediumatch.com/blog/technical-blog-vs-documentation">
+                <div class="blog-card-top"><span class="pub-badge pub-mediumatch">MediuMatch</span><span class="blog-card-date">Oct 2026</span></div>
                 <div class="blog-card-title">Technical Blog vs. Documentation: Where Should Your Content Live?</div>
                 <div class="blog-card-desc">Choose the right format by reader intent, maintenance responsibility, and the task the page promises to support.</div>
             </a>
-            <a class="blog-card" data-publisher="mediumatch" data-category="technical-writing" target="_blank" rel="noopener" href="https://mediumatch.com/blog/developer-marketing-roi-sponsored-content">
-                <div class="blog-card-top"><span class="pub-badge pub-mediumatch">MediuMatch</span></div>
+            <a class="blog-card" data-publisher="mediumatch" data-category="technical-writing" data-date="2026-10" data-index="8" target="_blank" rel="noopener" href="https://mediumatch.com/blog/developer-marketing-roi-sponsored-content">
+                <div class="blog-card-top"><span class="pub-badge pub-mediumatch">MediuMatch</span><span class="blog-card-date">Oct 2026</span></div>
                 <div class="blog-card-title">How to Measure Developer Marketing ROI from Sponsored Content</div>
                 <div class="blog-card-desc">Connect article visits to product activation and attributed revenue with a worked example and reporting template.</div>
             </a>
-            <a class="blog-card" data-publisher="mediumatch" data-category="technical-writing" target="_blank" rel="noopener" href="https://mediumatch.com/blog/technical-writer-portfolio-review">
-                <div class="blog-card-top"><span class="pub-badge pub-mediumatch">MediuMatch</span></div>
+            <a class="blog-card" data-publisher="mediumatch" data-category="technical-writing" data-date="2026-10" data-index="9" target="_blank" rel="noopener" href="https://mediumatch.com/blog/technical-writer-portfolio-review">
+                <div class="blog-card-top"><span class="pub-badge pub-mediumatch">MediuMatch</span><span class="blog-card-date">Oct 2026</span></div>
                 <div class="blog-card-title">How to Evaluate a Technical Writer: Portfolio Review Scorecard</div>
                 <div class="blog-card-desc">Review technical samples, verify the evidence, and run a small paid pilot before commissioning a full article.</div>
             </a>
-            <a class="blog-card" data-publisher="mediumatch" data-category="technical-writing" target="_blank" rel="noopener" href="https://mediumatch.com/blog/developer-content-strategy-topic-clusters">
-                <div class="blog-card-top"><span class="pub-badge pub-mediumatch">MediuMatch</span></div>
+            <a class="blog-card" data-publisher="mediumatch" data-category="technical-writing" data-date="2026-10" data-index="10" target="_blank" rel="noopener" href="https://mediumatch.com/blog/developer-content-strategy-topic-clusters">
+                <div class="blog-card-top"><span class="pub-badge pub-mediumatch">MediuMatch</span><span class="blog-card-date">Oct 2026</span></div>
                 <div class="blog-card-title">Developer Content Strategy: Build a Topic Cluster Around One Use Case</div>
                 <div class="blog-card-desc">Turn one developer problem into a useful sequence of explanations, tutorials, and decision guides.</div>
             </a>
-            <a class="blog-card" data-publisher="mediumatch" data-category="technical-writing" target="_blank" rel="noopener" href="https://mediumatch.com/blog/technical-case-study-template">
-                <div class="blog-card-top"><span class="pub-badge pub-mediumatch">MediuMatch</span></div>
+            <a class="blog-card" data-publisher="mediumatch" data-category="technical-writing" data-date="2026-10" data-index="11" target="_blank" rel="noopener" href="https://mediumatch.com/blog/technical-case-study-template">
+                <div class="blog-card-top"><span class="pub-badge pub-mediumatch">MediuMatch</span><span class="blog-card-date">Oct 2026</span></div>
                 <div class="blog-card-title">Technical Case Study Template: Turn Customer Work into Credible Evidence</div>
                 <div class="blog-card-desc">Capture the problem, implementation, and results with an interview guide and an evidence review worksheet.</div>
             </a>
-            <a class="blog-card" data-publisher="mediumatch" data-category="technical-writing" target="_blank" rel="noopener" href="https://mediumatch.com/blog/technical-content-review-checklist">
-                <div class="blog-card-top"><span class="pub-badge pub-mediumatch">MediuMatch</span></div>
+            <a class="blog-card" data-publisher="mediumatch" data-category="technical-writing" data-date="2026-10" data-index="12" target="_blank" rel="noopener" href="https://mediumatch.com/blog/technical-content-review-checklist">
+                <div class="blog-card-top"><span class="pub-badge pub-mediumatch">MediuMatch</span><span class="blog-card-date">Oct 2026</span></div>
                 <div class="blog-card-title">Technical Content Review Checklist: Verify Code, Claims, and Clarity</div>
                 <div class="blog-card-desc">A practical review process for testing examples, checking evidence, and resolving feedback before publication.</div>
             </a>
-            <a class="blog-card" data-publisher="mediumatch" data-category="technical-writing" target="_blank" rel="noopener" href="https://mediumatch.com/blog/developer-tool-comparison-guide">
-                <div class="blog-card-top"><span class="pub-badge pub-mediumatch">MediuMatch</span></div>
+            <a class="blog-card" data-publisher="mediumatch" data-category="technical-writing" data-date="2026-10" data-index="13" target="_blank" rel="noopener" href="https://mediumatch.com/blog/developer-tool-comparison-guide">
+                <div class="blog-card-top"><span class="pub-badge pub-mediumatch">MediuMatch</span><span class="blog-card-date">Oct 2026</span></div>
                 <div class="blog-card-title">How to Write a Developer Tool Comparison Readers Can Trust</div>
                 <div class="blog-card-desc">Build a fair comparison with reproducible examples, explicit limitations, and recommendations tied to reader needs.</div>
             </a>
-            <a class="blog-card" data-publisher="mediumatch" data-category="technical-writing" target="_blank" rel="noopener" href="https://mediumatch.com/blog/refresh-outdated-technical-content">
-                <div class="blog-card-top"><span class="pub-badge pub-mediumatch">MediuMatch</span></div>
+            <a class="blog-card" data-publisher="mediumatch" data-category="technical-writing" data-date="2026-10" data-index="14" target="_blank" rel="noopener" href="https://mediumatch.com/blog/refresh-outdated-technical-content">
+                <div class="blog-card-top"><span class="pub-badge pub-mediumatch">MediuMatch</span><span class="blog-card-date">Oct 2026</span></div>
                 <div class="blog-card-title">How to Refresh Outdated Technical Content: A Practical Workflow</div>
                 <div class="blog-card-desc">Find broken instructions, prioritize useful updates, and verify the revised article with a repeatable refresh brief.</div>
             </a>
-            <a class="blog-card" data-publisher="mediumatch" data-category="technical-writing" target="_blank" rel="noopener" href="https://mediumatch.com/blog/technical-writer-outreach-email-templates">
-                <div class="blog-card-top"><span class="pub-badge pub-mediumatch">MediuMatch</span></div>
+            <a class="blog-card" data-publisher="mediumatch" data-category="technical-writing" data-date="2026-10" data-index="15" target="_blank" rel="noopener" href="https://mediumatch.com/blog/technical-writer-outreach-email-templates">
+                <div class="blog-card-top"><span class="pub-badge pub-mediumatch">MediuMatch</span><span class="blog-card-date">Oct 2026</span></div>
                 <div class="blog-card-title">Technical Writer Outreach: Email Templates for Better Assignments</div>
                 <div class="blog-card-desc">Start a relevant conversation with clear scope, budget, timing, and publication expectations.</div>
             </a>
-            <a class="blog-card" data-publisher="mediumatch" data-category="technical-writing" target="_blank" rel="noopener" href="https://mediumatch.com/blog/republish-blog-posts-on-medium">
-                <div class="blog-card-top"><span class="pub-badge pub-mediumatch">MediuMatch</span></div>
+            <a class="blog-card" data-publisher="mediumatch" data-category="technical-writing" data-date="2026-10" data-index="16" target="_blank" rel="noopener" href="https://mediumatch.com/blog/republish-blog-posts-on-medium">
+                <div class="blog-card-top"><span class="pub-badge pub-mediumatch">MediuMatch</span><span class="blog-card-date">Oct 2026</span></div>
                 <div class="blog-card-title">How to Republish Blog Posts on Medium with a Canonical Link</div>
                 <div class="blog-card-desc">Import your own articles, verify the original source, and keep both versions useful and accurate.</div>
             </a>
-            <a class="blog-card" data-publisher="mediumatch" data-category="technical-writing" target="_blank" rel="noopener" href="https://mediumatch.com/blog/technical-content-distribution-plan">
-                <div class="blog-card-top"><span class="pub-badge pub-mediumatch">MediuMatch</span></div>
+            <a class="blog-card" data-publisher="mediumatch" data-category="technical-writing" data-date="2026-10" data-index="17" target="_blank" rel="noopener" href="https://mediumatch.com/blog/technical-content-distribution-plan">
+                <div class="blog-card-top"><span class="pub-badge pub-mediumatch">MediuMatch</span><span class="blog-card-date">Oct 2026</span></div>
                 <div class="blog-card-title">Technical Content Distribution Plan: Reach the Right Readers</div>
                 <div class="blog-card-desc">Turn one useful article into relevant channel-specific material with a clear next action and measurable outcomes.</div>
             </a>
-            <a class="blog-card" data-publisher="mediumatch" data-category="technical-writing" target="_blank" rel="noopener" href="https://mediumatch.com/blog/finding-right-medium-writers">
-                <div class="blog-card-top"><span class="pub-badge pub-mediumatch">MediuMatch</span></div>
+            <a class="blog-card" data-publisher="mediumatch" data-category="technical-writing" data-date="2026-10" data-index="18" target="_blank" rel="noopener" href="https://mediumatch.com/blog/finding-right-medium-writers">
+                <div class="blog-card-top"><span class="pub-badge pub-mediumatch">MediuMatch</span><span class="blog-card-date">Oct 2026</span></div>
                 <div class="blog-card-title">How to Find the Right Medium Writers for Your Brand Campaign</div>
                 <div class="blog-card-desc">A practical playbook for matching writers to your brand&#39;s voice, audience, and goals</div>
             </a>
-            <a class="blog-card" data-publisher="mediumatch" data-category="technical-writing" target="_blank" rel="noopener" href="https://mediumatch.com/blog/medium-writers-underrated-content-partners">
-                <div class="blog-card-top"><span class="pub-badge pub-mediumatch">MediuMatch</span></div>
+            <a class="blog-card" data-publisher="mediumatch" data-category="technical-writing" data-date="2026-10" data-index="19" target="_blank" rel="noopener" href="https://mediumatch.com/blog/medium-writers-underrated-content-partners">
+                <div class="blog-card-top"><span class="pub-badge pub-mediumatch">MediuMatch</span><span class="blog-card-date">Oct 2026</span></div>
                 <div class="blog-card-title">Why Medium Writers Are the Most Underrated Content Partners for Brands</div>
                 <div class="blog-card-desc">Long-form readers, built-in authority, and engagement that typical influencer marketing can&#39;t match</div>
             </a>
-            <a class="blog-card" data-publisher="mediumatch" data-category="technical-writing" target="_blank" rel="noopener" href="https://mediumatch.com/blog/mediuMatch-campaign-workflow">
-                <div class="blog-card-top"><span class="pub-badge pub-mediumatch">MediuMatch</span></div>
+            <a class="blog-card" data-publisher="mediumatch" data-category="technical-writing" data-date="2026-10" data-index="20" target="_blank" rel="noopener" href="https://mediumatch.com/blog/mediuMatch-campaign-workflow">
+                <div class="blog-card-top"><span class="pub-badge pub-mediumatch">MediuMatch</span><span class="blog-card-date">Oct 2026</span></div>
                 <div class="blog-card-title">From Application to Article: How the MediuMatch Campaign Workflow Actually Works</div>
                 <div class="blog-card-desc">A step-by-step walkthrough of the platform that connects brands with the right Medium writers</div>
             </a>
-            <a class="blog-card" data-publisher="mediumatch" data-category="technical-writing" target="_blank" rel="noopener" href="https://mediumatch.com/blog/hidden-cost-bad-writer-matching">
-                <div class="blog-card-top"><span class="pub-badge pub-mediumatch">MediuMatch</span></div>
+            <a class="blog-card" data-publisher="mediumatch" data-category="technical-writing" data-date="2026-10" data-index="21" target="_blank" rel="noopener" href="https://mediumatch.com/blog/hidden-cost-bad-writer-matching">
+                <div class="blog-card-top"><span class="pub-badge pub-mediumatch">MediuMatch</span><span class="blog-card-date">Oct 2026</span></div>
                 <div class="blog-card-title">The Hidden Cost of Bad Writer-Brand Matching (And How to Fix It)</div>
                 <div class="blog-card-desc">Why most Medium campaigns waste budget, and the matching framework that fixes it</div>
             </a>
-            <a class="blog-card" data-publisher="mediumatch" data-category="technical-writing" target="_blank" rel="noopener" href="https://mediumatch.com/blog/medium-seo-long-term-strategy">
-                <div class="blog-card-top"><span class="pub-badge pub-mediumatch">MediuMatch</span></div>
+            <a class="blog-card" data-publisher="mediumatch" data-category="technical-writing" data-date="2026-10" data-index="22" target="_blank" rel="noopener" href="https://mediumatch.com/blog/medium-seo-long-term-strategy">
+                <div class="blog-card-top"><span class="pub-badge pub-mediumatch">MediuMatch</span><span class="blog-card-date">Oct 2026</span></div>
                 <div class="blog-card-title">Why Your Medium Articles Should Be Part of Your Long-Term SEO Strategy</div>
                 <div class="blog-card-desc">Most brands treat Medium as a one-week campaign. The smartest ones treat it as a three-year asset.</div>
             </a>
-            <a class="blog-card" data-publisher="mediumatch" data-category="technical-writing" target="_blank" rel="noopener" href="https://mediumatch.com/blog/five-campaign-mistakes-writers-say-no">
-                <div class="blog-card-top"><span class="pub-badge pub-mediumatch">MediuMatch</span></div>
+            <a class="blog-card" data-publisher="mediumatch" data-category="technical-writing" data-date="2026-10" data-index="23" target="_blank" rel="noopener" href="https://mediumatch.com/blog/five-campaign-mistakes-writers-say-no">
+                <div class="blog-card-top"><span class="pub-badge pub-mediumatch">MediuMatch</span><span class="blog-card-date">Oct 2026</span></div>
                 <div class="blog-card-title">5 Campaign Mistakes That Make Good Writers Say No</div>
                 <div class="blog-card-desc">Inside the writer&#39;s perspective: what turns them away and what makes them excited to apply</div>
             </a>
-            <a class="blog-card" data-publisher="mediumatch" data-category="technical-writing" target="_blank" rel="noopener" href="https://mediumatch.com/blog/generative-engine-optimization-why-ai-search-cites-medium">
-                <div class="blog-card-top"><span class="pub-badge pub-mediumatch">MediuMatch</span></div>
+            <a class="blog-card" data-publisher="mediumatch" data-category="technical-writing" data-date="2026-10" data-index="24" target="_blank" rel="noopener" href="https://mediumatch.com/blog/generative-engine-optimization-why-ai-search-cites-medium">
+                <div class="blog-card-top"><span class="pub-badge pub-mediumatch">MediuMatch</span><span class="blog-card-date">Oct 2026</span></div>
                 <div class="blog-card-title">Generative Engine Optimization (GEO): Why AI Search Engines Cite Medium Articles First</div>
                 <div class="blog-card-desc">How Perplexity, ChatGPT Search, and Gemini prioritize Medium&#39;s authoritative technical prose over corporate marketing copy</div>
             </a>
-            <a class="blog-card" data-publisher="mediumatch" data-category="technical-writing" target="_blank" rel="noopener" href="https://mediumatch.com/blog/b2b-developer-marketing-medium-sponsoring-technical-writers-vs-ads">
-                <div class="blog-card-top"><span class="pub-badge pub-mediumatch">MediuMatch</span></div>
+            <a class="blog-card" data-publisher="mediumatch" data-category="technical-writing" data-date="2026-10" data-index="25" target="_blank" rel="noopener" href="https://mediumatch.com/blog/b2b-developer-marketing-medium-sponsoring-technical-writers-vs-ads">
+                <div class="blog-card-top"><span class="pub-badge pub-mediumatch">MediuMatch</span><span class="blog-card-date">Oct 2026</span></div>
                 <div class="blog-card-title">B2B Developer Marketing on Medium: Sponsoring Technical Writers vs LinkedIn Ads</div>
                 <div class="blog-card-desc">A quantitative comparison of developer trust, cost-per-read, and conversion rates across paid channels</div>
             </a>
             <!-- MEDIUMATCH ARTICLES END -->
 
             <!-- AI & MCP -->
-            <a class="blog-card" data-publisher="chat4data" data-category="ai-mcp" target="_blank" rel="noopener" href="https://chat4data.ai/blog/use-claude-mcp-for-web-scraping">
+            <a class="blog-card" data-publisher="chat4data" data-category="ai-mcp" data-date="2026-02" data-index="26" target="_blank" rel="noopener" href="https://chat4data.ai/blog/use-claude-mcp-for-web-scraping">
                 <div class="blog-card-top">
                     <span class="pub-badge pub-chat4data">Chat<span class="pub-accent">4Data</span></span>
                     <span class="blog-card-date">Feb 2026</span>
@@ -289,7 +330,7 @@
                 <div class="blog-card-desc">How to set up Claude Desktop with MCP to scrape and query live web data conversationally.</div>
             </a>
 
-            <a class="blog-card" data-publisher="octoparse" data-category="ai-mcp" target="_blank" rel="noopener" href="https://www.octoparse.com/blog/best-mcp-servers">
+            <a class="blog-card" data-publisher="octoparse" data-category="ai-mcp" data-date="2026-01" data-index="27" target="_blank" rel="noopener" href="https://www.octoparse.com/blog/best-mcp-servers">
                 <div class="blog-card-top">
                     <span class="pub-badge pub-octoparse">Octoparse</span>
                     <span class="blog-card-date">2026</span>
@@ -298,7 +339,7 @@
                 <div class="blog-card-desc">A practical walkthrough of useful Model Context Protocol servers for Claude, Cursor, and custom agents.</div>
             </a>
 
-            <a class="blog-card" data-publisher="octoparse" data-category="ai-mcp" target="_blank" rel="noopener" href="https://www.octoparse.com/blog/ai-scraping-use-cases-with-mcp">
+            <a class="blog-card" data-publisher="octoparse" data-category="ai-mcp" data-date="2026-01" data-index="28" target="_blank" rel="noopener" href="https://www.octoparse.com/blog/ai-scraping-use-cases-with-mcp">
                 <div class="blog-card-top">
                     <span class="pub-badge pub-octoparse">Octoparse</span>
                     <span class="blog-card-date">2026</span>
@@ -307,7 +348,7 @@
                 <div class="blog-card-desc">Hands-on patterns for feeding live scraped web data straight into LLM prompts for automated synthesis.</div>
             </a>
 
-            <a class="blog-card" data-publisher="octoparse" data-category="ai-mcp" target="_blank" rel="noopener" href="https://www.octoparse.com/blog/mcp-web-scraping">
+            <a class="blog-card" data-publisher="octoparse" data-category="ai-mcp" data-date="2026-01" data-index="29" target="_blank" rel="noopener" href="https://www.octoparse.com/blog/mcp-web-scraping">
                 <div class="blog-card-top">
                     <span class="pub-badge pub-octoparse">Octoparse</span>
                     <span class="blog-card-date">2026</span>
@@ -316,7 +357,7 @@
                 <div class="blog-card-desc">A step-by-step guide to pulling web data directly into AI assistants without writing glue code.</div>
             </a>
 
-            <a class="blog-card" data-publisher="octoparse" data-category="ai-mcp" target="_blank" rel="noopener" href="https://www.octoparse.com/blog/cursor-octoparse-mcp">
+            <a class="blog-card" data-publisher="octoparse" data-category="ai-mcp" data-date="2026-01" data-index="30" target="_blank" rel="noopener" href="https://www.octoparse.com/blog/cursor-octoparse-mcp">
                 <div class="blog-card-top">
                     <span class="pub-badge pub-octoparse">Octoparse</span>
                     <span class="blog-card-date">2026</span>
@@ -325,7 +366,7 @@
                 <div class="blog-card-desc">Connecting Cursor to Octoparse MCP so your editor can look up live documentation and web data.</div>
             </a>
 
-            <a class="blog-card" data-publisher="octoparse" data-category="ai-mcp" target="_blank" rel="noopener" href="https://www.octoparse.com/blog/connecting-octoparse-mcp-to-chatgpt-for-web-scraping">
+            <a class="blog-card" data-publisher="octoparse" data-category="ai-mcp" data-date="2026-01" data-index="31" target="_blank" rel="noopener" href="https://www.octoparse.com/blog/connecting-octoparse-mcp-to-chatgpt-for-web-scraping">
                 <div class="blog-card-top">
                     <span class="pub-badge pub-octoparse">Octoparse</span>
                     <span class="blog-card-date">2026</span>
@@ -334,7 +375,7 @@
                 <div class="blog-card-desc">Hooking up ChatGPT custom actions to an MCP server for web scraping in a few steps.</div>
             </a>
 
-            <a class="blog-card" data-publisher="medium" data-category="ai-mcp" target="_blank" rel="noopener" href="https://medium.com/@lazar.gugleta/how-can-powerful-ai-run-even-faster-locally-for-free-for-chart-generation-642f444b9489">
+            <a class="blog-card" data-publisher="medium" data-category="ai-mcp" data-date="2024-11" data-index="32" target="_blank" rel="noopener" href="https://medium.com/@lazar.gugleta/how-can-powerful-ai-run-even-faster-locally-for-free-for-chart-generation-642f444b9489">
                 <div class="blog-card-top">
                     <span class="pub-badge pub-medium">Medium</span>
                     <span class="blog-card-date">Nov 2024</span>
@@ -343,7 +384,7 @@
                 <div class="blog-card-desc">Running local models with AnythingLLM to generate charts and visuals without cloud API costs.</div>
             </a>
 
-            <a class="blog-card" data-publisher="medium" data-category="ai-mcp" target="_blank" rel="noopener" href="https://medium.com/@lazar.gugleta/agentic-ai-is-taking-over-e003d40ed2e8">
+            <a class="blog-card" data-publisher="medium" data-category="ai-mcp" data-date="2024-12" data-index="33" target="_blank" rel="noopener" href="https://medium.com/@lazar.gugleta/agentic-ai-is-taking-over-e003d40ed2e8">
                 <div class="blog-card-top">
                     <span class="pub-badge pub-medium">Medium</span>
                     <span class="blog-card-date">Dec 2024</span>
@@ -352,7 +393,7 @@
                 <div class="blog-card-desc">How to build autonomous agentic workflows and AI applications quickly from scratch.</div>
             </a>
 
-            <a class="blog-card" data-publisher="medium" data-category="ai-mcp" target="_blank" rel="noopener" href="https://medium.com/data-science/are-ai-machines-to-trust-more-than-people-d057292d7d02">
+            <a class="blog-card" data-publisher="medium" data-category="ai-mcp" data-date="2019-07" data-index="34" target="_blank" rel="noopener" href="https://medium.com/data-science/are-ai-machines-to-trust-more-than-people-d057292d7d02">
                 <div class="blog-card-top">
                     <span class="pub-badge pub-medium">Medium</span>
                     <span class="blog-card-date">Jul 2019</span>
@@ -362,7 +403,7 @@
             </a>
 
             <!-- Data Engineering -->
-            <a class="blog-card" data-publisher="medium" data-category="data-engineering" target="_blank" rel="noopener" href="https://medium.com/towards-artificial-intelligence/why-polars-destroys-pandas-in-all-possible-ways-for-data-scientists-cea244fedd53?sk=40a845fb81afbd5cb9e562cb15994635">
+            <a class="blog-card" data-publisher="medium" data-category="data-engineering" data-date="2024-08" data-index="35" target="_blank" rel="noopener" href="https://medium.com/towards-artificial-intelligence/why-polars-destroys-pandas-in-all-possible-ways-for-data-scientists-cea244fedd53?sk=40a845fb81afbd5cb9e562cb15994635">
                 <div class="blog-card-top">
                     <span class="pub-badge pub-medium">Medium</span>
                     <span class="blog-card-date">Aug 2024 &bull; 41k reads</span>
@@ -371,7 +412,7 @@
                 <div class="blog-card-desc">Performance benchmarks and memory usage comparing Polars with Pandas on real data.</div>
             </a>
 
-            <a class="blog-card" data-publisher="medium" data-category="data-engineering" target="_blank" rel="noopener" href="https://medium.com/towards-artificial-intelligence/polars-just-got-even-faster-4b684f67645b">
+            <a class="blog-card" data-publisher="medium" data-category="data-engineering" data-date="2024-10" data-index="36" target="_blank" rel="noopener" href="https://medium.com/towards-artificial-intelligence/polars-just-got-even-faster-4b684f67645b">
                 <div class="blog-card-top">
                     <span class="pub-badge pub-medium">Medium</span>
                     <span class="blog-card-date">Oct 2024</span>
@@ -380,7 +421,7 @@
                 <div class="blog-card-desc">Testing Polars lazy queries with NVIDIA cuDF GPU acceleration for high-speed pipelines.</div>
             </a>
 
-            <a class="blog-card" data-publisher="medium" data-category="data-engineering" target="_blank" rel="noopener" href="https://medium.com/towards-artificial-intelligence/data-scientists-use-test-driven-development-15b3b9d82f7f?sk=9379bfff498646aa57b52a5fb0edd45e">
+            <a class="blog-card" data-publisher="medium" data-category="data-engineering" data-date="2025-11" data-index="37" target="_blank" rel="noopener" href="https://medium.com/towards-artificial-intelligence/data-scientists-use-test-driven-development-15b3b9d82f7f?sk=9379bfff498646aa57b52a5fb0edd45e">
                 <div class="blog-card-top">
                     <span class="pub-badge pub-medium">Medium</span>
                     <span class="blog-card-date">Nov 2025</span>
@@ -389,7 +430,7 @@
                 <div class="blog-card-desc">Why unit testing matters for data pipelines and how to start using it without overhead.</div>
             </a>
 
-            <a class="blog-card" data-publisher="medium" data-category="data-engineering" target="_blank" rel="noopener" href="https://medium.com/@lazargugleta/advanced-topic-modeling-using-listly-80df2208d51a">
+            <a class="blog-card" data-publisher="medium" data-category="data-engineering" data-date="2023-01" data-index="38" target="_blank" rel="noopener" href="https://medium.com/@lazargugleta/advanced-topic-modeling-using-listly-80df2208d51a">
                 <div class="blog-card-top">
                     <span class="pub-badge pub-medium">Medium</span>
                     <span class="blog-card-date">Jan 2023</span>
@@ -398,7 +439,7 @@
                 <div class="blog-card-desc">Scraping online discussions and clustering topics using NLP.</div>
             </a>
 
-            <a class="blog-card" data-publisher="medium" data-category="data-engineering" target="_blank" rel="noopener" href="https://medium.com/data-science/how-to-use-different-data-models-and-visual-representation-of-databases-e2d41c940532">
+            <a class="blog-card" data-publisher="medium" data-category="data-engineering" data-date="2019-09" data-index="39" target="_blank" rel="noopener" href="https://medium.com/data-science/how-to-use-different-data-models-and-visual-representation-of-databases-e2d41c940532">
                 <div class="blog-card-top">
                     <span class="pub-badge pub-medium">Medium</span>
                     <span class="blog-card-date">Sep 2019</span>
@@ -407,7 +448,7 @@
                 <div class="blog-card-desc">A beginner guide to relational modeling, SQL architectures, and visual schema design.</div>
             </a>
 
-            <a class="blog-card" data-publisher="medium" data-category="data-engineering" target="_blank" rel="noopener" href="https://medium.com/data-science/proper-multithreading-have-perfect-multithreading-in-your-program-4cbbf8270af3">
+            <a class="blog-card" data-publisher="medium" data-category="data-engineering" data-date="2020-01" data-index="40" target="_blank" rel="noopener" href="https://medium.com/data-science/proper-multithreading-have-perfect-multithreading-in-your-program-4cbbf8270af3">
                 <div class="blog-card-top">
                     <span class="pub-badge pub-medium">Medium</span>
                     <span class="blog-card-date">Jan 2020</span>
@@ -416,7 +457,7 @@
                 <div class="blog-card-desc">Core concepts and best practices for writing thread-safe concurrent code without race conditions.</div>
             </a>
 
-            <a class="blog-card" data-publisher="medium" data-category="data-engineering" target="_blank" rel="noopener" href="https://medium.com/@lazar.gugleta/bigo-n-otation-e975c5923eca">
+            <a class="blog-card" data-publisher="medium" data-category="data-engineering" data-date="2019-01" data-index="41" target="_blank" rel="noopener" href="https://medium.com/@lazar.gugleta/bigo-n-otation-e975c5923eca">
                 <div class="blog-card-top">
                     <span class="pub-badge pub-medium">Medium</span>
                     <span class="blog-card-date">Jan 2019</span>
@@ -425,7 +466,7 @@
                 <div class="blog-card-desc">Step-by-step walkthrough for calculating time and space complexity in algorithmic problems.</div>
             </a>
 
-            <a class="blog-card" data-publisher="medium" data-category="data-engineering" target="_blank" rel="noopener" href="https://medium.com/data-science/top-5-free-tools-to-contribute-to-e9c2cd9ac8ee">
+            <a class="blog-card" data-publisher="medium" data-category="data-engineering" data-date="2020-10" data-index="42" target="_blank" rel="noopener" href="https://medium.com/data-science/top-5-free-tools-to-contribute-to-e9c2cd9ac8ee">
                 <div class="blog-card-top">
                     <span class="pub-badge pub-medium">Medium</span>
                     <span class="blog-card-date">Oct 2020</span>
@@ -435,7 +476,7 @@
             </a>
 
             <!-- Browser Automation -->
-            <a class="blog-card" data-publisher="octoparse" data-category="browser-automation" target="_blank" rel="noopener" href="https://www.octoparse.com/blog/guide-to-browser-automation">
+            <a class="blog-card" data-publisher="octoparse" data-category="browser-automation" data-date="2026-03" data-index="43" target="_blank" rel="noopener" href="https://www.octoparse.com/blog/guide-to-browser-automation">
                 <div class="blog-card-top">
                     <span class="pub-badge pub-octoparse">Octoparse</span>
                     <span class="blog-card-date">Mar 2026</span>
@@ -444,7 +485,7 @@
                 <div class="blog-card-desc">A breakdown of modern headless browsers, anti-bot systems, and practical automation options.</div>
             </a>
 
-            <a class="blog-card" data-publisher="octoparse" data-category="browser-automation" target="_blank" rel="noopener" href="https://www.octoparse.com/blog/xpath-cheatsheet">
+            <a class="blog-card" data-publisher="octoparse" data-category="browser-automation" data-date="2026-01" data-index="44" target="_blank" rel="noopener" href="https://www.octoparse.com/blog/xpath-cheatsheet">
                 <div class="blog-card-top">
                     <span class="pub-badge pub-octoparse">Octoparse</span>
                     <span class="blog-card-date">2026</span>
@@ -453,7 +494,7 @@
                 <div class="blog-card-desc">A quick reference guide for writing reliable, flexible XPath selectors.</div>
             </a>
 
-            <a class="blog-card" data-publisher="octoparse" data-category="browser-automation" target="_blank" rel="noopener" href="https://www.octoparse.com/blog/anonymous-proxies">
+            <a class="blog-card" data-publisher="octoparse" data-category="browser-automation" data-date="2026-01" data-index="45" target="_blank" rel="noopener" href="https://www.octoparse.com/blog/anonymous-proxies">
                 <div class="blog-card-top">
                     <span class="pub-badge pub-octoparse">Octoparse</span>
                     <span class="blog-card-date">2026</span>
@@ -462,7 +503,7 @@
                 <div class="blog-card-desc">When and why to use datacenter versus residential proxies for automated scraping.</div>
             </a>
 
-            <a class="blog-card" data-publisher="octoparse" data-category="browser-automation" target="_blank" rel="noopener" href="https://www.octoparse.com/blog/browse-ai-alternatives">
+            <a class="blog-card" data-publisher="octoparse" data-category="browser-automation" data-date="2026-01" data-index="46" target="_blank" rel="noopener" href="https://www.octoparse.com/blog/browse-ai-alternatives">
                 <div class="blog-card-top">
                     <span class="pub-badge pub-octoparse">Octoparse</span>
                     <span class="blog-card-date">2026</span>
@@ -471,7 +512,7 @@
                 <div class="blog-card-desc">Comparing visual scraping tools and developer libraries for automated workflows.</div>
             </a>
 
-            <a class="blog-card" data-publisher="octoparse" data-category="browser-automation" target="_blank" rel="noopener" href="https://www.octoparse.com/blog/competitor-analysis-tools">
+            <a class="blog-card" data-publisher="octoparse" data-category="browser-automation" data-date="2026-01" data-index="47" target="_blank" rel="noopener" href="https://www.octoparse.com/blog/competitor-analysis-tools">
                 <div class="blog-card-top">
                     <span class="pub-badge pub-octoparse">Octoparse</span>
                     <span class="blog-card-date">2026</span>
@@ -480,7 +521,7 @@
                 <div class="blog-card-desc">Comparing traffic analytics tools and targeted web scraping for market research.</div>
             </a>
 
-            <a class="blog-card" data-publisher="octoparse" data-category="browser-automation" target="_blank" rel="noopener" href="https://www.octoparse.com/blog/tiktok-video-scraper">
+            <a class="blog-card" data-publisher="octoparse" data-category="browser-automation" data-date="2026-01" data-index="48" target="_blank" rel="noopener" href="https://www.octoparse.com/blog/tiktok-video-scraper">
                 <div class="blog-card-top">
                     <span class="pub-badge pub-octoparse">Octoparse</span>
                     <span class="blog-card-date">2026</span>
@@ -489,7 +530,7 @@
                 <div class="blog-card-desc">Workflows and Python scripts for extracting video stats and sound trends reliably.</div>
             </a>
 
-            <a class="blog-card" data-publisher="medium" data-category="browser-automation" target="_blank" rel="noopener" href="https://medium.com/data-science/top-25-selenium-functions-that-will-make-you-pro-in-web-scraping-5c937e027244">
+            <a class="blog-card" data-publisher="medium" data-category="browser-automation" data-date="2020-03" data-index="49" target="_blank" rel="noopener" href="https://medium.com/data-science/top-25-selenium-functions-that-will-make-you-pro-in-web-scraping-5c937e027244">
                 <div class="blog-card-top">
                     <span class="pub-badge pub-medium">Medium</span>
                     <span class="blog-card-date">Mar 2020</span>
@@ -498,7 +539,7 @@
                 <div class="blog-card-desc">An essential reference guide to DOM interaction, explicit waits, and browser session handling.</div>
             </a>
 
-            <a class="blog-card" data-publisher="medium" data-category="browser-automation" target="_blank" rel="noopener" href="https://medium.com/data-science/top-3-selenium-functions-to-make-your-life-easier-84b174d2a0fe">
+            <a class="blog-card" data-publisher="medium" data-category="browser-automation" data-date="2020-03" data-index="50" target="_blank" rel="noopener" href="https://medium.com/data-science/top-3-selenium-functions-to-make-your-life-easier-84b174d2a0fe">
                 <div class="blog-card-top">
                     <span class="pub-badge pub-medium">Medium</span>
                     <span class="blog-card-date">Mar 2020</span>
@@ -507,7 +548,7 @@
                 <div class="blog-card-desc">Three high-leverage Selenium commands that eliminate flaky selectors and fragile automation steps.</div>
             </a>
 
-            <a class="blog-card" data-publisher="medium" data-category="browser-automation" target="_blank" rel="noopener" href="https://medium.com/data-science/top-10-free-automation-software-that-will-make-your-life-easier-63217e670447">
+            <a class="blog-card" data-publisher="medium" data-category="browser-automation" data-date="2020-03" data-index="51" target="_blank" rel="noopener" href="https://medium.com/data-science/top-10-free-automation-software-that-will-make-your-life-easier-63217e670447">
                 <div class="blog-card-top">
                     <span class="pub-badge pub-medium">Medium</span>
                     <span class="blog-card-date">Mar 2020</span>
@@ -517,7 +558,7 @@
             </a>
 
             <!-- Web Scraping Guides -->
-            <a class="blog-card" data-publisher="octoparse" data-category="scraping-guides" target="_blank" rel="noopener" href="https://www.octoparse.com/blog/apify-google-maps-scraper-vs-octoparse">
+            <a class="blog-card" data-publisher="octoparse" data-category="scraping-guides" data-date="2026-01" data-index="52" target="_blank" rel="noopener" href="https://www.octoparse.com/blog/apify-google-maps-scraper-vs-octoparse">
                 <div class="blog-card-top">
                     <span class="pub-badge pub-octoparse">Octoparse</span>
                     <span class="blog-card-date">2026</span>
@@ -526,7 +567,7 @@
                 <div class="blog-card-desc">Comparing speed, proxy handling, and pricing for Google Maps business data extraction.</div>
             </a>
 
-            <a class="blog-card" data-publisher="chat4data" data-category="scraping-guides" target="_blank" rel="noopener" href="https://chat4data.ai/blog/scrape-data-from-google-maps">
+            <a class="blog-card" data-publisher="chat4data" data-category="scraping-guides" data-date="2026-01" data-index="53" target="_blank" rel="noopener" href="https://chat4data.ai/blog/scrape-data-from-google-maps">
                 <div class="blog-card-top">
                     <span class="pub-badge pub-chat4data">Chat<span class="pub-accent">4Data</span></span>
                     <span class="blog-card-date">2026</span>
@@ -535,7 +576,7 @@
                 <div class="blog-card-desc">Three ways to extract Google Maps data, from point-and-click tools to Playwright and Python.</div>
             </a>
 
-            <a class="blog-card" data-publisher="chat4data" data-category="scraping-guides" target="_blank" rel="noopener" href="https://chat4data.ai/blog/google-maps-scraper">
+            <a class="blog-card" data-publisher="chat4data" data-category="scraping-guides" data-date="2026-01" data-index="54" target="_blank" rel="noopener" href="https://chat4data.ai/blog/google-maps-scraper">
                 <div class="blog-card-top">
                     <span class="pub-badge pub-chat4data">Chat<span class="pub-accent">4Data</span></span>
                     <span class="blog-card-date">2026</span>
@@ -544,7 +585,7 @@
                 <div class="blog-card-desc">A hands-on test of free and paid tools for collecting phone numbers, reviews, and locations.</div>
             </a>
 
-            <a class="blog-card" data-publisher="octoparse" data-category="scraping-guides" target="_blank" rel="noopener" href="https://www.octoparse.com/blog/google-places-api">
+            <a class="blog-card" data-publisher="octoparse" data-category="scraping-guides" data-date="2026-01" data-index="55" target="_blank" rel="noopener" href="https://www.octoparse.com/blog/google-places-api">
                 <div class="blog-card-top">
                     <span class="pub-badge pub-octoparse">Octoparse</span>
                     <span class="blog-card-date">2026</span>
@@ -553,7 +594,7 @@
                 <div class="blog-card-desc">Comparing official API costs with web scraping when building large business directories.</div>
             </a>
 
-            <a class="blog-card" data-publisher="chat4data" data-category="scraping-guides" target="_blank" rel="noopener" href="https://chat4data.ai/blog/amazon-data-scraper">
+            <a class="blog-card" data-publisher="chat4data" data-category="scraping-guides" data-date="2026-01" data-index="56" target="_blank" rel="noopener" href="https://chat4data.ai/blog/amazon-data-scraper">
                 <div class="blog-card-top">
                     <span class="pub-badge pub-chat4data">Chat<span class="pub-accent">4Data</span></span>
                     <span class="blog-card-date">2026</span>
@@ -562,7 +603,7 @@
                 <div class="blog-card-desc">What product data you can extract from Amazon and how to structure it cleanly.</div>
             </a>
 
-            <a class="blog-card" data-publisher="chat4data" data-category="scraping-guides" target="_blank" rel="noopener" href="https://chat4data.ai/blog/how-to-scrape-amazon">
+            <a class="blog-card" data-publisher="chat4data" data-category="scraping-guides" data-date="2026-01" data-index="57" target="_blank" rel="noopener" href="https://chat4data.ai/blog/how-to-scrape-amazon">
                 <div class="blog-card-top">
                     <span class="pub-badge pub-chat4data">Chat<span class="pub-accent">4Data</span></span>
                     <span class="blog-card-date">2026</span>
@@ -571,7 +612,7 @@
                 <div class="blog-card-desc">Dealing with CAPTCHAs, dynamic pages, and rate limits when scraping product information.</div>
             </a>
 
-            <a class="blog-card" data-publisher="chat4data" data-category="scraping-guides" target="_blank" rel="noopener" href="https://chat4data.ai/blog/scrape-google-search-results">
+            <a class="blog-card" data-publisher="chat4data" data-category="scraping-guides" data-date="2026-01" data-index="58" target="_blank" rel="noopener" href="https://chat4data.ai/blog/scrape-google-search-results">
                 <div class="blog-card-top">
                     <span class="pub-badge pub-chat4data">Chat<span class="pub-accent">4Data</span></span>
                     <span class="blog-card-date">2026</span>
@@ -580,7 +621,7 @@
                 <div class="blog-card-desc">Techniques for parsing organic Google search results without hitting block pages.</div>
             </a>
 
-            <a class="blog-card" data-publisher="chat4data" data-category="scraping-guides" target="_blank" rel="noopener" href="https://chat4data.ai/blog/google-serp-scrapers">
+            <a class="blog-card" data-publisher="chat4data" data-category="scraping-guides" data-date="2026-01" data-index="59" target="_blank" rel="noopener" href="https://chat4data.ai/blog/google-serp-scrapers">
                 <div class="blog-card-top">
                     <span class="pub-badge pub-chat4data">Chat<span class="pub-accent">4Data</span></span>
                     <span class="blog-card-date">2026</span>
@@ -589,7 +630,7 @@
                 <div class="blog-card-desc">Benchmarking latency, parser accuracy, and proxy reliability across SERP extraction tools.</div>
             </a>
 
-            <a class="blog-card" data-publisher="chat4data" data-category="scraping-guides" target="_blank" rel="noopener" href="https://chat4data.ai/blog/google-image-scraper">
+            <a class="blog-card" data-publisher="chat4data" data-category="scraping-guides" data-date="2026-05" data-index="60" target="_blank" rel="noopener" href="https://chat4data.ai/blog/google-image-scraper">
                 <div class="blog-card-top">
                     <span class="pub-badge pub-chat4data">Chat<span class="pub-accent">4Data</span></span>
                     <span class="blog-card-date">May 2026</span>
@@ -598,7 +639,7 @@
                 <div class="blog-card-desc">Tools and scripts to download full-resolution images and metadata for datasets.</div>
             </a>
 
-            <a class="blog-card" data-publisher="octoparse" data-category="scraping-guides" target="_blank" rel="noopener" href="https://www.octoparse.com/blog/twitter-scraping-vs-twitter-apis">
+            <a class="blog-card" data-publisher="octoparse" data-category="scraping-guides" data-date="2026-01" data-index="61" target="_blank" rel="noopener" href="https://www.octoparse.com/blog/twitter-scraping-vs-twitter-apis">
                 <div class="blog-card-top">
                     <span class="pub-badge pub-octoparse">Octoparse</span>
                     <span class="blog-card-date">2026</span>
@@ -607,7 +648,7 @@
                 <div class="blog-card-desc">Comparing Twitter API pricing tiers with browser scraping for ongoing trend monitoring.</div>
             </a>
 
-            <a class="blog-card" data-publisher="chat4data" data-category="scraping-guides" target="_blank" rel="noopener" href="https://chat4data.ai/blog/facebook-scraper">
+            <a class="blog-card" data-publisher="chat4data" data-category="scraping-guides" data-date="2026-01" data-index="62" target="_blank" rel="noopener" href="https://chat4data.ai/blog/facebook-scraper">
                 <div class="blog-card-top">
                     <span class="pub-badge pub-chat4data">Chat<span class="pub-accent">4Data</span></span>
                     <span class="blog-card-date">2026</span>
@@ -616,7 +657,7 @@
                 <div class="blog-card-desc">Handling infinite scroll, dynamic JavaScript hydration, and login checkpoints.</div>
             </a>
 
-            <a class="blog-card" data-publisher="chat4data" data-category="scraping-guides" target="_blank" rel="noopener" href="https://chat4data.ai/blog/facebook-profile-scraper">
+            <a class="blog-card" data-publisher="chat4data" data-category="scraping-guides" data-date="2026-01" data-index="63" target="_blank" rel="noopener" href="https://chat4data.ai/blog/facebook-profile-scraper">
                 <div class="blog-card-top">
                     <span class="pub-badge pub-chat4data">Chat<span class="pub-accent">4Data</span></span>
                     <span class="blog-card-date">2026</span>
@@ -625,7 +666,7 @@
                 <div class="blog-card-desc">Extracting public profile and business page information safely.</div>
             </a>
 
-            <a class="blog-card" data-publisher="chat4data" data-category="scraping-guides" target="_blank" rel="noopener" href="https://chat4data.ai/blog/facebook-post-search-engine">
+            <a class="blog-card" data-publisher="chat4data" data-category="scraping-guides" data-date="2026-01" data-index="64" target="_blank" rel="noopener" href="https://chat4data.ai/blog/facebook-post-search-engine">
                 <div class="blog-card-top">
                     <span class="pub-badge pub-chat4data">Chat<span class="pub-accent">4Data</span></span>
                     <span class="blog-card-date">2026</span>
@@ -634,7 +675,7 @@
                 <div class="blog-card-desc">Searching and collecting public discussions, keyword mentions, and post text.</div>
             </a>
 
-            <a class="blog-card" data-publisher="chat4data" data-category="scraping-guides" target="_blank" rel="noopener" href="https://chat4data.ai/blog/facebook-marketplace-scraper">
+            <a class="blog-card" data-publisher="chat4data" data-category="scraping-guides" data-date="2026-01" data-index="65" target="_blank" rel="noopener" href="https://chat4data.ai/blog/facebook-marketplace-scraper">
                 <div class="blog-card-top">
                     <span class="pub-badge pub-chat4data">Chat<span class="pub-accent">4Data</span></span>
                     <span class="blog-card-date">2026</span>
@@ -643,7 +684,7 @@
                 <div class="blog-card-desc">Monitoring localized item listings, price trends, and availability.</div>
             </a>
 
-            <a class="blog-card" data-publisher="chat4data" data-category="scraping-guides" target="_blank" rel="noopener" href="https://chat4data.ai/blog/facebook-scraper-python">
+            <a class="blog-card" data-publisher="chat4data" data-category="scraping-guides" data-date="2026-01" data-index="66" target="_blank" rel="noopener" href="https://chat4data.ai/blog/facebook-scraper-python">
                 <div class="blog-card-top">
                     <span class="pub-badge pub-chat4data">Chat<span class="pub-accent">4Data</span></span>
                     <span class="blog-card-date">2026</span>
@@ -652,7 +693,7 @@
                 <div class="blog-card-desc">Building lightweight Python scripts with requests-html, Selenium, and session cookies.</div>
             </a>
 
-            <a class="blog-card" data-publisher="medium" data-category="scraping-guides" target="_blank" rel="noopener" href="https://medium.com/towards-artificial-intelligence/boost-your-local-business-with-data-analysis-and-web-scraping-0f3406b8762d">
+            <a class="blog-card" data-publisher="medium" data-category="scraping-guides" data-date="2024-12" data-index="67" target="_blank" rel="noopener" href="https://medium.com/towards-artificial-intelligence/boost-your-local-business-with-data-analysis-and-web-scraping-0f3406b8762d">
                 <div class="blog-card-top">
                     <span class="pub-badge pub-medium">Medium</span>
                     <span class="blog-card-date">Dec 2024</span>
@@ -661,7 +702,7 @@
                 <div class="blog-card-desc">Gathering competitor pricing and public market signals to drive smarter business decisions.</div>
             </a>
 
-            <a class="blog-card" data-publisher="medium" data-category="scraping-guides" target="_blank" rel="noopener" href="https://medium.com/@lazar.gugleta/use-listly-to-gain-an-advantage-over-other-sports-fans-eb2295e10d69">
+            <a class="blog-card" data-publisher="medium" data-category="scraping-guides" data-date="2023-02" data-index="68" target="_blank" rel="noopener" href="https://medium.com/@lazar.gugleta/use-listly-to-gain-an-advantage-over-other-sports-fans-eb2295e10d69">
                 <div class="blog-card-top">
                     <span class="pub-badge pub-medium">Medium</span>
                     <span class="blog-card-date">Feb 2023</span>
@@ -670,7 +711,7 @@
                 <div class="blog-card-desc">Scraping real-time sports statistics and team performance metrics for predictive fan analytics.</div>
             </a>
 
-            <a class="blog-card" data-publisher="medium" data-category="scraping-guides" target="_blank" rel="noopener" href="https://medium.com/data-science/everything-you-need-to-know-about-web-scraping-6541b241f27e">
+            <a class="blog-card" data-publisher="medium" data-category="scraping-guides" data-date="2020-02" data-index="69" target="_blank" rel="noopener" href="https://medium.com/data-science/everything-you-need-to-know-about-web-scraping-6541b241f27e">
                 <div class="blog-card-top">
                     <span class="pub-badge pub-medium">Medium</span>
                     <span class="blog-card-date">Feb 2020</span>
@@ -680,7 +721,7 @@
             </a>
 
             <!-- Python -->
-            <a class="blog-card" data-publisher="medium" data-category="python" target="_blank" rel="noopener" href="https://medium.com/towards-data-science/python-gui-app-in-no-time-ea7282e33024?sk=a686482bbe99407e54bc1a55f3896bf9">
+            <a class="blog-card" data-publisher="medium" data-category="python" data-date="2020-02" data-index="70" target="_blank" rel="noopener" href="https://medium.com/towards-data-science/python-gui-app-in-no-time-ea7282e33024?sk=a686482bbe99407e54bc1a55f3896bf9">
                 <div class="blog-card-top">
                     <span class="pub-badge pub-medium">Medium</span>
                     <span class="blog-card-date">Feb 2020</span>
@@ -689,7 +730,7 @@
                 <div class="blog-card-desc">Building quick desktop apps using Python and PySimpleGUI with clean event loops.</div>
             </a>
 
-            <a class="blog-card" data-publisher="medium" data-category="python" target="_blank" rel="noopener" href="https://medium.com/towards-data-science/how-to-track-coronavirus-with-python-a5320b778c8e?sk=1bc1c462333efbcdbfd5a0a2db65ea2c">
+            <a class="blog-card" data-publisher="medium" data-category="python" data-date="2020-04" data-index="71" target="_blank" rel="noopener" href="https://medium.com/towards-data-science/how-to-track-coronavirus-with-python-a5320b778c8e?sk=1bc1c462333efbcdbfd5a0a2db65ea2c">
                 <div class="blog-card-top">
                     <span class="pub-badge pub-medium">Medium</span>
                     <span class="blog-card-date">Apr 2020</span>
@@ -698,7 +739,7 @@
                 <div class="blog-card-desc">Consuming public health APIs to track daily case velocity and plot regional curves.</div>
             </a>
 
-            <a class="blog-card" data-publisher="medium" data-category="python" target="_blank" rel="noopener" href="https://medium.com/@lazargugleta/how-to-make-your-onw-impressive-wordle-multilanguage-solver-online-44c11b854a8e">
+            <a class="blog-card" data-publisher="medium" data-category="python" data-date="2022-02" data-index="72" target="_blank" rel="noopener" href="https://medium.com/@lazargugleta/how-to-make-your-onw-impressive-wordle-multilanguage-solver-online-44c11b854a8e">
                 <div class="blog-card-top">
                     <span class="pub-badge pub-medium">Medium</span>
                     <span class="blog-card-date">Feb 2022</span>
@@ -707,7 +748,7 @@
                 <div class="blog-card-desc">Building an interactive word elimination solver and deploying it online with Streamlit.</div>
             </a>
 
-            <a class="blog-card" data-publisher="medium" data-category="python" target="_blank" rel="noopener" href="https://medium.com/towards-data-science/how-to-get-a-job-with-python-575f1b79fa11?sk=9de408f8cbf98dfde7f14c09dbd7b110">
+            <a class="blog-card" data-publisher="medium" data-category="python" data-date="2019-12" data-index="73" target="_blank" rel="noopener" href="https://medium.com/towards-data-science/how-to-get-a-job-with-python-575f1b79fa11?sk=9de408f8cbf98dfde7f14c09dbd7b110">
                 <div class="blog-card-top">
                     <span class="pub-badge pub-medium">Medium</span>
                     <span class="blog-card-date">Dec 2019</span>
@@ -716,7 +757,7 @@
                 <div class="blog-card-desc">Scraping job listings with Python to see what library combinations are most in demand.</div>
             </a>
 
-            <a class="blog-card" data-publisher="medium" data-category="python" target="_blank" rel="noopener" href="https://medium.com/swlh/why-is-python-so-powerful-today-c7ceef7727e0">
+            <a class="blog-card" data-publisher="medium" data-category="python" data-date="2020-02" data-index="74" target="_blank" rel="noopener" href="https://medium.com/swlh/why-is-python-so-powerful-today-c7ceef7727e0">
                 <div class="blog-card-top">
                     <span class="pub-badge pub-medium">Medium</span>
                     <span class="blog-card-date">Feb 2020</span>
@@ -725,7 +766,7 @@
                 <div class="blog-card-desc">A look at the ecosystem and design decisions that made Python the center of modern AI.</div>
             </a>
 
-            <a class="blog-card" data-publisher="medium" data-category="python" target="_blank" rel="noopener" href="https://medium.com/data-science/top-10-opencv-functions-everyone-has-to-know-about-945f33de8f6f">
+            <a class="blog-card" data-publisher="medium" data-category="python" data-date="2020-05" data-index="75" target="_blank" rel="noopener" href="https://medium.com/data-science/top-10-opencv-functions-everyone-has-to-know-about-945f33de8f6f">
                 <div class="blog-card-top">
                     <span class="pub-badge pub-medium">Medium</span>
                     <span class="blog-card-date">May 2020</span>
@@ -734,7 +775,7 @@
                 <div class="blog-card-desc">Essential computer vision functions for image filtering, edge detection, and matrix transformations.</div>
             </a>
 
-            <a class="blog-card" data-publisher="medium" data-category="python" target="_blank" rel="noopener" href="https://medium.com/data-science/top-5-beautiful-soup-functions-7bfe5a693482">
+            <a class="blog-card" data-publisher="medium" data-category="python" data-date="2020-04" data-index="76" target="_blank" rel="noopener" href="https://medium.com/data-science/top-5-beautiful-soup-functions-7bfe5a693482">
                 <div class="blog-card-top">
                     <span class="pub-badge pub-medium">Medium</span>
                     <span class="blog-card-date">Apr 2020</span>
@@ -743,7 +784,7 @@
                 <div class="blog-card-desc">Time-saving methods for parsing nested HTML elements, extracting attributes, and navigating the DOM.</div>
             </a>
 
-            <a class="blog-card" data-publisher="medium" data-category="python" target="_blank" rel="noopener" href="https://medium.com/data-science/loops-in-python-3ba17168de28">
+            <a class="blog-card" data-publisher="medium" data-category="python" data-date="2020-03" data-index="77" target="_blank" rel="noopener" href="https://medium.com/data-science/loops-in-python-3ba17168de28">
                 <div class="blog-card-top">
                     <span class="pub-badge pub-medium">Medium</span>
                     <span class="blog-card-date">Mar 2020</span>
@@ -752,7 +793,7 @@
                 <div class="blog-card-desc">Mastering for loops, while loops, and nested iterations with clean idiomatic Python syntax.</div>
             </a>
 
-            <a class="blog-card" data-publisher="medium" data-category="python" target="_blank" rel="noopener" href="https://medium.com/data-science/how-to-make-instagram-unfollower-tool-with-python-ac04b6b05251">
+            <a class="blog-card" data-publisher="medium" data-category="python" data-date="2020-02" data-index="78" target="_blank" rel="noopener" href="https://medium.com/data-science/how-to-make-instagram-unfollower-tool-with-python-ac04b6b05251">
                 <div class="blog-card-top">
                     <span class="pub-badge pub-medium">Medium</span>
                     <span class="blog-card-date">Feb 2020</span>
@@ -761,7 +802,7 @@
                 <div class="blog-card-desc">Building a script with Python to compare follower lists and identify non-reciprocal accounts.</div>
             </a>
 
-            <a class="blog-card" data-publisher="medium" data-category="python" target="_blank" rel="noopener" href="https://medium.com/data-science/how-to-save-money-with-python-8bfd7e627d13">
+            <a class="blog-card" data-publisher="medium" data-category="python" data-date="2020-02" data-index="79" target="_blank" rel="noopener" href="https://medium.com/data-science/how-to-save-money-with-python-8bfd7e627d13">
                 <div class="blog-card-top">
                     <span class="pub-badge pub-medium">Medium</span>
                     <span class="blog-card-date">Feb 2020</span>
@@ -770,7 +811,7 @@
                 <div class="blog-card-desc">Automating price tracking, deal alerts, and discount monitoring with small Python scripts.</div>
             </a>
 
-            <a class="blog-card" data-publisher="medium" data-category="python" target="_blank" rel="noopener" href="https://medium.com/data-science/how-to-make-an-analysis-tool-using-python-c3e4477b6d8">
+            <a class="blog-card" data-publisher="medium" data-category="python" data-date="2020-02" data-index="80" target="_blank" rel="noopener" href="https://medium.com/data-science/how-to-make-an-analysis-tool-using-python-c3e4477b6d8">
                 <div class="blog-card-top">
                     <span class="pub-badge pub-medium">Medium</span>
                     <span class="blog-card-date">Feb 2020</span>
@@ -779,7 +820,7 @@
                 <div class="blog-card-desc">Architecting an end-to-end data processing and reporting script from raw input to finished charts.</div>
             </a>
 
-            <a class="blog-card" data-publisher="medium" data-category="python" target="_blank" rel="noopener" href="https://medium.com/data-science/i-made-a-game-6beb4d35593d">
+            <a class="blog-card" data-publisher="medium" data-category="python" data-date="2020-01" data-index="81" target="_blank" rel="noopener" href="https://medium.com/data-science/i-made-a-game-6beb4d35593d">
                 <div class="blog-card-top">
                     <span class="pub-badge pub-medium">Medium</span>
                     <span class="blog-card-date">Jan 2020</span>
@@ -788,7 +829,7 @@
                 <div class="blog-card-desc">Designing game logic, sprites, and interactive controls in Python to create a personalized gift.</div>
             </a>
 
-            <a class="blog-card" data-publisher="medium" data-category="python" target="_blank" rel="noopener" href="https://medium.com/free-code-camp/how-the-turing-machine-interactive-simulator-can-help-you-understand-algorithms-a0fa88d0e057">
+            <a class="blog-card" data-publisher="medium" data-category="python" data-date="2019-02" data-index="82" target="_blank" rel="noopener" href="https://medium.com/free-code-camp/how-the-turing-machine-interactive-simulator-can-help-you-understand-algorithms-a0fa88d0e057">
                 <div class="blog-card-top">
                     <span class="pub-badge pub-medium">Medium</span>
                     <span class="blog-card-date">Feb 2019</span>
@@ -798,7 +839,7 @@
             </a>
 
             <!-- Essays -->
-            <a class="blog-card" data-publisher="medium" data-category="essays" target="_blank" rel="noopener" href="https://medium.com/swlh/everything-you-need-to-know-about-autonomous-driving-1358cbb5927c">
+            <a class="blog-card" data-publisher="medium" data-category="essays" data-date="2019-07" data-index="83" target="_blank" rel="noopener" href="https://medium.com/swlh/everything-you-need-to-know-about-autonomous-driving-1358cbb5927c">
                 <div class="blog-card-top">
                     <span class="pub-badge pub-medium">Medium</span>
                     <span class="blog-card-date">Jul 2019</span>
@@ -807,7 +848,7 @@
                 <div class="blog-card-desc">Sensor fusion, vision models, edge compute constraints, and vehicle safety layers.</div>
             </a>
 
-            <a class="blog-card" data-publisher="medium" data-category="essays" target="_blank" rel="noopener" href="https://medium.com/swlh/i-must-work-or-else-i-fail-do-you-know-that-feeling-ef89db99ad6f">
+            <a class="blog-card" data-publisher="medium" data-category="essays" data-date="2019-07" data-index="84" target="_blank" rel="noopener" href="https://medium.com/swlh/i-must-work-or-else-i-fail-do-you-know-that-feeling-ef89db99ad6f">
                 <div class="blog-card-top">
                     <span class="pub-badge pub-medium">Medium</span>
                     <span class="blog-card-date">Jul 2019</span>
@@ -816,7 +857,7 @@
                 <div class="blog-card-desc">Personal reflections on developer burnout, productivity guilt, and sustainable working habits.</div>
             </a>
 
-            <a class="blog-card" data-publisher="medium" data-category="essays" target="_blank" rel="noopener" href="https://medium.com/an-idea/important-message-from-one-of-the-best-tech-documentaries-of-2020-73e0dff1e5c8">
+            <a class="blog-card" data-publisher="medium" data-category="essays" data-date="2020-10" data-index="85" target="_blank" rel="noopener" href="https://medium.com/an-idea/important-message-from-one-of-the-best-tech-documentaries-of-2020-73e0dff1e5c8">
                 <div class="blog-card-top">
                     <span class="pub-badge pub-medium">Medium</span>
                     <span class="blog-card-date">Oct 2020</span>
@@ -825,7 +866,7 @@
                 <div class="blog-card-desc">Reflecting on The Social Dilemma, algorithmic recommendation loops, and digital wellbeing.</div>
             </a>
 
-            <a class="blog-card" data-publisher="medium" data-category="essays" target="_blank" rel="noopener" href="https://medium.com/@lazar.gugleta/open-source-why-give-something-for-free-f0f15199e3a9">
+            <a class="blog-card" data-publisher="medium" data-category="essays" data-date="2020-02" data-index="86" target="_blank" rel="noopener" href="https://medium.com/@lazar.gugleta/open-source-why-give-something-for-free-f0f15199e3a9">
                 <div class="blog-card-top">
                     <span class="pub-badge pub-medium">Medium</span>
                     <span class="blog-card-date">Feb 2020</span>
@@ -834,7 +875,7 @@
                 <div class="blog-card-desc">Exploring the business models, community incentives, and long-term career benefits of open source.</div>
             </a>
 
-            <a class="blog-card" data-publisher="medium" data-category="essays" target="_blank" rel="noopener" href="https://medium.com/the-epilogue/get-the-best-out-of-tools-for-writing-e49246272aea">
+            <a class="blog-card" data-publisher="medium" data-category="essays" data-date="2020-02" data-index="87" target="_blank" rel="noopener" href="https://medium.com/the-epilogue/get-the-best-out-of-tools-for-writing-e49246272aea">
                 <div class="blog-card-top">
                     <span class="pub-badge pub-medium">Medium</span>
                     <span class="blog-card-date">Feb 2020</span>
@@ -843,7 +884,7 @@
                 <div class="blog-card-desc">Setting up distraction-free editors, formatting workflows, and publishing habits for tech writers.</div>
             </a>
 
-            <a class="blog-card" data-publisher="medium" data-category="essays" target="_blank" rel="noopener" href="https://medium.com/@lazar.gugleta/how-big-are-video-games-937d7bb4ed73">
+            <a class="blog-card" data-publisher="medium" data-category="essays" data-date="2020-02" data-index="88" target="_blank" rel="noopener" href="https://medium.com/@lazar.gugleta/how-big-are-video-games-937d7bb4ed73">
                 <div class="blog-card-top">
                     <span class="pub-badge pub-medium">Medium</span>
                     <span class="blog-card-date">Feb 2020</span>
@@ -879,28 +920,96 @@
     <script>
         (function initBlogListing() {
             var PAGE_SIZE = 10;
-            var chips = Array.from(document.querySelectorAll('.filter-chip'));
-            var cards = Array.from(document.querySelectorAll('.blog-card'));
+            var profileChips = Array.from(document.querySelectorAll('.filter-chip-profile'));
+            var topicChips = Array.from(document.querySelectorAll('.filter-chip-topic'));
+            var sortSelect = document.getElementById('blog-sort-select');
+            var grid = document.getElementById('articles-grid');
+            var rawCards = Array.from(document.querySelectorAll('.blog-card'));
             var paginationNav = document.getElementById('blog-pagination');
             var prevBtn = document.getElementById('pagination-prev');
             var nextBtn = document.getElementById('pagination-next');
             var pagesContainer = document.getElementById('pagination-pages');
             var infoEl = document.getElementById('pagination-info');
+            var emptyState = document.getElementById('blog-empty-state');
+            var resetBtn = document.getElementById('blog-reset-filters');
 
-            if (!chips.length || !cards.length) return;
+            if (!rawCards.length) return;
 
-            var currentCategory = 'all';
+            var currentProfile = 'all';
+            var currentTopic = 'all';
+            var currentSort = 'featured';
             var currentPage = 1;
 
-            function getMatchingCards() {
-                if (currentCategory === 'all') return cards;
-                return cards.filter(function (card) {
-                    return card.getAttribute('data-category') === currentCategory;
+            var cardsData = rawCards.map(function (card, index) {
+                var titleEl = card.querySelector('.blog-card-title');
+                return {
+                    el: card,
+                    index: parseInt(card.getAttribute('data-index') || index, 10),
+                    publisher: card.getAttribute('data-publisher') || '',
+                    category: card.getAttribute('data-category') || '',
+                    date: card.getAttribute('data-date') || '',
+                    title: (titleEl ? titleEl.textContent : '').trim()
+                };
+            });
+
+            function getSortedMatchingCards() {
+                var matching = cardsData.filter(function (item) {
+                    var matchProfile = (currentProfile === 'all' || item.publisher === currentProfile);
+                    var matchTopic = (currentTopic === 'all' || item.category === currentTopic);
+                    return matchProfile && matchTopic;
+                });
+
+                if (currentSort === 'newest') {
+                    matching.sort(function (a, b) {
+                        if (a.date !== b.date) return b.date.localeCompare(a.date);
+                        return a.index - b.index;
+                    });
+                } else if (currentSort === 'oldest') {
+                    matching.sort(function (a, b) {
+                        if (a.date !== b.date) return a.date.localeCompare(b.date);
+                        return a.index - b.index;
+                    });
+                } else if (currentSort === 'title') {
+                    matching.sort(function (a, b) {
+                        return a.title.localeCompare(b.title);
+                    });
+                } else {
+                    matching.sort(function (a, b) {
+                        return a.index - b.index;
+                    });
+                }
+
+                return matching;
+            }
+
+            function updateCounts() {
+                profileChips.forEach(function (chip) {
+                    var p = chip.getAttribute('data-profile');
+                    var count = cardsData.filter(function (item) {
+                        var matchP = (p === 'all' || item.publisher === p);
+                        var matchT = (currentTopic === 'all' || item.category === currentTopic);
+                        return matchP && matchT;
+                    }).length;
+                    var countEl = chip.querySelector('.filter-count');
+                    if (countEl) countEl.textContent = String(count);
+                    chip.classList.toggle('is-empty', count === 0 && p !== 'all');
+                });
+
+                topicChips.forEach(function (chip) {
+                    var t = chip.getAttribute('data-topic') || chip.getAttribute('data-filter');
+                    var count = cardsData.filter(function (item) {
+                        var matchP = (currentProfile === 'all' || item.publisher === currentProfile);
+                        var matchT = (t === 'all' || item.category === t);
+                        return matchP && matchT;
+                    }).length;
+                    var countEl = chip.querySelector('.filter-count');
+                    if (countEl) countEl.textContent = String(count);
+                    chip.classList.toggle('is-empty', count === 0 && t !== 'all');
                 });
             }
 
             function render() {
-                var matching = getMatchingCards();
+                var matching = getSortedMatchingCards();
                 var total = matching.length;
                 var totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
 
@@ -909,18 +1018,17 @@
 
                 var startIndex = (currentPage - 1) * PAGE_SIZE;
                 var endIndex = Math.min(startIndex + PAGE_SIZE, total);
+                var pagedItems = matching.slice(startIndex, endIndex);
+                var visibleSet = new Set(pagedItems.map(function (item) { return item.el; }));
 
-                // Update active state on chips
-                chips.forEach(function (chip) {
-                    var isActive = chip.getAttribute('data-filter') === currentCategory;
-                    chip.classList.toggle('is-active', isActive);
-                    chip.setAttribute('aria-pressed', isActive ? 'true' : 'false');
-                });
+                if (grid) {
+                    pagedItems.forEach(function (item) {
+                        grid.appendChild(item.el);
+                    });
+                }
 
-                // Update visibility of each card
-                var matchingSet = new Set(matching.slice(startIndex, endIndex));
-                cards.forEach(function (card) {
-                    if (matchingSet.has(card)) {
+                rawCards.forEach(function (card) {
+                    if (visibleSet.has(card)) {
                         card.hidden = false;
                         card.classList.remove('is-hidden');
                         card.style.removeProperty('display');
@@ -931,7 +1039,32 @@
                     }
                 });
 
-                // Update pagination controls
+                profileChips.forEach(function (chip) {
+                    var isActive = chip.getAttribute('data-profile') === currentProfile;
+                    chip.classList.toggle('is-active', isActive);
+                    chip.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+                });
+
+                topicChips.forEach(function (chip) {
+                    var t = chip.getAttribute('data-topic') || chip.getAttribute('data-filter');
+                    var isActive = t === currentTopic;
+                    chip.classList.toggle('is-active', isActive);
+                    chip.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+                });
+
+                updateCounts();
+
+                if (emptyState) {
+                    if (total === 0) {
+                        emptyState.hidden = false;
+                        emptyState.style.removeProperty('display');
+                        grid.appendChild(emptyState);
+                    } else {
+                        emptyState.hidden = true;
+                        emptyState.style.setProperty('display', 'none', 'important');
+                    }
+                }
+
                 if (totalPages <= 1) {
                     if (paginationNav) {
                         paginationNav.hidden = true;
@@ -1024,21 +1157,54 @@
                 }
             }
 
-            function setCategory(category, updateUrl) {
-                currentCategory = category;
+            function setFilters(profile, topic, updateUrl) {
+                currentProfile = profile;
+                currentTopic = topic;
                 currentPage = 1;
                 render();
                 if (updateUrl && history.replaceState) {
-                    var newHash = category === 'all' ? '' : '#' + category;
+                    var hashParts = [];
+                    if (currentProfile !== 'all') hashParts.push(currentProfile);
+                    if (currentTopic !== 'all') hashParts.push(currentTopic);
+                    var newHash = hashParts.length ? '#' + hashParts.join('&') : '';
                     history.replaceState(null, '', window.location.pathname + newHash);
                 }
             }
 
-            chips.forEach(function (chip) {
+            profileChips.forEach(function (chip) {
                 chip.addEventListener('click', function () {
-                    setCategory(chip.getAttribute('data-filter'), true);
+                    setFilters(chip.getAttribute('data-profile'), currentTopic, true);
                 });
             });
+
+            topicChips.forEach(function (chip) {
+                chip.addEventListener('click', function () {
+                    var t = chip.getAttribute('data-topic') || chip.getAttribute('data-filter');
+                    setFilters(currentProfile, t, true);
+                });
+            });
+
+            if (sortSelect) {
+                sortSelect.addEventListener('change', function () {
+                    currentSort = sortSelect.value;
+                    currentPage = 1;
+                    render();
+                });
+            }
+
+            if (resetBtn) {
+                resetBtn.addEventListener('click', function () {
+                    currentProfile = 'all';
+                    currentTopic = 'all';
+                    currentSort = 'featured';
+                    if (sortSelect) sortSelect.value = 'featured';
+                    currentPage = 1;
+                    render();
+                    if (history.replaceState) {
+                        history.replaceState(null, '', window.location.pathname);
+                    }
+                });
+            }
 
             if (prevBtn) {
                 prevBtn.addEventListener('click', function () {
@@ -1048,19 +1214,32 @@
 
             if (nextBtn) {
                 nextBtn.addEventListener('click', function () {
-                    var matching = getMatchingCards();
+                    var matching = getSortedMatchingCards();
                     var totalPages = Math.ceil(matching.length / PAGE_SIZE);
                     if (currentPage < totalPages) setPage(currentPage + 1, true);
                 });
             }
 
             function syncWithHash() {
-                var hash = window.location.hash.replace('#', '') || 'all';
-                if (document.querySelector('.filter-chip[data-filter="' + hash + '"]')) {
-                    setCategory(hash, false);
-                } else {
-                    setCategory('all', false);
+                var hash = window.location.hash.replace('#', '').trim();
+                var knownProfiles = ['medium', 'mediumatch', 'octoparse', 'chat4data'];
+                var knownTopics = ['ai-mcp', 'data-engineering', 'browser-automation', 'scraping-guides', 'python', 'essays', 'technical-writing'];
+
+                if (!hash || hash === 'all') {
+                    setFilters('all', 'all', false);
+                    return;
                 }
+
+                var parts = hash.split('&');
+                var prof = 'all';
+                var top = 'all';
+
+                parts.forEach(function (part) {
+                    if (knownProfiles.indexOf(part) !== -1) prof = part;
+                    else if (knownTopics.indexOf(part) !== -1) top = part;
+                });
+
+                setFilters(prof, top, false);
             }
 
             window.addEventListener('hashchange', syncWithHash);

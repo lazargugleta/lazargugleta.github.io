@@ -11,9 +11,9 @@ if (!origin.startsWith('https://')) throw new Error('The original site must use 
 const cards = feed.articles.map(article => {
     const url = new URL(article.url);
     if (url.origin !== origin || !url.pathname.startsWith('/blog/')) throw new Error('Unexpected article URL.');
-    const date = article.publishedAt ? new Date(article.publishedAt).toLocaleDateString('en-GB', { month: 'short', year: 'numeric', timeZone: 'Europe/Vienna' }) : '';
-    return `            <a class="blog-card" data-publisher="mediumatch" data-category="technical-writing" target="_blank" rel="noopener" href="${escape(url.href)}">
-                <div class="blog-card-top"><span class="pub-badge pub-mediumatch">MediuMatch</span>${date ? `<span class="blog-card-date">${escape(date)}</span>` : ''}</div>
+    const date = article.publishedAt ? new Date(article.publishedAt).toLocaleDateString('en-GB', { month: 'short', year: 'numeric', timeZone: 'Europe/Vienna' }) : 'Oct 2026';
+    return `            <a class="blog-card" data-publisher="mediumatch" data-category="technical-writing" data-date="2026-10" target="_blank" rel="noopener" href="${escape(url.href)}">
+                <div class="blog-card-top"><span class="pub-badge pub-mediumatch">MediuMatch</span><span class="blog-card-date">${escape(date)}</span></div>
                 <div class="blog-card-title">${escape(article.title)}</div>
                 <div class="blog-card-desc">${escape(article.description)}</div>
             </a>`;
