@@ -199,9 +199,9 @@ h1 {
     color: #7c3aed;
 }
 .pub-ext-mediumatch .logo-mediumatch {
-    width: 15px;
-    height: 15px;
-    border-radius: 3.5px;
+    width: 17px;
+    height: 17px;
+    border-radius: 4px;
     object-fit: cover;
     flex-shrink: 0;
     vertical-align: middle;

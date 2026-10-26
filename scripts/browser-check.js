@@ -567,14 +567,15 @@ async function runTests() {
         assert(mmProject && mmProject.imgSrc === 'src/branding/stripe-icon.png', 'MediuMatch project card displays stripe-icon.png');
 
         // Test brand hover colors on project cards
+        await client.evaluate('document.querySelector(".project-card[data-project=\\"octoparse\\"]").scrollIntoView({ block: "center", behavior: "instant" })');
+        await sleep(200);
         const octoProjPos = await client.evaluate(`(() => {
             const el = document.querySelector('.project-card[data-project="octoparse"]');
-            el.scrollIntoView({ block: 'center', behavior: 'instant' });
             const r = el.getBoundingClientRect();
             return { x: r.left + r.width / 2, y: r.top + r.height / 2 };
         })()`);
         await client.send('Input.dispatchMouseEvent', { type: 'mouseMoved', x: octoProjPos.x, y: octoProjPos.y });
-        await sleep(150);
+        await sleep(300);
         const octoProjectColor = await client.evaluate(`(() => {
             const el = document.querySelector('.project-card[data-project="octoparse"] .project-title');
             if (!el) return null;
@@ -588,14 +589,15 @@ async function runTests() {
         })()`);
         assert(octoProjectColor === 'blue', 'Octoparse project card hover title is brand blue');
 
+        await client.evaluate('document.querySelector(".project-card[data-project=\\"chat4data\\"]").scrollIntoView({ block: "center", behavior: "instant" })');
+        await sleep(200);
         const c4dProjPos = await client.evaluate(`(() => {
             const el = document.querySelector('.project-card[data-project="chat4data"]');
-            el.scrollIntoView({ block: 'center', behavior: 'instant' });
             const r = el.getBoundingClientRect();
             return { x: r.left + r.width / 2, y: r.top + r.height / 2 };
         })()`);
         await client.send('Input.dispatchMouseEvent', { type: 'mouseMoved', x: c4dProjPos.x, y: c4dProjPos.y });
-        await sleep(150);
+        await sleep(300);
         const c4dProjectColor = await client.evaluate(`(() => {
             const el = document.querySelector('.project-card[data-project="chat4data"] .project-title');
             if (!el) return null;
