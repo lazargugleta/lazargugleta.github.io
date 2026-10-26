@@ -488,6 +488,35 @@ h1 {
     }
 }
 
+.blog-card[data-publisher="mediumatch"],
+.pub-mediumatch,
+.filter-chip[data-filter="technical-writing"] {
+    --mediumatch-violet: #8b5cf6;
+}
+
+:is(html.light, body.light) .blog-card[data-publisher="mediumatch"],
+:is(html.light, body.light) .pub-mediumatch,
+:is(html.light, body.light) .filter-chip[data-filter="technical-writing"] {
+    --mediumatch-violet: #7c3aed;
+}
+
+.pub-badge.pub-mediumatch,
+.blog-card[data-publisher="mediumatch"]:is(:hover, :focus-visible) .blog-card-title {
+    color: var(--mediumatch-violet);
+}
+
+.blog-card[data-publisher="mediumatch"]:is(:hover, :focus-visible) {
+    border-color: color-mix(in srgb, var(--mediumatch-violet) 45%, transparent);
+    box-shadow: 0 14px 34px -4px color-mix(in srgb, var(--mediumatch-violet) 16%, transparent), var(--shadow-md);
+}
+
+.filter-chip[data-filter="technical-writing"]:is(:hover, .is-active) {
+    color: var(--mediumatch-violet);
+    border-color: color-mix(in srgb, var(--mediumatch-violet) 35%, transparent);
+    background: color-mix(in srgb, var(--mediumatch-violet) 12%, transparent);
+    box-shadow: 0 2px 10px color-mix(in srgb, var(--mediumatch-violet) 14%, transparent);
+}
+
 @media (max-width: 520px) {
     .hero p {
         font-size: 15px;

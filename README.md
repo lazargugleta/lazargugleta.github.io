@@ -51,4 +51,8 @@ Open `http://localhost:8000` in your browser.
 
 ## Deployment
 
+### MediuMatch article links
+
+After building the sibling `medium_scraper/website` project, run `node scripts/sync-mediumatch.js` here. This imports its generated `dist/blog/articles.json` into the existing blog grid as linked summaries and updates category counts. An explicit feed path can be passed as the first argument. No full article is duplicated and no personal authorship is asserted. Rerun after new articles, domain changes, or actual publication dates are recorded. Deploy these links after the original MediuMatch article URLs are live. Medium copies should declare those original article URLs as canonical.
+
 Automated deployment is configured via GitHub Actions in `.github/workflows/pages.yml`. Commits pushed to the `main` branch automatically deploy to GitHub Pages.
