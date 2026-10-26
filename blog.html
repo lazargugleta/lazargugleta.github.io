@@ -121,6 +121,13 @@
                     <span class="pub-ext-name">Chat<span class="pub-accent">4Data</span></span>
                     <svg class="pub-ext-icon" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M3.5 1.5h7v7M10.5 1.5L1.5 10.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </a>
+                <a class="pub-ext-link pub-ext-mediumatch" target="_blank" rel="noopener noreferrer" href="https://mediumatch.com/blog" title="Visit MediuMatch's blog (mediumatch.com/blog)">
+                    <svg class="pub-ext-logo logo-mediumatch" width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span class="pub-ext-name">MediuMatch</span>
+                    <svg class="pub-ext-icon" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M3.5 1.5h7v7M10.5 1.5L1.5 10.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </a>
             </div>
 
             <!-- Timeline-Style Filter (Matching Image 1) -->
@@ -849,6 +856,21 @@
 
         </div>
 
+        <nav class="blog-pagination" id="blog-pagination" aria-label="Blog pages" hidden>
+            <div class="pagination-controls">
+                <button class="pagination-btn pagination-prev" id="pagination-prev" type="button" aria-label="Previous page">
+                    <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4l-4 4 4 4"/></svg>
+                    <span>Previous</span>
+                </button>
+                <div class="pagination-pages" id="pagination-pages" role="navigation"></div>
+                <button class="pagination-btn pagination-next" id="pagination-next" type="button" aria-label="Next page">
+                    <span>Next</span>
+                    <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4l4 4-4 4"/></svg>
+                </button>
+            </div>
+            <div class="pagination-info" id="pagination-info" aria-live="polite"></div>
+        </nav>
+
         <footer class="footer">
             <span>Copyright 2026 Lazar Gugleta &bull; built in Vienna</span>
             <a href="index.html#writing">back to writing</a>
@@ -857,22 +879,50 @@
 
     <script src="js/site.js?v=14" defer></script>
     <script>
-        (function initCategoryFilter() {
-            var chips = document.querySelectorAll('.filter-chip');
-            var cards = document.querySelectorAll('.blog-card');
+        (function initBlogListing() {
+            var PAGE_SIZE = 10;
+            var chips = Array.from(document.querySelectorAll('.filter-chip'));
+            var cards = Array.from(document.querySelectorAll('.blog-card'));
+            var paginationNav = document.getElementById('blog-pagination');
+            var prevBtn = document.getElementById('pagination-prev');
+            var nextBtn = document.getElementById('pagination-next');
+            var pagesContainer = document.getElementById('pagination-pages');
+            var infoEl = document.getElementById('pagination-info');
+
             if (!chips.length || !cards.length) return;
 
-            function applyFilter(category, updateUrl) {
+            var currentCategory = 'all';
+            var currentPage = 1;
+
+            function getMatchingCards() {
+                if (currentCategory === 'all') return cards;
+                return cards.filter(function (card) {
+                    return card.getAttribute('data-category') === currentCategory;
+                });
+            }
+
+            function render() {
+                var matching = getMatchingCards();
+                var total = matching.length;
+                var totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
+
+                if (currentPage > totalPages) currentPage = totalPages;
+                if (currentPage < 1) currentPage = 1;
+
+                var startIndex = (currentPage - 1) * PAGE_SIZE;
+                var endIndex = Math.min(startIndex + PAGE_SIZE, total);
+
+                // Update active state on chips
                 chips.forEach(function (chip) {
-                    var isActive = chip.getAttribute('data-filter') === category;
+                    var isActive = chip.getAttribute('data-filter') === currentCategory;
                     chip.classList.toggle('is-active', isActive);
                     chip.setAttribute('aria-pressed', isActive ? 'true' : 'false');
                 });
 
+                // Update visibility of each card
+                var matchingSet = new Set(matching.slice(startIndex, endIndex));
                 cards.forEach(function (card) {
-                    var cardCat = card.getAttribute('data-category');
-                    var matches = (category === 'all' || cardCat === category);
-                    if (matches) {
+                    if (matchingSet.has(card)) {
                         card.hidden = false;
                         card.classList.remove('is-hidden');
                         card.style.removeProperty('display');
@@ -883,6 +933,103 @@
                     }
                 });
 
+                // Update pagination controls
+                if (totalPages <= 1) {
+                    if (paginationNav) {
+                        paginationNav.hidden = true;
+                        paginationNav.style.display = 'none';
+                    }
+                    return;
+                }
+
+                if (paginationNav) {
+                    paginationNav.hidden = false;
+                    paginationNav.style.removeProperty('display');
+                }
+
+                if (prevBtn) prevBtn.disabled = (currentPage === 1);
+                if (nextBtn) nextBtn.disabled = (currentPage === totalPages);
+
+                if (infoEl) {
+                    infoEl.textContent = 'Showing ' + (startIndex + 1) + '-' + endIndex + ' of ' + total + ' articles';
+                }
+
+                if (pagesContainer) {
+                    pagesContainer.innerHTML = '';
+
+                    function createPageBtn(p) {
+                        var btn = document.createElement('button');
+                        btn.type = 'button';
+                        btn.className = 'pagination-num' + (p === currentPage ? ' is-active' : '');
+                        btn.textContent = String(p);
+                        btn.setAttribute('aria-label', 'Page ' + p);
+                        if (p === currentPage) {
+                            btn.setAttribute('aria-current', 'page');
+                        }
+                        btn.addEventListener('click', function () {
+                            setPage(p, true);
+                        });
+                        return btn;
+                    }
+
+                    function createEllipsis() {
+                        var span = document.createElement('span');
+                        span.className = 'pagination-ellipsis';
+                        span.textContent = '...';
+                        span.setAttribute('aria-hidden', 'true');
+                        return span;
+                    }
+
+                    if (totalPages <= 7) {
+                        for (var i = 1; i <= totalPages; i++) {
+                            pagesContainer.appendChild(createPageBtn(i));
+                        }
+                    } else {
+                        pagesContainer.appendChild(createPageBtn(1));
+
+                        if (currentPage > 3) {
+                            pagesContainer.appendChild(createEllipsis());
+                        }
+
+                        var startMid = Math.max(2, currentPage - 1);
+                        var endMid = Math.min(totalPages - 1, currentPage + 1);
+
+                        if (currentPage <= 3) {
+                            startMid = 2;
+                            endMid = 4;
+                        } else if (currentPage >= totalPages - 2) {
+                            startMid = totalPages - 3;
+                            endMid = totalPages - 1;
+                        }
+
+                        for (var j = startMid; j <= endMid; j++) {
+                            pagesContainer.appendChild(createPageBtn(j));
+                        }
+
+                        if (currentPage < totalPages - 2) {
+                            pagesContainer.appendChild(createEllipsis());
+                        }
+
+                        pagesContainer.appendChild(createPageBtn(totalPages));
+                    }
+                }
+            }
+
+            function setPage(page, scrollToGrid) {
+                currentPage = page;
+                render();
+                if (scrollToGrid) {
+                    var filterSection = document.querySelector('.blog-filter-section');
+                    if (filterSection && filterSection.getBoundingClientRect().top < 0) {
+                        filterSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                }
+            }
+
+            function setCategory(category, updateUrl) {
+                currentCategory = category;
+                currentPage = 1;
+                render();
                 if (updateUrl && history.replaceState) {
                     var newHash = category === 'all' ? '' : '#' + category;
                     history.replaceState(null, '', window.location.pathname + newHash);
@@ -890,18 +1037,31 @@
             }
 
             chips.forEach(function (chip) {
-                chip.setAttribute('aria-pressed', chip.classList.contains('is-active') ? 'true' : 'false');
                 chip.addEventListener('click', function () {
-                    applyFilter(chip.getAttribute('data-filter'), true);
+                    setCategory(chip.getAttribute('data-filter'), true);
                 });
             });
+
+            if (prevBtn) {
+                prevBtn.addEventListener('click', function () {
+                    if (currentPage > 1) setPage(currentPage - 1, true);
+                });
+            }
+
+            if (nextBtn) {
+                nextBtn.addEventListener('click', function () {
+                    var matching = getMatchingCards();
+                    var totalPages = Math.ceil(matching.length / PAGE_SIZE);
+                    if (currentPage < totalPages) setPage(currentPage + 1, true);
+                });
+            }
 
             function syncWithHash() {
                 var hash = window.location.hash.replace('#', '') || 'all';
                 if (document.querySelector('.filter-chip[data-filter="' + hash + '"]')) {
-                    applyFilter(hash, false);
+                    setCategory(hash, false);
                 } else {
-                    applyFilter('all', false);
+                    setCategory('all', false);
                 }
             }
 

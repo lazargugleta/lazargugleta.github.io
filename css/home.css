@@ -1281,6 +1281,19 @@
             font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "SF Pro", "Inter", -apple-system-body, "Helvetica Neue", Helvetica, Arial, sans-serif;
         }
 
+        .pub-badge.pub-mediumatch,
+        .writing-card .pub-badge.pub-mediumatch,
+        #writing:not(.is-lit) .writing-card[data-publisher="mediumatch"] .pub-badge.pub-mediumatch {
+            color: #8b5cf6;
+            background: none;
+            border: none;
+        }
+        :is(html.light, body.light) .pub-badge.pub-mediumatch,
+        :is(html.light, body.light) .writing-card .pub-badge.pub-mediumatch,
+        :is(html.light, body.light) #writing:not(.is-lit) .writing-card[data-publisher="mediumatch"] .pub-badge.pub-mediumatch {
+            color: #7c3aed;
+        }
+
         .pub-badge.pub-octoparse,
         .writing-card .pub-badge.pub-octoparse,
         #writing:not(.is-lit) .writing-card[data-publisher="octoparse"] .pub-badge.pub-octoparse {
@@ -1327,6 +1340,21 @@
         }
 
         /* Publisher-specific Card Hover States (Octoparse blue, Chat4Data orange, Medium ink/white) */
+        #writing:not(.is-lit) .writing-card[data-publisher="mediumatch"]:hover {
+            border-color: rgba(139, 92, 246, 0.45);
+            box-shadow: 0 14px 34px -4px rgba(139, 92, 246, 0.16), var(--shadow-md);
+        }
+        #writing:not(.is-lit) .writing-card[data-publisher="mediumatch"]:hover .writing-card-title {
+            color: #8b5cf6;
+        }
+        :is(html.light, body.light) #writing:not(.is-lit) .writing-card[data-publisher="mediumatch"]:hover {
+            border-color: rgba(124, 58, 237, 0.35);
+            box-shadow: 0 14px 34px -4px rgba(124, 58, 237, 0.12), var(--shadow-md);
+        }
+        :is(html.light, body.light) #writing:not(.is-lit) .writing-card[data-publisher="mediumatch"]:hover .writing-card-title {
+            color: #7c3aed;
+        }
+
         #writing:not(.is-lit) .writing-card[data-publisher="octoparse"]:hover {
             border-color: rgba(59, 130, 246, 0.45);
             box-shadow: 0 14px 34px -4px rgba(59, 130, 246, 0.16), var(--shadow-md);

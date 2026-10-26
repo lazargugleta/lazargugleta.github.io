@@ -423,6 +423,21 @@ async function runTests() {
         `);
         assert(writingOctoColor === 'blue', 'Octoparse publisher badge in writing card matches brand blue');
 
+        const writingMediumatchColor = await client.evaluate(`
+            (() => {
+                const el = document.querySelector('.writing-card[data-publisher="mediumatch"] .pub-badge.pub-mediumatch');
+                if (!el) return null;
+                const col = window.getComputedStyle(el).color;
+                const m = col.match(/oklab\\(([^\\s]+)\\s+([^\\s]+)\\s+([^\\s]+)\\)/);
+                if (m) {
+                    const a = parseFloat(m[2]), b = parseFloat(m[3]);
+                    return (a > 0.05 && b < 0) ? 'violet' : col;
+                }
+                return (col.includes('139, 92, 246') || col.includes('124, 58, 237')) ? 'violet' : col;
+            })()
+        `);
+        assert(writingMediumatchColor === 'violet', 'MediuMatch publisher badge in writing card matches brand violet');
+
         assertZeroErrors('lazy image scroll');
 
         console.log('\n--- Test 3: Theme Toggle & First Paint Flash Prevention ---');
@@ -740,6 +755,19 @@ async function runTests() {
         const blogCardsCount = await client.evaluate('document.querySelectorAll(".blog-card").length');
         assert(blogCardsCount >= 5, `Blog page rendered ${blogCardsCount} article cards`);
 
+        // Test MediuMatch external profile link
+        const mediumatchExtLink = await client.evaluate(`
+            (() => {
+                const link = document.querySelector('.pub-ext-link.pub-ext-mediumatch');
+                if (!link) return null;
+                return {
+                    href: link.getAttribute('href'),
+                    hasName: link.querySelector('.pub-ext-name') !== null
+                };
+            })()
+        `);
+        assert(mediumatchExtLink && mediumatchExtLink.href.includes('mediumatch.com'), 'MediuMatch profile link present in External Profiles');
+
         // Test category filter interactivity
         await client.evaluate('document.querySelector(".filter-chip[data-filter=\\"ai-mcp\\"]").click()');
         await sleep(200);
@@ -761,7 +789,32 @@ async function runTests() {
                 return visible.length;
             })()
         `);
-        assert(allVisible === blogCardsCount, `Filtering by all restores ${blogCardsCount} cards (got ${allVisible})`);
+        assert(allVisible === 10, `Filtering by all displays 10 paginated cards on page 1 (got ${allVisible})`);
+
+        // Test pagination navigation
+        const paginationActive = await client.evaluate(`
+            (() => {
+                const nav = document.getElementById('blog-pagination');
+                const isNavVisible = nav && !nav.hidden && window.getComputedStyle(nav).display !== 'none';
+                const nextBtn = document.getElementById('pagination-next');
+                return isNavVisible && nextBtn && !nextBtn.disabled;
+            })()
+        `);
+        assert(paginationActive, 'Blog pagination nav is active with next button enabled');
+
+        await client.evaluate('document.getElementById("pagination-next").click()');
+        await sleep(200);
+        const page2Visible = await client.evaluate(`
+            (() => {
+                const cards = Array.from(document.querySelectorAll('.blog-card'));
+                const visible = cards.filter(c => window.getComputedStyle(c).display !== 'none');
+                return visible.length;
+            })()
+        `);
+        assert(page2Visible === 10, `Page 2 displays 10 cards (got ${page2Visible})`);
+
+        await client.evaluate('document.getElementById("pagination-prev").click()');
+        await sleep(200);
 
         const blogActive = await client.evaluate(`
             (() => {
@@ -778,17 +831,21 @@ async function runTests() {
         assert(blogActive && blogActive.hasBorder, 'Active Blog link displays subtle border indicator');
 
         // Test publisher-specific hover colors
+        // Filter by ai-mcp so chat4data and octoparse cards are visible on active page
+        await client.evaluate('document.querySelector(".filter-chip[data-filter=\\"ai-mcp\\"]").click()');
+        await sleep(200);
+
         const c4dCardPos = await client.evaluate(`(() => {
-            const el = document.querySelector('.blog-card[data-publisher="chat4data"]');
+            const el = document.querySelector('.blog-card[data-publisher="chat4data"]:not(.is-hidden)');
             el.scrollIntoView({ block: 'center', behavior: 'instant' });
             const r = el.getBoundingClientRect();
             return { x: r.left + r.width / 2, y: r.top + r.height / 2 };
         })()`);
         await client.send('Input.dispatchMouseEvent', { type: 'mouseMoved', x: c4dCardPos.x, y: c4dCardPos.y });
         await sleep(150);
-        const c4dHoverColor = await client.evaluate(`window.getComputedStyle(document.querySelector('.blog-card[data-publisher="chat4data"] .blog-card-title')).color`);
+        const c4dHoverColor = await client.evaluate(`window.getComputedStyle(document.querySelector('.blog-card[data-publisher="chat4data"]:not(.is-hidden) .blog-card-title')).color`);
         const c4dIsOrange = await client.evaluate(`(() => {
-            const col = window.getComputedStyle(document.querySelector('.blog-card[data-publisher="chat4data"] .blog-card-title')).color;
+            const col = window.getComputedStyle(document.querySelector('.blog-card[data-publisher="chat4data"]:not(.is-hidden) .blog-card-title')).color;
             const m = col.match(/oklab\\(([^\\s]+)\\s+([^\\s]+)\\s+([^\\s]+)\\)/);
             if (m) {
                 const a = parseFloat(m[2]), b = parseFloat(m[3]);
@@ -799,7 +856,7 @@ async function runTests() {
         assert(c4dIsOrange, 'Chat4Data article card hover title is single orange');
 
         const octoCardPos = await client.evaluate(`(() => {
-            const el = document.querySelector('.blog-card[data-publisher="octoparse"]');
+            const el = document.querySelector('.blog-card[data-publisher="octoparse"]:not(.is-hidden)');
             el.scrollIntoView({ block: 'center', behavior: 'instant' });
             const r = el.getBoundingClientRect();
             return { x: r.left + r.width / 2, y: r.top + r.height / 2 };
@@ -807,7 +864,7 @@ async function runTests() {
         await client.send('Input.dispatchMouseEvent', { type: 'mouseMoved', x: octoCardPos.x, y: octoCardPos.y });
         await sleep(150);
         const octoIsBlue = await client.evaluate(`(() => {
-            const col = window.getComputedStyle(document.querySelector('.blog-card[data-publisher="octoparse"] .blog-card-title')).color;
+            const col = window.getComputedStyle(document.querySelector('.blog-card[data-publisher="octoparse"]:not(.is-hidden) .blog-card-title')).color;
             const m = col.match(/oklab\\(([^\\s]+)\\s+([^\\s]+)\\s+([^\\s]+)\\)/);
             if (m) {
                 const b = parseFloat(m[3]);
@@ -816,6 +873,29 @@ async function runTests() {
             return col.includes('59, 130, 246') || col.includes('37, 99, 235');
         })()`);
         assert(octoIsBlue, 'Octoparse article card hover title is brand blue');
+
+        // Filter by all so mediumatch card is visible on page 1
+        await client.evaluate('document.querySelector(".filter-chip[data-filter=\\"all\\"]").click()');
+        await sleep(200);
+
+        const mmCardPos = await client.evaluate(`(() => {
+            const el = document.querySelector('.blog-card[data-publisher="mediumatch"]:not(.is-hidden)');
+            el.scrollIntoView({ block: 'center', behavior: 'instant' });
+            const r = el.getBoundingClientRect();
+            return { x: r.left + r.width / 2, y: r.top + r.height / 2 };
+        })()`);
+        await client.send('Input.dispatchMouseEvent', { type: 'mouseMoved', x: mmCardPos.x, y: mmCardPos.y });
+        await sleep(150);
+        const mmIsViolet = await client.evaluate(`(() => {
+            const col = window.getComputedStyle(document.querySelector('.blog-card[data-publisher="mediumatch"]:not(.is-hidden) .blog-card-title')).color;
+            const m = col.match(/oklab\\(([^\\s]+)\\s+([^\\s]+)\\s+([^\\s]+)\\)/);
+            if (m) {
+                const a = parseFloat(m[2]), b = parseFloat(m[3]);
+                return a > 0.05 && b < 0;
+            }
+            return col.includes('139, 92, 246') || col.includes('124, 58, 237');
+        })()`);
+        assert(mmIsViolet, 'MediuMatch article card hover title is brand violet');
 
         assertZeroErrors('blog.html navigation');
 
