@@ -1470,7 +1470,7 @@
 
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(2, 1fr);
             gap: 14px;
         }
 
@@ -1524,6 +1524,29 @@
 
         .project-card-logo.chat4data-logo {
             color: var(--text);
+        }
+
+        .project-card-logo.mediumatch-logo img {
+            width: 22px;
+            height: 22px;
+            border-radius: 5px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .project-card[data-project="mediumatch"]:hover {
+            border-color: rgba(139, 92, 246, 0.45);
+            box-shadow: 0 14px 34px -4px rgba(139, 92, 246, 0.16), var(--shadow-lg);
+        }
+        .project-card[data-project="mediumatch"]:hover .project-title {
+            color: #8b5cf6;
+        }
+        :is(html.light, body.light) .project-card[data-project="mediumatch"]:hover {
+            border-color: rgba(124, 58, 237, 0.35);
+            box-shadow: 0 14px 34px -4px rgba(124, 58, 237, 0.12), var(--shadow-lg);
+        }
+        :is(html.light, body.light) .project-card[data-project="mediumatch"]:hover .project-title {
+            color: #7c3aed;
         }
 
         /* CV Object Tracking Card Feature */

@@ -547,6 +547,25 @@ async function runTests() {
         await client.evaluate('document.getElementById("projects").scrollIntoView()');
         await sleep(200);
 
+        const projectCardsCount = await client.evaluate('document.querySelectorAll(".projects-grid .project-card").length');
+        assert(projectCardsCount === 4, `Projects section rendered 4 cards (got ${projectCardsCount})`);
+
+        const mmProject = await client.evaluate(`
+            (() => {
+                const card = document.querySelector('.project-card[data-project="mediumatch"]');
+                if (!card) return null;
+                return {
+                    href: card.getAttribute('href'),
+                    title: card.querySelector('.project-title')?.textContent.trim(),
+                    repo: card.querySelector('.project-repo')?.textContent.trim(),
+                    imgSrc: card.querySelector('img')?.getAttribute('src')
+                };
+            })()
+        `);
+        assert(mmProject && mmProject.href === 'https://mediumatch.com', 'MediuMatch project card links to https://mediumatch.com');
+        assert(mmProject && mmProject.repo === 'mediumatch.com', 'MediuMatch project card displays mediumatch.com');
+        assert(mmProject && mmProject.imgSrc === 'src/branding/stripe-icon.png', 'MediuMatch project card displays stripe-icon.png');
+
         const initialCarLeft = await client.evaluate('document.querySelector(".cv-car-unit.top-1").getBoundingClientRect().left');
         await sleep(150);
         const movedCarLeft = await client.evaluate('document.querySelector(".cv-car-unit.top-1").getBoundingClientRect().left');
