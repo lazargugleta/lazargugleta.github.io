@@ -780,6 +780,7 @@ async function runTests() {
         // Test publisher-specific hover colors
         const c4dCardPos = await client.evaluate(`(() => {
             const el = document.querySelector('.blog-card[data-publisher="chat4data"]');
+            el.scrollIntoView({ block: 'center', behavior: 'instant' });
             const r = el.getBoundingClientRect();
             return { x: r.left + r.width / 2, y: r.top + r.height / 2 };
         })()`);
@@ -799,6 +800,7 @@ async function runTests() {
 
         const octoCardPos = await client.evaluate(`(() => {
             const el = document.querySelector('.blog-card[data-publisher="octoparse"]');
+            el.scrollIntoView({ block: 'center', behavior: 'instant' });
             const r = el.getBoundingClientRect();
             return { x: r.left + r.width / 2, y: r.top + r.height / 2 };
         })()`);

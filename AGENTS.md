@@ -9,4 +9,6 @@
 - **GitHub Pages Workflow**: Use explicit GitHub Actions workflows (`.github/workflows/pages.yml`) for deployment to prevent `deployment_queued` timeouts.
 
 ## Browser Test Runner
+
+- Scroll a target card into view before deriving coordinates for CDP hover tests. New article groups can move existing publisher cards below the viewport; offscreen mouse coordinates do not exercise hover styles.
 - Chrome remote debugging requires a non-default `--user-data-dir`. Use a fresh temporary profile for each browser test run; default profiles can cause CDP startup timeouts in GitHub Actions.
