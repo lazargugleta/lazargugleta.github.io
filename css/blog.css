@@ -465,6 +465,113 @@ h1 {
     color: var(--accent);
 }
 
+/* Keep filtering and visiting a publisher in one compact control. */
+.blog-filter-profiles .author-publications {
+    margin-top: 0;
+    gap: 8px;
+}
+
+.profile-control {
+    display: inline-flex;
+    align-items: stretch;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: var(--bg-soft);
+}
+
+.profile-control:has(.is-active) {
+    border-color: var(--accent-border);
+    background: var(--accent-soft);
+}
+
+.profile-control .filter-chip {
+    border: 0;
+    border-radius: 999px 0 0 999px;
+    padding: 8px 8px 8px 10px;
+    gap: 6px;
+    background: transparent;
+    box-shadow: none;
+    transform: none;
+}
+
+.profile-control .pub-ext-name {
+    color: inherit;
+    font-size: inherit;
+}
+
+.profile-control .pub-ext-link {
+    justify-content: center;
+    width: 32px;
+    padding: 0;
+    border: 0;
+    border-left: 1px solid var(--border);
+    border-radius: 0 999px 999px 0;
+    background: transparent;
+    box-shadow: none;
+    transform: none;
+}
+
+.profile-control .pub-ext-link:hover {
+    background: var(--accent-soft);
+}
+
+.profile-control :is(button, a):focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+}
+
+/* Native customizable picker preserves keyboard and touch behavior. */
+@supports (appearance: base-select) {
+    .blog-sort-select,
+    .blog-sort-select::picker(select) {
+        appearance: base-select;
+    }
+
+    .blog-sort-select {
+        min-width: 120px;
+        padding: 8px 30px 8px 13px;
+    }
+
+    .blog-sort-select::picker-icon {
+        display: none;
+    }
+
+    .blog-sort-select::picker(select) {
+        margin-top: 6px;
+        padding: 5px;
+        min-width: 160px;
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        background: var(--bg-card);
+        color: var(--text-2);
+        box-shadow: var(--shadow-md);
+        font: inherit;
+    }
+
+    .blog-sort-select option {
+        gap: 10px;
+        padding: 10px 12px;
+        border-radius: 9px;
+        font-size: 12.5px;
+        cursor: pointer;
+    }
+
+    .blog-sort-select option:checked {
+        background: var(--accent-soft);
+        color: var(--accent);
+    }
+
+    .blog-sort-select option:is(:hover, :focus-visible) {
+        background: var(--bg-soft);
+        color: var(--text);
+        outline: none;
+    }
+
+    .blog-sort-select option::checkmark {
+        color: var(--accent);
+    }
+}
+
 /* Empty State Card */
 .blog-empty-state {
     grid-column: 1 / -1;

@@ -833,7 +833,7 @@ async function runTests() {
                     href: l.getAttribute('href'),
                     className: l.className,
                     text: l.textContent.trim(),
-                    imgSrc: l.querySelector('img')?.getAttribute('src') || null
+                    imgSrc: l.closest('.profile-control').querySelector('img')?.getAttribute('src') || null
                 }));
             })()
         `);

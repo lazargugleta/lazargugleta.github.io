@@ -13,3 +13,5 @@
 - Scroll a target card into view before deriving coordinates for CDP hover tests. New article groups can move existing publisher cards below the viewport; offscreen mouse coordinates do not exercise hover styles.
 - When testing hover states on paginated article grids, filter to a category containing the target publisher or navigate to their active page; off-page cards have display: none and report (0, 0) bounding boxes.
 - Chrome remote debugging requires a non-default `--user-data-dir`. Use a fresh temporary profile for each browser test run; default profiles can cause CDP startup timeouts in GitHub Actions.
+
+- This static site has no package.json. Run browser checks directly with `node scripts/browser-check.js`.
