@@ -7,6 +7,7 @@
 
 ## Deployment & CI/CD Guidelines
 - **GitHub Pages Workflow**: Use explicit GitHub Actions workflows (`.github/workflows/pages.yml`) for deployment to prevent `deployment_queued` timeouts.
+- **Push preference**: Commit and push completed changes to `main` automatically; the user has authorized pushes without asking each time.
 
 ## Browser Test Runner
 
