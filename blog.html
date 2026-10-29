@@ -964,6 +964,19 @@
                     matching.sort(function (a, b) {
                         return a.index - b.index;
                     });
+                    // Give each matching publisher a turn before repeating one.
+                    var publishers = new Map();
+                    matching.forEach(function (item) {
+                        if (!publishers.has(item.publisher)) publishers.set(item.publisher, []);
+                        publishers.get(item.publisher).push(item);
+                    });
+                    var featured = [];
+                    while (featured.length < matching.length) {
+                        publishers.forEach(function (items) {
+                            if (items.length) featured.push(items.shift());
+                        });
+                    }
+                    return featured;
                 }
 
                 return matching;

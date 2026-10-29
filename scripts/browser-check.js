@@ -972,6 +972,24 @@ async function runTests() {
         })()`);
         await sleep(200);
 
+        const featuredPublishers = await client.evaluate(`(() => {
+            const cards = Array.from(document.querySelectorAll('.blog-card'));
+            const publisherCount = new Set(cards.map(card => card.dataset.publisher)).size;
+            const visible = cards.filter(card => !card.hidden);
+            return new Set(visible.slice(0, publisherCount).map(card => card.dataset.publisher)).size === publisherCount;
+        })()`);
+        assert(featuredPublishers, 'Featured starts with one article from every publisher');
+
+        await client.evaluate(`document.querySelector('.filter-chip-topic[data-topic="scraping-guides"]').click()`);
+        const filteredFeaturedPublishers = await client.evaluate(`(() => {
+            const cards = Array.from(document.querySelectorAll('.blog-card[data-category="scraping-guides"]'));
+            const publisherCount = new Set(cards.map(card => card.dataset.publisher)).size;
+            const visible = cards.filter(card => !card.hidden);
+            return new Set(visible.slice(0, publisherCount).map(card => card.dataset.publisher)).size === publisherCount;
+        })()`);
+        assert(filteredFeaturedPublishers, 'Featured keeps publisher variety within a topic filter');
+        await client.evaluate(`document.querySelector('.filter-chip-topic[data-topic="all"]').click()`);
+
         // Test Faceted Combination & Empty State with Reset Filters button
         await client.evaluate(`document.querySelector('.filter-chip-profile[data-profile="mediumatch"]').click()`);
         await client.evaluate(`document.querySelector('.filter-chip-topic[data-topic="browser-automation"]').click()`);

@@ -15,3 +15,4 @@
 - Chrome remote debugging requires a non-default `--user-data-dir`. Use a fresh temporary profile for each browser test run; default profiles can cause CDP startup timeouts in GitHub Actions.
 
 - This static site has no package.json. Run browser checks directly with `node scripts/browser-check.js`.
+- PowerShell does not expand filename globs for `rg`; use `rg -g '*blog*.html'` instead of a positional `blogs*` path.
