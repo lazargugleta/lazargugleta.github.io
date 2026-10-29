@@ -433,7 +433,7 @@ async function runTests() {
                     const a = parseFloat(m[2]), b = parseFloat(m[3]);
                     return (a > 0.05 && b < 0) ? 'violet' : col;
                 }
-                return (col.includes('139, 92, 246') || col.includes('124, 58, 237')) ? 'violet' : col;
+                return (col.includes('167, 139, 250') || col.includes('124, 58, 237')) ? 'violet' : col;
             })()
         `);
         assert(writingMediumatchColor === 'violet', 'MediuMatch publisher badge in writing card matches brand violet');
@@ -608,7 +608,7 @@ async function runTests() {
                 const a = parseFloat(m[2]), b = parseFloat(m[3]);
                 return (a > 0.05 && b > 0.05) ? 'orange' : col;
             }
-            return (col.includes('251, 146, 60') || col.includes('234, 88, 12')) ? 'orange' : col;
+            return (col.includes('251, 146, 60') || col.includes('180, 83, 9')) ? 'orange' : col;
         })()`);
         assert(c4dProjectColor === 'orange', 'Chat4Data project card hover title is brand orange');
 
@@ -1040,7 +1040,7 @@ async function runTests() {
                 const a = parseFloat(m[2]), b = parseFloat(m[3]);
                 return a > 0.05 && b > 0.08;
             }
-            return col.includes('251, 146, 60') || col.includes('234, 88, 12');
+            return col.includes('251, 146, 60') || col.includes('180, 83, 9');
         })()`);
         assert(c4dIsOrange, 'Chat4Data article card hover title is single orange');
 
@@ -1082,7 +1082,7 @@ async function runTests() {
                 const a = parseFloat(m[2]), b = parseFloat(m[3]);
                 return a > 0.05 && b < 0;
             }
-            return col.includes('139, 92, 246') || col.includes('124, 58, 237');
+            return col.includes('167, 139, 250') || col.includes('124, 58, 237');
         })()`);
         assert(mmIsViolet, 'MediuMatch article card hover title is brand violet');
 

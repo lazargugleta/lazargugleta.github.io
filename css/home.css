@@ -784,7 +784,7 @@
         }
 
         .lamp-filament {
-            fill: #64748b;
+            fill: #475569;
             opacity: 0.4;
             transition: fill 350ms ease, opacity 350ms ease;
         }
@@ -1271,7 +1271,7 @@
         .pub-badge.pub-mediumatch,
         .writing-card .pub-badge.pub-mediumatch,
         #writing:not(.is-lit) .writing-card[data-publisher="mediumatch"] .pub-badge.pub-mediumatch {
-            color: #8b5cf6;
+            color: #a78bfa;
             background: none;
             border: none;
         }
@@ -1300,7 +1300,7 @@
             border: none;
         }
         :is(html.light, body.light) .pub-badge.pub-chat4data {
-            color: #64748b;
+            color: #475569;
         }
 
         .pub-badge.pub-chat4data .pub-accent {
@@ -1308,7 +1308,7 @@
             transition: color 200ms ease;
         }
         :is(html.light, body.light) .pub-badge.pub-chat4data .pub-accent {
-            color: #ea580c;
+            color: #b45309;
         }
 
         .pub-badge.pub-medium {
@@ -1332,7 +1332,7 @@
             box-shadow: 0 14px 34px -4px rgba(139, 92, 246, 0.16), var(--shadow-md);
         }
         #writing:not(.is-lit) .writing-card[data-publisher="mediumatch"]:hover .writing-card-title {
-            color: #8b5cf6;
+            color: #a78bfa;
         }
         :is(html.light, body.light) #writing:not(.is-lit) .writing-card[data-publisher="mediumatch"]:hover {
             border-color: rgba(124, 58, 237, 0.35);
@@ -1369,7 +1369,7 @@
             box-shadow: 0 14px 34px -4px rgba(234, 88, 12, 0.12), var(--shadow-md);
         }
         :is(html.light, body.light) #writing:not(.is-lit) .writing-card[data-publisher="chat4data"]:hover .writing-card-title {
-            color: #ea580c;
+            color: #b45309;
         }
 
         #writing:not(.is-lit) .writing-card[data-publisher="medium"]:hover {
@@ -1528,7 +1528,7 @@
             box-shadow: 0 14px 34px -4px rgba(139, 92, 246, 0.16), var(--shadow-lg);
         }
         .project-card[data-project="mediumatch"]:hover .project-title {
-            color: #8b5cf6;
+            color: #a78bfa;
         }
         :is(html.light, body.light) .project-card[data-project="mediumatch"]:hover {
             border-color: rgba(124, 58, 237, 0.35);
@@ -1570,10 +1570,10 @@
             box-shadow: 0 14px 34px -4px rgba(234, 88, 12, 0.12), var(--shadow-lg);
         }
         :is(html.light, body.light) .project-card[data-project="chat4data"]:hover .project-title {
-            color: #ea580c;
+            color: #b45309;
         }
         :is(html.light, body.light) .project-card[data-project="chat4data"]:hover .chat4data-logo {
-            color: #ea580c;
+            color: #b45309;
         }
 
         /* CV Object Tracking Card Feature */
