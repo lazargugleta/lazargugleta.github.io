@@ -159,21 +159,11 @@ body {
     color: var(--accent);
 }
 
-.newsletter-note,
-.newsletter-privacy {
+.newsletter-note {
     margin-top: 9px;
     color: var(--muted);
     font-size: 12px;
     line-height: 1.6;
-}
-
-.newsletter-privacy summary {
-    width: fit-content;
-    cursor: pointer;
-}
-
-.newsletter-privacy p {
-    margin-top: 6px;
 }
 
 @media (max-width: 640px) {
