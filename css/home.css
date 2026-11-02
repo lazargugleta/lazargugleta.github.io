@@ -531,7 +531,7 @@
             top: 23px;
         }
 
-        .timeline-event:last-child .timeline-spine::before,
+        .timeline-event:last-of-type .timeline-spine::before,
         .timeline-event.last-visible .timeline-spine::before {
             bottom: calc(100% - 23px);
         }
