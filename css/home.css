@@ -495,6 +495,12 @@
             display: contents;
         }
 
+        .timeline-footer {
+            width: max-content;
+            margin-left: 198px;
+            transform: translateX(-50%);
+        }
+
         .timeline-date {
             padding-right: 18px;
             padding-top: 13px;
@@ -2148,6 +2154,11 @@
             .timeline-date {
                 text-align: left;
                 padding: 0 0 6px;
+            }
+
+            .timeline-footer {
+                margin-left: 28px;
+                transform: none;
             }
 
             .timeline-spine {
