@@ -71,6 +71,119 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
+.newsletter {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+    gap: 24px 40px;
+    margin-top: 28px;
+    padding: 24px 0;
+}
+
+.newsletter .newsletter-heading {
+    margin: 0 0 8px;
+    color: var(--text);
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    line-height: 1.4;
+}
+
+.newsletter-copy p {
+    max-width: 36ch;
+    color: var(--text-2);
+    font-size: 14px;
+    line-height: 1.65;
+}
+
+.newsletter a {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-color: var(--accent-border);
+    text-underline-offset: 3px;
+}
+
+.newsletter a:hover {
+    color: var(--accent);
+    text-decoration-color: currentColor;
+}
+
+.newsletter-fields {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    min-width: 0;
+    border: 0;
+}
+
+.newsletter-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+}
+
+.newsletter input[type="email"] {
+    flex: 1 1 160px;
+    min-width: 0;
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--bg-card);
+    color: var(--text);
+    font: inherit;
+    font-size: 14px;
+}
+
+.newsletter input::placeholder {
+    color: var(--muted);
+}
+
+.newsletter-submit {
+    padding: 10px 16px;
+    min-height: 42px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--bg-soft);
+    color: var(--text);
+    font: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.newsletter-submit:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+.newsletter-note,
+.newsletter-privacy {
+    margin-top: 9px;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+.newsletter-privacy summary {
+    width: fit-content;
+    cursor: pointer;
+}
+
+.newsletter-privacy p {
+    margin-top: 6px;
+}
+
+@media (max-width: 640px) {
+    .newsletter {
+        grid-template-columns: 1fr;
+        gap: 16px;
+        padding: 16px 0;
+    }
+}
+
 ::selection {
     background: var(--accent);
     color: var(--bg);

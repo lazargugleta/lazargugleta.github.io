@@ -55,7 +55,7 @@
       }
     }
     </script>
-    <link rel="stylesheet" href="css/shared.css?v=15">
+    <link rel="stylesheet" href="css/shared.css?v=16">
     <link rel="stylesheet" href="css/blog.css?v=21">
 </head>
 <body>
@@ -896,6 +896,33 @@
             </div>
             <div class="pagination-info" id="pagination-info" aria-live="polite"></div>
         </nav>
+
+            <aside class="newsletter" aria-labelledby="newsletter-title">
+                <div class="newsletter-copy">
+                    <h2 id="newsletter-title" class="newsletter-heading">The next article, in your inbox.</h2>
+                    <p>New writing on data engineering and AI security.</p>
+                </div>
+                <div class="newsletter-signup">
+                    <form action="https://script.google.com/macros/s/AKfycbxIxG-7F3QJZMVcykOapSVy42PYNR4AjzaB7aE4TPk-CGdE1nMv5JQ7PAF9ONJkHv8SYQ/exec" method="post" target="_blank" rel="noopener" aria-describedby="newsletter-consent">
+                        <fieldset class="newsletter-fields">
+                            <legend class="newsletter-label">Newsletter signup</legend>
+                            <label class="newsletter-label" for="newsletter-email">Email address</label>
+                            <input id="newsletter-email" type="email" name="email" autocomplete="email" placeholder="you@example.com" maxlength="254" required>
+                            <input type="hidden" name="consent" value="yes">
+                            <div class="newsletter-label" aria-hidden="true">
+                                <label for="newsletter-website">Leave this field empty</label>
+                                <input id="newsletter-website" name="website" type="text" tabindex="-1" autocomplete="off">
+                            </div>
+                            <button class="newsletter-submit" type="submit">Subscribe</button>
+                        </fieldset>
+                    </form>
+                    <p id="newsletter-consent" class="newsletter-note">By subscribing, you agree to receive new writing by email. Confirmation opens in a new tab.</p>
+                    <details class="newsletter-privacy">
+                        <summary>Privacy &amp; unsubscribe</summary>
+                        <p>Your email is stored privately in Google Sheets. To unsubscribe, <a href="mailto:lazar.gugleta@gmail.com?subject=Newsletter%20unsubscribe">email me</a>.</p>
+                    </details>
+                </div>
+            </aside>
 
         <footer class="footer">
             <span>Copyright 2026 Lazar Gugleta &bull; built in Vienna</span>
