@@ -1399,6 +1399,60 @@
             margin-top: 26px;
         }
 
+        .newsletter {
+            margin-top: 40px;
+            padding-top: 28px;
+            border-top: 1px solid var(--border);
+        }
+
+        .newsletter h3 {
+            font-size: 20px;
+            font-weight: 600;
+            letter-spacing: -0.025em;
+        }
+
+        .newsletter p {
+            margin-top: 8px;
+            color: var(--text-2);
+        }
+
+        .newsletter-fields {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            max-width: 480px;
+            margin-top: 18px;
+            border: 0;
+        }
+
+        .newsletter-label {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+            clip-path: inset(50%);
+        }
+
+        .newsletter input {
+            flex: 1 1 220px;
+            min-width: 0;
+            padding: 10px 12px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: var(--bg-card);
+            color: var(--text);
+            font: inherit;
+        }
+
+        .newsletter input::placeholder,
+        .newsletter .newsletter-status {
+            color: var(--muted);
+        }
+
+        .newsletter .newsletter-status {
+            font-size: 12px;
+        }
+
         .writing-more-btn {
             display: inline-flex;
             align-items: center;

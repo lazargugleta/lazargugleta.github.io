@@ -17,3 +17,4 @@
 
 - This static site has no package.json. Run browser checks directly with `node scripts/browser-check.js`.
 - PowerShell does not expand filename globs for `rg`; use `rg -g '*blog*.html'` instead of a positional `blogs*` path.
+- Windows Computer Use may report `coordinate input geometry is unavailable` after text-only inspection. Capture a fresh screenshot with accessibility text before retrying the click.
