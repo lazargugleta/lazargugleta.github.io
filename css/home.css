@@ -678,8 +678,11 @@
             text-decoration: none;
         }
 
-        .newsletter-copy > .writing-blog-btn + p {
-            margin-top: 8px;
+        .newsletter-copy .newsletter-options {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px 12px;
         }
 
         .writing-blog-btn:hover {

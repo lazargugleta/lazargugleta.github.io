@@ -73,9 +73,10 @@ body {
 
 .newsletter {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     align-items: start;
-    gap: 24px 40px;
+    gap: 14px;
+    max-width: 560px;
     margin-top: 28px;
     padding: 24px 0;
 }
@@ -90,7 +91,6 @@ body {
 }
 
 .newsletter-copy p {
-    max-width: 36ch;
     color: var(--text-2);
     font-size: 14px;
     line-height: 1.65;
