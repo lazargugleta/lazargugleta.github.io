@@ -673,6 +673,15 @@
             transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease, background-color 160ms ease, color 160ms ease;
         }
 
+        .newsletter .writing-blog-btn {
+            color: var(--text);
+            text-decoration: none;
+        }
+
+        .newsletter-copy > .writing-blog-btn + p {
+            margin-top: 8px;
+        }
+
         .writing-blog-btn:hover {
             border-color: var(--accent-border);
             background: var(--bg-soft);
