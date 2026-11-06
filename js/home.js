@@ -123,13 +123,18 @@
             clearTimeout(nightTooltipTimeout);
             nightTooltip.classList.add('is-visible');
             nightTooltipTimeout = setTimeout(function () {
-                hideNightTooltip();
+                if (!nightTooltip.matches(':hover') && !nightTooltip.contains(document.activeElement)) {
+                    hideNightTooltip();
+                }
             }, 3200);
         }
 
         function hideNightTooltip() {
             if (!nightTooltip) return;
             clearTimeout(nightTooltipTimeout);
+            if (nightTooltip.contains(document.activeElement)) {
+                lampBtn.focus({ preventScroll: true });
+            }
             nightTooltip.classList.remove('is-visible');
         }
 
@@ -264,6 +269,12 @@
                 if (!e.target.closest('.writing-lamp-fixture')) {
                     hideNightTooltip();
                 }
+            }
+        });
+
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape' && nightTooltip && nightTooltip.classList.contains('is-visible')) {
+                hideNightTooltip();
             }
         });
 

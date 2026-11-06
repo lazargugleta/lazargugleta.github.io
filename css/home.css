@@ -896,6 +896,7 @@
 
         /* Night-only lamp tooltip */
         .lamp-night-tooltip {
+            visibility: hidden;
             position: absolute;
             top: calc(100% + 10px);
             right: 0;
@@ -933,6 +934,7 @@
         }
 
         .lamp-night-tooltip.is-visible {
+            visibility: visible;
             opacity: 1;
             transform: translateY(0) scale(1);
             pointer-events: auto;
@@ -2041,7 +2043,7 @@
                 flex-direction: column;
                 align-items: center;
                 gap: 14px;
-                background: var(--header-bg);
+                background: var(--bg-card);
                 border: 1px solid var(--border-soft);
                 border-radius: 10px;
                 box-shadow: 0 12px 28px oklch(0.08 0 0 / 0.18);
@@ -2058,12 +2060,12 @@
             }
 
             .theme-toggle {
-                margin-left: auto;
+                margin-left: 8px;
             }
 
             .menu-toggle {
                 display: inline-flex;
-                margin-left: 8px;
+                margin-left: auto;
             }
 
             .timeline-head {

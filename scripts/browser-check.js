@@ -40,8 +40,8 @@ function createServer() {
             res.writeHead(200, { 'Content-Type': MIME_TYPES[ext] || 'application/octet-stream' });
             fs.createReadStream(filePath).pipe(res);
         } else {
-            res.writeHead(404);
-            res.end('Not Found');
+            res.writeHead(404, { 'Content-Type': 'text/html' });
+            fs.createReadStream(path.join(ROOT, '404.html')).pipe(res);
         }
     });
 }
@@ -477,6 +477,11 @@ async function runTests() {
         console.log('\n--- Test 4: Lamp Interactions, AudioContext Reuse & Node Cleanup ---');
         const lampInitLit = await client.evaluate('document.getElementById("writing").classList.contains("is-lit")');
         assert(!lampInitLit, 'Lamp is initially unlit');
+        assert(await client.evaluate(`(() => {
+            const action = document.getElementById('lamp-night-switch-btn');
+            action.focus();
+            return document.activeElement !== action;
+        })()`), 'Hidden lamp action cannot receive keyboard focus');
 
         // Single pull
         await client.evaluate('document.getElementById("reading-lamp-btn").click()');
@@ -522,6 +527,12 @@ async function runTests() {
         const tooltipVisible = await client.evaluate('document.getElementById("lamp-night-tooltip").classList.contains("is-visible")');
         assert(!lampLitInDay, 'Lamp refuses to light in day mode');
         assert(tooltipVisible, 'Day mode lamp pull displays night tooltip');
+
+        await client.evaluate('document.getElementById("lamp-night-switch-btn").focus()');
+        await sleep(3400);
+        assert(await client.evaluate('document.getElementById("lamp-night-tooltip").classList.contains("is-visible")'), 'Lamp tooltip stays visible while its action has focus');
+        await client.send('Input.dispatchKeyEvent', { type: 'keyDown', key: 'Escape', code: 'Escape' });
+        assert(await client.evaluate(`document.activeElement.id === 'reading-lamp-btn' && getComputedStyle(document.getElementById('lamp-night-tooltip')).visibility === 'hidden'`), 'Escape dismisses lamp tooltip and restores visible trigger focus');
 
         await client.evaluate('document.getElementById("theme-toggle").click()');
         await sleep(100);
@@ -800,9 +811,16 @@ async function runTests() {
         `);
         assert(menuToggleVisible, 'Mobile menu hamburger button visible on mobile viewport');
 
-        await client.evaluate('document.getElementById("menu-toggle").click()');
+        await client.evaluate('document.getElementById("menu-toggle").focus()');
+        await client.send('Input.dispatchKeyEvent', { type: 'keyDown', key: 'Enter', code: 'Enter', windowsVirtualKeyCode: 13, text: '\r' });
+        await client.send('Input.dispatchKeyEvent', { type: 'keyUp', key: 'Enter', code: 'Enter', windowsVirtualKeyCode: 13 });
         const navOpen = await client.evaluate('document.querySelector(".nav").classList.contains("is-open")');
         assert(navOpen, 'Mobile navigation opens on click');
+        await client.send('Input.dispatchKeyEvent', { type: 'keyDown', key: 'Tab', code: 'Tab', windowsVirtualKeyCode: 9 });
+        assert(await client.evaluate('document.activeElement === document.querySelector(".nav a")'), 'Tab from mobile disclosure enters navigation naturally');
+        await client.send('Input.dispatchKeyEvent', { type: 'keyDown', key: 'Escape', code: 'Escape' });
+        assert(await client.evaluate('document.activeElement.id === "menu-toggle" && !document.querySelector(".nav").classList.contains("is-open")'), 'Escape closes navigation and restores toggle focus');
+        await client.evaluate('document.getElementById("menu-toggle").click()');
 
         await client.evaluate('document.querySelector(".nav a").click()');
         const navClosedAfterLink = await client.evaluate('!document.querySelector(".nav").classList.contains("is-open")');
@@ -999,8 +1017,15 @@ async function runTests() {
             return el && !el.hidden && window.getComputedStyle(el).display !== 'none';
         })()`);
         assert(emptyStateActive, 'Empty state appears when no articles match profile + topic combination');
+        assert(await client.evaluate(`(() => {
+            const info = document.getElementById('pagination-info');
+            return info.textContent === 'No articles found' && info.getClientRects().length > 0;
+        })()`), 'Empty filter results have a visible persistent live summary');
 
-        await client.evaluate('document.getElementById("blog-reset-filters").click()');
+        await client.evaluate('document.getElementById("blog-reset-filters").focus()');
+        await client.send('Input.dispatchKeyEvent', { type: 'keyDown', key: 'Enter', code: 'Enter', windowsVirtualKeyCode: 13, text: '\r' });
+        await client.send('Input.dispatchKeyEvent', { type: 'keyUp', key: 'Enter', code: 'Enter', windowsVirtualKeyCode: 13 });
+        assert(await client.evaluate('document.activeElement.matches(\'.filter-chip-profile[data-profile="all"]\')'), 'Reset returns keyboard focus to visible All publisher control');
         await sleep(200);
         const postResetInfo = await client.evaluate('document.getElementById("pagination-info").textContent');
         assert(postResetInfo.includes('of 89 articles'), `Empty state reset button restores all 89 articles (got "${postResetInfo}")`);
@@ -1088,11 +1113,53 @@ async function runTests() {
 
         assertZeroErrors('blog.html navigation');
 
+        await client.evaluate(`document.querySelector('.filter-chip-profile[data-profile="all"]').click(); document.querySelector('.filter-chip-topic[data-topic="ai-mcp"]').click()`);
+        assert(await client.evaluate(`(() => {
+            const info = document.getElementById('pagination-info');
+            return info.textContent === 'Showing 1-9 of 9 articles' && info.getClientRects().length > 0 && document.getElementById('blog-pagination').hidden;
+        })()`), 'Single-page filter reports nine results with pagination hidden');
+        await client.evaluate(`document.querySelector('.filter-chip-topic[data-topic="all"]').click(); document.querySelector('.pagination-num[aria-label="Page 2"]').focus()`);
+        await client.send('Input.dispatchKeyEvent', { type: 'keyDown', key: 'Enter', code: 'Enter', windowsVirtualKeyCode: 13, text: '\r' });
+        await client.send('Input.dispatchKeyEvent', { type: 'keyUp', key: 'Enter', code: 'Enter', windowsVirtualKeyCode: 13 });
+        assert(await client.evaluate(`document.activeElement.matches('.pagination-num[aria-current="page"]') && document.activeElement.textContent === '2'`), 'Keyboard pagination preserves focus on replacement page button');
+        await client.evaluate('document.getElementById("pagination-prev").focus(); document.getElementById("pagination-prev").click()');
+        assert(await client.evaluate(`document.activeElement.matches('.pagination-num[aria-current="page"]') && document.activeElement.textContent === '1'`), 'Disabled Previous control falls back to current page focus');
+        await client.send('Emulation.setEmulatedMedia', { features: [{ name: 'prefers-reduced-motion', value: 'reduce' }] });
+        await client.evaluate(`(() => {
+            window.scrollTo(0, document.body.scrollHeight);
+            const section = document.querySelector('.blog-filter-section');
+            const original = section.scrollIntoView;
+            section.scrollIntoView = function (options) {
+                window.__paginationScroll = options.behavior;
+                return original.call(this, options);
+            };
+            document.getElementById('pagination-next').dispatchEvent(new MouseEvent('click', { bubbles: true, detail: 1 }));
+        })()`);
+        assert(await client.evaluate('window.__paginationScroll === "instant"'), 'Pagination scroll honors reduced motion');
+        await client.send('Emulation.setEmulatedMedia', { features: [] });
+
         await client.send('Page.navigate', { url: `http://127.0.0.1:${PORT}/404.html` });
         await sleep(500);
         const notFoundHeading = await client.evaluate('document.querySelector("h1").textContent');
         assert(notFoundHeading.includes('digital garden'), `404 page rendered: "${notFoundHeading}"`);
         assertZeroErrors('404.html navigation');
+
+        for (const missingPath of ['/missing/nested/article', '/missing/nested/']) {
+            assert((await fetch(`http://127.0.0.1:${PORT}${missingPath}`)).status === 404, 'Nested missing route returns HTTP 404: ' + missingPath);
+            await client.send('Page.navigate', { url: `http://127.0.0.1:${PORT}${missingPath}` });
+            await sleep(400);
+            assert(await client.evaluate(`(() => {
+                const links = Array.from(document.querySelectorAll('link[rel="stylesheet"]'));
+                const home = document.querySelector('main a[href="/index.html"]');
+                const blog = document.querySelector('main a[href="/blog.html"]');
+                return links.every(link => link.sheet) && home.pathname === '/index.html' && blog.pathname === '/blog.html';
+            })()`), 'Nested 404 loads styles and root recovery links: ' + missingPath);
+            await client.evaluate('document.getElementById("theme-toggle").click()');
+            assert(await client.evaluate('document.documentElement.classList.contains("light") === (localStorage.getItem("theme") === "light")'), 'Nested 404 theme script is functional');
+        }
+        await client.evaluate(`document.querySelector('main a[href="/blog.html"]').click()`);
+        await sleep(400);
+        assert(await client.evaluate('location.pathname === "/blog.html" && document.querySelectorAll(".blog-card").length === 89'), 'Nested 404 recovery opens working blog');
 
         console.log('\n--- Test 10: Cumulative Suite Integrity ---');
         assertZeroErrors('all combined interactions and page transitions');

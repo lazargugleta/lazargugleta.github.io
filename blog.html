@@ -55,8 +55,8 @@
       }
     }
     </script>
-    <link rel="stylesheet" href="css/shared.css?v=18">
-    <link rel="stylesheet" href="css/blog.css?v=21">
+    <link rel="stylesheet" href="css/shared.css?v=19">
+    <link rel="stylesheet" href="css/blog.css?v=22">
 </head>
 <body>
     <header class="topbar">
@@ -65,7 +65,12 @@
                 <span class="brand-mark">lg</span>
                 <span class="brand-name">Lazar Gugleta</span>
             </a>
-            <nav class="nav">
+            <button id="menu-toggle" aria-controls="primary-navigation" class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false" title="Menu">
+                <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                    <path d="M2 4.5h12M2 8h12M2 11.5h12" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"></path>
+                </svg>
+            </button>
+            <nav class="nav" id="primary-navigation" aria-label="Main navigation">
                 <a href="index.html#top">Home</a>
                 <a href="index.html#timeline">Timeline</a>
                 <a href="blog.html" class="active">Blog</a>
@@ -80,11 +85,6 @@
                 <svg class="theme-icon-sun" viewBox="0 0 16 16" fill="none" aria-hidden="true">
                     <circle cx="8" cy="8" r="3" stroke="currentColor" stroke-width="1.4"></circle>
                     <path d="M8 1.4v1.8M8 12.8v1.8M12.6 8h1.8M1.6 8h1.8M11.25 4.75l1.25-1.25M3.5 12.5l1.25-1.25M11.25 11.25l1.25 1.25M3.5 3.5l1.25 1.25" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"></path>
-                </svg>
-            </button>
-            <button id="menu-toggle" class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false" title="Menu">
-                <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                    <path d="M2 4.5h12M2 8h12M2 11.5h12" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"></path>
                 </svg>
             </button>
         </div>
@@ -894,8 +894,8 @@
                     <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4l4 4-4 4"/></svg>
                 </button>
             </div>
-            <div class="pagination-info" id="pagination-info" aria-live="polite"></div>
         </nav>
+        <div class="pagination-info" id="pagination-info" aria-live="polite"></div>
 
             <aside class="newsletter" aria-labelledby="newsletter-title">
                 <div class="newsletter-copy">
@@ -1032,6 +1032,7 @@
             }
 
             function render() {
+                var focusedControl = document.activeElement;
                 var matching = getSortedMatchingCards();
                 var total = matching.length;
                 var totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
@@ -1088,6 +1089,10 @@
                     }
                 }
 
+                if (infoEl) {
+                    infoEl.textContent = total === 0 ? 'No articles found' : 'Showing ' + (startIndex + 1) + '-' + endIndex + ' of ' + total + ' articles';
+                }
+
                 if (totalPages <= 1) {
                     if (paginationNav) {
                         paginationNav.hidden = true;
@@ -1104,11 +1109,9 @@
                 if (prevBtn) prevBtn.disabled = (currentPage === 1);
                 if (nextBtn) nextBtn.disabled = (currentPage === totalPages);
 
-                if (infoEl) {
-                    infoEl.textContent = 'Showing ' + (startIndex + 1) + '-' + endIndex + ' of ' + total + ' articles';
-                }
-
                 if (pagesContainer) {
+                    var restorePageFocus = pagesContainer.contains(focusedControl) ||
+                        ((focusedControl === prevBtn || focusedControl === nextBtn) && focusedControl.disabled);
                     pagesContainer.innerHTML = '';
 
                     function createPageBtn(p) {
@@ -1120,8 +1123,8 @@
                         if (p === currentPage) {
                             btn.setAttribute('aria-current', 'page');
                         }
-                        btn.addEventListener('click', function () {
-                            setPage(p, true);
+                        btn.addEventListener('click', function (event) {
+                            setPage(p, event.detail > 0);
                         });
                         return btn;
                     }
@@ -1166,6 +1169,9 @@
 
                         pagesContainer.appendChild(createPageBtn(totalPages));
                     }
+                    if (restorePageFocus) {
+                        pagesContainer.querySelector('[aria-current="page"]').focus({ preventScroll: true });
+                    }
                 }
             }
 
@@ -1175,7 +1181,8 @@
                 if (scrollToGrid) {
                     var filterSection = document.querySelector('.blog-filter-section');
                     if (filterSection && filterSection.getBoundingClientRect().top < 0) {
-                        filterSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+                        filterSection.scrollIntoView({ behavior: reducedMotion ? 'instant' : 'smooth', block: 'start' });
                     }
                 }
             }
@@ -1223,6 +1230,8 @@
                     if (sortSelect) sortSelect.value = 'featured';
                     currentPage = 1;
                     render();
+                    var allPublisher = profileChips.find(function (chip) { return chip.getAttribute('data-profile') === 'all'; });
+                    if (allPublisher) allPublisher.focus({ preventScroll: true });
                     if (history.replaceState) {
                         history.replaceState(null, '', window.location.pathname);
                     }
@@ -1230,16 +1239,16 @@
             }
 
             if (prevBtn) {
-                prevBtn.addEventListener('click', function () {
-                    if (currentPage > 1) setPage(currentPage - 1, true);
+                prevBtn.addEventListener('click', function (event) {
+                    if (currentPage > 1) setPage(currentPage - 1, event.detail > 0);
                 });
             }
 
             if (nextBtn) {
-                nextBtn.addEventListener('click', function () {
+                nextBtn.addEventListener('click', function (event) {
                     var matching = getSortedMatchingCards();
                     var totalPages = Math.ceil(matching.length / PAGE_SIZE);
-                    if (currentPage < totalPages) setPage(currentPage + 1, true);
+                    if (currentPage < totalPages) setPage(currentPage + 1, event.detail > 0);
                 });
             }
 

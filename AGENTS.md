@@ -19,3 +19,4 @@
 - PowerShell does not expand filename globs for `rg`; use `rg -g '*blog*.html'` instead of a positional `blogs*` path.
 - Windows Computer Use may report `coordinate input geometry is unavailable` after text-only inspection. Capture a fresh screenshot with accessibility text before retrying the click.
 - The `python` command resolves to an unavailable Windows Store alias on this host. Use the installed Node.js runtime for small file-editing scripts.
+- CDP keyboard tests must include `text: '\r'` in Enter `keyDown` events to activate native buttons; key codes alone do not produce the default click.

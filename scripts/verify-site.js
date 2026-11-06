@@ -4,6 +4,11 @@
 const fs = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');
+const ROOT = path.resolve(__dirname, '..');
+
+function resolveLocalUrl(dir, url) {
+    return url.startsWith('/') ? path.resolve(ROOT, '.' + url) : path.resolve(dir, url);
+}
 
 let errors = [];
 
@@ -68,7 +73,7 @@ htmlFiles.forEach(relPath => {
         const href = match[1];
         if (href.startsWith('http://') || href.startsWith('https://') || href.startsWith('#')) continue;
         const cleanHref = href.split('?')[0];
-        const targetPath = path.resolve(dir, cleanHref);
+        const targetPath = resolveLocalUrl(dir, cleanHref);
         assert(fs.existsSync(targetPath), `Link target exists in ${relPath}: ${cleanHref}`);
     }
 
@@ -77,7 +82,7 @@ htmlFiles.forEach(relPath => {
         const src = match[1];
         if (src.startsWith('http://') || src.startsWith('https://')) continue;
         const cleanSrc = src.split('?')[0];
-        const targetPath = path.resolve(dir, cleanSrc);
+        const targetPath = resolveLocalUrl(dir, cleanSrc);
         assert(fs.existsSync(targetPath), `Script target exists in ${relPath}: ${cleanSrc}`);
     }
 
@@ -87,7 +92,7 @@ htmlFiles.forEach(relPath => {
         const src = match[1];
         if (src.startsWith('http://') || src.startsWith('https://') || src.startsWith('data:')) continue;
         const cleanSrc = src.split('?')[0];
-        const targetPath = path.resolve(dir, cleanSrc);
+        const targetPath = resolveLocalUrl(dir, cleanSrc);
         assert(fs.existsSync(targetPath), `Image source exists in ${relPath}: ${cleanSrc}`);
     }
 
@@ -98,7 +103,7 @@ htmlFiles.forEach(relPath => {
         parts.forEach(src => {
             if (src.startsWith('http://') || src.startsWith('https://')) return;
             const cleanSrc = src.split('?')[0];
-            const targetPath = path.resolve(dir, cleanSrc);
+            const targetPath = resolveLocalUrl(dir, cleanSrc);
             assert(fs.existsSync(targetPath), `Source srcset target exists in ${relPath}: ${cleanSrc}`);
         });
     }
@@ -117,7 +122,7 @@ htmlFiles.forEach(relPath => {
 
         const pathOnly = href.split('#')[0].split('?')[0];
         if (pathOnly.length > 0) {
-            const targetPath = path.resolve(dir, pathOnly);
+            const targetPath = resolveLocalUrl(dir, pathOnly);
             assert(fs.existsSync(targetPath), `Local link target exists in ${relPath}: ${href}`);
         }
     }
@@ -157,7 +162,7 @@ cssFiles.forEach(relPath => {
         ) continue;
 
         const cleanUrl = assetUrl.split('?')[0].split('#')[0];
-        const targetPath = path.resolve(dir, cleanUrl);
+        const targetPath = resolveLocalUrl(dir, cleanUrl);
         assert(fs.existsSync(targetPath), `CSS url() target exists in ${relPath}: ${cleanUrl}`);
     }
 });

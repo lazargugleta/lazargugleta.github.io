@@ -69,8 +69,8 @@
     }
     </script>
 
-    <link rel="stylesheet" href="css/shared.css?v=18">
-    <link rel="stylesheet" href="css/home.css?v=29">
+    <link rel="stylesheet" href="css/shared.css?v=19">
+    <link rel="stylesheet" href="css/home.css?v=30">
 </head>
 <body>
     <header class="topbar">
@@ -79,7 +79,12 @@
                 <span class="brand-mark">lg</span>
                 <span class="brand-name">Lazar Gugleta</span>
             </a>
-            <nav class="nav">
+            <button id="menu-toggle" aria-controls="primary-navigation" class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false" title="Menu">
+                <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                    <path d="M2 4.5h12M2 8h12M2 11.5h12" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"></path>
+                </svg>
+            </button>
+            <nav class="nav" id="primary-navigation" aria-label="Main navigation">
                 <a href="#timeline">Timeline</a>
                 <a href="#writing">Writing</a>
                 <a href="blog.html">Blog</a>
@@ -94,11 +99,6 @@
                 <svg class="theme-icon-sun" viewBox="0 0 16 16" fill="none" aria-hidden="true">
                     <circle cx="8" cy="8" r="3" stroke="currentColor" stroke-width="1.4"></circle>
                     <path d="M8 1.4v1.8M8 12.8v1.8M12.6 8h1.8M1.6 8h1.8M11.25 4.75l1.25-1.25M3.5 12.5l1.25-1.25M11.25 11.25l1.25 1.25M3.5 3.5l1.25 1.25" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"></path>
-                </svg>
-            </button>
-            <button id="menu-toggle" class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false" title="Menu">
-                <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                    <path d="M2 4.5h12M2 8h12M2 11.5h12" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"></path>
                 </svg>
             </button>
         </div>
@@ -800,6 +800,6 @@
     </main>
 
     <script src="js/site.js?v=14" defer></script>
-    <script src="js/home.js?v=14" defer></script>
+    <script src="js/home.js?v=15" defer></script>
 </body>
 </html>
