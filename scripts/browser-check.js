@@ -941,7 +941,7 @@ async function runTests() {
         await client.evaluate(`document.querySelector('.filter-chip-profile[data-profile="all"]').click()`);
         await sleep(200);
         const resetProfileInfo = await client.evaluate('document.getElementById("pagination-info").textContent');
-        assert(resetProfileInfo.includes('of 89 articles'), `Resetting profile filter restores 89 articles (got "${resetProfileInfo}")`);
+        assert(resetProfileInfo.includes('of 90 articles'), `Resetting profile filter restores 90 articles (got "${resetProfileInfo}")`);
 
         // Test Smart Sorting Mechanisms
         await client.evaluate(`(() => {
@@ -1028,7 +1028,7 @@ async function runTests() {
         assert(await client.evaluate('document.activeElement.matches(\'.filter-chip-profile[data-profile="all"]\')'), 'Reset returns keyboard focus to visible All publisher control');
         await sleep(200);
         const postResetInfo = await client.evaluate('document.getElementById("pagination-info").textContent');
-        assert(postResetInfo.includes('of 89 articles'), `Empty state reset button restores all 89 articles (got "${postResetInfo}")`);
+        assert(postResetInfo.includes('of 90 articles'), `Empty state reset button restores all 90 articles (got "${postResetInfo}")`);
 
         const blogActive = await client.evaluate(`
             (() => {
@@ -1159,7 +1159,7 @@ async function runTests() {
         }
         await client.evaluate(`document.querySelector('main a[href="/blog.html"]').click()`);
         await sleep(400);
-        assert(await client.evaluate('location.pathname === "/blog.html" && document.querySelectorAll(".blog-card").length === 89'), 'Nested 404 recovery opens working blog');
+        assert(await client.evaluate('location.pathname === "/blog.html" && document.querySelectorAll(".blog-card").length === 90'), 'Nested 404 recovery opens working blog');
 
         console.log('\n--- Test 10: Cumulative Suite Integrity ---');
         assertZeroErrors('all combined interactions and page transitions');
