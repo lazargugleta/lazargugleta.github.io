@@ -222,33 +222,31 @@ h1 {
 
 
 /* Timeline-Style Filter (Matching Image 1) */
+/* One aligned grid: label column | controls column. Wrappers flatten into it. */
 .blog-filter-section {
     margin-top: 32px;
     margin-bottom: 24px;
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
+    display: grid;
+    grid-template-columns: 72px minmax(0, 1fr);
+    column-gap: 16px;
+    row-gap: 14px;
+    align-items: baseline;
 }
 
-.blog-filter-toolbar {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 12px;
+.blog-filter-toolbar,
+.blog-filter-group,
+.blog-sort-wrap {
+    display: contents;
 }
 
-.blog-filter-profiles {
-    flex: 1 1 620px;
-    min-width: 0;
+/* Sort row goes last, under Topic */
+.blog-sort-label,
+.blog-sort-select-wrapper {
+    order: 1;
 }
 
-.blog-filter-group {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    flex-wrap: wrap;
-    gap: 10px;
+.blog-sort-select-wrapper {
+    justify-self: start;
 }
 
 .blog-filter-label {
@@ -266,14 +264,7 @@ h1 {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    gap: 10px;
-}
-
-.blog-sort-wrap {
-    display: inline-flex;
-    align-items: center;
     gap: 8px;
-    margin-left: auto;
 }
 
 .blog-sort-label {
@@ -341,7 +332,7 @@ h1 {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
     color: var(--muted);
     font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "SF Pro", "Inter", -apple-system-body, "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 11.5px;
@@ -862,16 +853,15 @@ h1 {
         padding: 5px 11px;
     }
 
-    .blog-filter-toolbar {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 12px;
+    /* Narrow: label stacks above its row */
+    .blog-filter-section {
+        grid-template-columns: minmax(0, 1fr);
+        row-gap: 8px;
     }
 
-    .blog-sort-wrap {
-        margin-left: 0;
-        width: 100%;
-        justify-content: flex-start;
+    .blog-filter-topics .blog-filter-label,
+    .blog-sort-label {
+        margin-top: 8px;
     }
 }
 
