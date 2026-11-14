@@ -1577,6 +1577,15 @@
             opacity: 1;
         }
 
+        /* Keep text legible over the animated cars */
+        .project-card-cv .project-card-content {
+            text-shadow: 0 1px 3px rgba(11, 16, 26, 0.9), 0 0 10px rgba(11, 16, 26, 0.7);
+        }
+
+        :is(html.light, body.light) .project-card-cv .project-card-content {
+            text-shadow: 0 1px 3px rgba(241, 245, 249, 0.95), 0 0 10px rgba(241, 245, 249, 0.8);
+        }
+
         .cv-road-divider {
             position: absolute;
             left: 0;
