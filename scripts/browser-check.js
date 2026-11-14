@@ -862,7 +862,7 @@ async function runTests() {
 
         // Test Technical Writing filter chip active color is all blue (matches var(--accent))
         await client.evaluate('document.querySelector(".filter-chip[data-filter=\\"technical-writing\\"]").click()');
-        await sleep(200);
+        await sleep(600); // Allow chip and nested count color transitions to settle.
         const twChipColor = await client.evaluate(`
             (() => {
                 const chip = document.querySelector('.filter-chip[data-filter=\\"technical-writing\\"]');
