@@ -363,8 +363,10 @@
             const xStart = Math.round(dRect.right - hRect.left);
             const yStart = Math.round(dRect.top + dRect.height / 2 - hRect.top);
 
+            // Span width includes trailing letter-spacing; exclude it so the line hits the glyph's center
+            const iSpacing = aiI ? (parseFloat(getComputedStyle(aiI).letterSpacing) || 0) : 0;
             const xDropThroughI = iRect
-                ? Math.round(iRect.left + iRect.width / 2 - hRect.left)
+                ? Math.round((iRect.left + (iRect.width - iSpacing) / 2 - hRect.left) * 2) / 2
                 : Math.round(aRect.left - hRect.left + 36);
 
             let xRightTurn, yMidTrace, yBottomTrace, pathD;
