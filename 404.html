@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
     <script>
         if (location.protocol === "http:" && location.hostname !== "localhost" && location.hostname !== "127.0.0.1") {
             location.replace("https://" + location.host + location.pathname + location.search + location.hash);
@@ -16,7 +17,6 @@
         })();
     </script>
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
-    <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Page not found - Lazar Gugleta">
@@ -30,10 +30,11 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=5">
     <link rel="manifest" href="/site.webmanifest?v=5">
     <title>404 - Page Not Found | Lazar Gugleta</title>
-    <link rel="stylesheet" href="/css/shared.css?v=19">
+    <link rel="stylesheet" href="/css/shared.css?v=20">
     <link rel="stylesheet" href="/css/blog.css?v=22">
 </head>
 <body>
+    <a class="skip-link" href="#main">Skip to content</a>
     <header class="topbar">
         <div class="container topbar-inner">
             <a class="brand" href="/index.html">
@@ -65,7 +66,7 @@
         </div>
     </header>
 
-    <main class="container">
+    <main id="main" class="container">
         <section class="hero" style="min-height: 55vh; display: flex; flex-direction: column; justify-content: center;">
             <div class="kicker">404: Page not found</div>
             <h1>Lost in the digital garden?</h1>

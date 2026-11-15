@@ -494,11 +494,15 @@ body.light .theme-icon-moon {
 
     .theme-toggle {
         margin-left: 8px;
+        width: 44px;
+        height: 44px;
     }
 
     .menu-toggle {
         display: inline-flex;
         margin-left: auto;
+        width: 44px;
+        height: 44px;
     }
 }
 
@@ -548,4 +552,28 @@ body.light .theme-icon-moon {
     .blog-card:hover {
         transform: none !important;
     }
+}
+
+/* Card titles are real headings; keep their class-defined look */
+:where(h2, h3):where(.timeline-title, .writing-card-title, .project-title, .blog-card-title) {
+    margin: 0;
+    font-size: inherit;
+    font-weight: inherit;
+}
+
+.skip-link {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    z-index: 1000;
+    padding: 10px 14px;
+    border-radius: 8px;
+    background: var(--bg-soft);
+    color: var(--text);
+    border: 1px solid var(--border);
+    transform: translateY(-200%);
+}
+
+.skip-link:focus {
+    transform: none;
 }

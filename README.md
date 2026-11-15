@@ -23,7 +23,6 @@ Personal portfolio website and engineering blog for Lazar Gugleta, Data Architec
 ├── .github/workflows/
 │   └── pages.yml                        # GitHub Actions deployment workflow to GitHub Pages
 ├── AGENTS.md                            # Design & deployment guidelines
-├── _headers                             # Security and cache-control headers
 ├── robots.txt                           # Search engine crawling rules
 └── sitemap.xml                          # Canonical XML sitemap
 ```
@@ -37,17 +36,13 @@ Personal portfolio website and engineering blog for Lazar Gugleta, Data Architec
 
 ## Local Development
 
-You can preview the site locally using any standard static file server:
+Preview the site locally with the bundled static server (no dependencies):
 
 ```bash
-# Using Python
-python3 -m http.server 8000
-
-# Using Node.js http-server
-npx http-server . -p 8000
+node scripts/serve.js
 ```
 
-Open `http://localhost:8000` in your browser.
+Open `http://localhost:8765` in your browser.
 
 ## Deployment
 

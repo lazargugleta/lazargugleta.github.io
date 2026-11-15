@@ -838,7 +838,7 @@ async function runTests() {
         await client.send('Page.navigate', { url: `http://127.0.0.1:${PORT}/blog.html` });
         await sleep(800);
         const blogHeading = await client.evaluate('document.querySelector("h1").textContent.trim()');
-        assert(blogHeading === 'Blogs', `Blog page heading is "${blogHeading}" (expected "Blogs")`);
+        assert(blogHeading === 'Blog', `Blog page heading is "${blogHeading}" (expected "Blog")`);
 
         const blogCardsCount = await client.evaluate('document.querySelectorAll(".blog-card").length');
         assert(blogCardsCount >= 5, `Blog page rendered ${blogCardsCount} article cards`);

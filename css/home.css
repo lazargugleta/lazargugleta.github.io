@@ -1934,7 +1934,7 @@
 
         .contact-grid {
             display: grid;
-            grid-template-columns: repeat(5, 1fr);
+            grid-template-columns: repeat(4, 1fr);
             gap: 14px;
         }
 
@@ -2030,6 +2030,15 @@
         }
 
         @media (max-width: 760px) {
+            .hero-conduit-svg {
+                display: none;
+            }
+
+            .social-icon-btn {
+                width: 44px;
+                height: 44px;
+            }
+
             .container {
                 padding: 0 18px;
             }
@@ -2203,6 +2212,7 @@
 
             .filter-chip {
                 padding: 6px 10px;
+                min-height: 32px;
             }
 
             .timeline-title {
@@ -2254,7 +2264,7 @@
             }
 
             .contact-handle {
-                font-size: 9px;
+                font-size: 11px;
             }
         }
 

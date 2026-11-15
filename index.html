@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
     <script>
         if (location.protocol === "http:" && location.hostname !== "localhost" && location.hostname !== "127.0.0.1") {
             location.replace("https://" + location.host + location.pathname + location.search + location.hash);
@@ -18,22 +19,23 @@
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     
 
-    <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Lazar Gugleta">
-    <meta name="keywords" content="Lazar, Gugleta">
+    <meta name="description" content="Lazar Gugleta is a Product Owner and Data Architect at Helvetia and a PhD candidate in AI security at the University of Vienna. Timeline, writing, and projects.">
     <meta name="author" content="Lazar Gugleta">
     <meta property="og:title" content="Lazar Gugleta">
     <meta property="og:description" content="Data Architect, AI Engineer, and PhD candidate in AI security">
     <meta property="og:site_name" content="Lazar Gugleta">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://lazargugleta.github.io/">
-    <meta property="og:image" content="https://lazargugleta.github.io/src/polars-vs-pandas.png">
+    <meta property="og:image" content="https://lazargugleta.github.io/src/og-card.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Lazar Gugleta - Data Architect and AI security researcher">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Lazar Gugleta">
     <meta name="twitter:description" content="Data Architect, AI Engineer, and PhD candidate in AI security">
-    <meta name="twitter:image" content="https://lazargugleta.github.io/src/polars-vs-pandas.png">
+    <meta name="twitter:image" content="https://lazargugleta.github.io/src/og-card.png">
     <meta name="application-name" content="Lazar Gugleta">
     <meta name="apple-mobile-web-app-title" content="Lazar Gugleta">
     <meta name="theme-color" content="#171923" media="(prefers-color-scheme: dark)">
@@ -45,7 +47,7 @@
     <link rel="alternate icon" href="favicon.ico?v=5" sizes="any">
     <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=5">
     <link rel="manifest" href="site.webmanifest?v=5">
-    <title>Lazar Gugleta</title>
+    <title>Lazar Gugleta - Data Architect &amp; AI Security Researcher</title>
 
     <script type="application/ld+json">
     {
@@ -60,6 +62,12 @@
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "Lazar Gugleta",
+      "jobTitle": "Product Owner & Data Architect",
+      "description": "Data Architect, AI Engineer, and PhD candidate in AI security",
+      "worksFor": { "@type": "Organization", "name": "Helvetia" },
+      "affiliation": { "@type": "CollegeOrUniversity", "name": "University of Vienna" },
+      "alumniOf": { "@type": "CollegeOrUniversity", "name": "Graz University of Technology" },
+      "address": { "@type": "PostalAddress", "addressLocality": "Vienna", "addressCountry": "AT" },
       "url": "https://lazargugleta.github.io/",
       "sameAs": [
         "https://www.linkedin.com/in/lazargugleta/",
@@ -69,10 +77,11 @@
     }
     </script>
 
-    <link rel="stylesheet" href="css/shared.css?v=19">
-    <link rel="stylesheet" href="css/home.css?v=30">
+    <link rel="stylesheet" href="css/shared.css?v=20">
+    <link rel="stylesheet" href="css/home.css?v=31">
 </head>
 <body>
+    <a class="skip-link" href="#main">Skip to content</a>
     <header class="topbar">
         <div class="container topbar-inner">
             <a class="brand" href="#top">
@@ -104,7 +113,7 @@
         </div>
     </header>
 
-    <main class="container">
+    <main id="main" class="container">
         <section id="top" class="hero">
             <svg class="hero-conduit-svg" id="hero-conduit-svg" aria-hidden="true">
                 <path class="conduit-track-bg" id="conduit-track" d="" />
@@ -186,7 +195,7 @@
                 <div class="timeline-date">Apr 2026 -> now</div>
                 <div class="timeline-spine"><div class="timeline-dot work current">W</div></div>
                 <div class="timeline-body">
-                    <div class="timeline-title">Product Owner - Data Architect and AI Integration</div>
+                    <h3 class="timeline-title">Product Owner - Data Architect and AI Integration</h3>
                     <div class="timeline-org">Helvetia</div>
                 </div>
                 </div>
@@ -197,7 +206,7 @@
                 <div class="timeline-date">Apr 2026 -> now</div>
                 <div class="timeline-spine"><div class="timeline-dot edu current">E</div></div>
                 <div class="timeline-body">
-                    <div class="timeline-title">PhD in Computer Science</div>
+                    <h3 class="timeline-title">PhD in Computer Science</h3>
                     <div class="timeline-org">Uni Wien</div>
                     <div class="timeline-blurb">Research focus: AI in security.</div>
                 </div>
@@ -209,7 +218,7 @@
                 <div class="timeline-date">2024 -> now</div>
                 <div class="timeline-spine"><div class="timeline-dot work current">W</div></div>
                 <div class="timeline-body">
-                    <div class="timeline-title">Built and shipped AI data products</div>
+                    <h3 class="timeline-title">Built and shipped AI data products</h3>
                     <div class="timeline-org">Octoparse, Chat4Data, BrowserStack</div>
                 </div>
                 </div>
@@ -220,7 +229,7 @@
                 <div class="timeline-date">Dec 2024 -> Apr 2026</div>
                 <div class="timeline-spine"><div class="timeline-dot work">W</div></div>
                 <div class="timeline-body">
-                    <div class="timeline-title">Product Owner - Data Science</div>
+                    <h3 class="timeline-title">Product Owner - Data Science</h3>
                     <div class="timeline-org">NXP / TTTech Auto</div>
                 </div>
                 </div>
@@ -231,7 +240,7 @@
                 <div class="timeline-date">May 2023 -> Apr 2026</div>
                 <div class="timeline-spine"><div class="timeline-dot work">W</div></div>
                 <div class="timeline-body">
-                    <div class="timeline-title">Data Scientist</div>
+                    <h3 class="timeline-title">Data Scientist</h3>
                     <div class="timeline-org">NXP / TTTech Auto</div>
                 </div>
                 </div>
@@ -242,7 +251,7 @@
                 <div class="timeline-date">Oct 2021 -> Apr 2023</div>
                 <div class="timeline-spine"><div class="timeline-dot edu">E</div></div>
                 <div class="timeline-body">
-                    <div class="timeline-title">Master in Computer Science</div>
+                    <h3 class="timeline-title">Master in Computer Science</h3>
                     <div class="timeline-org">TU Graz</div>
                     <div class="timeline-blurb">Major Data Science, minor Machine Learning.</div>
                 </div>
@@ -254,7 +263,7 @@
                 <div class="timeline-date">Jul 2021 -> Jan 2024</div>
                 <div class="timeline-spine"><div class="timeline-dot work">W</div></div>
                 <div class="timeline-body">
-                    <div class="timeline-title">Google DSC Lead and Mentor</div>
+                    <h3 class="timeline-title">Google DSC Lead and Mentor</h3>
                     <div class="timeline-org">Google Developers</div>
                 </div>
                 </div>
@@ -265,7 +274,7 @@
                 <div class="timeline-date">Nov 2020 -> Apr 2023</div>
                 <div class="timeline-spine"><div class="timeline-dot work">W</div></div>
                 <div class="timeline-body">
-                    <div class="timeline-title">Data Scientist</div>
+                    <h3 class="timeline-title">Data Scientist</h3>
                     <div class="timeline-org">Shopreme</div>
                 </div>
                 </div>
@@ -276,7 +285,7 @@
                 <div class="timeline-date">Oct 2018 -> Sep 2021</div>
                 <div class="timeline-spine"><div class="timeline-dot edu">E</div></div>
                 <div class="timeline-body">
-                    <div class="timeline-title">Bachelor in Computer Science</div>
+                    <h3 class="timeline-title">Bachelor in Computer Science</h3>
                     <div class="timeline-org">TU Graz</div>
                 </div>
                 </div>
@@ -287,7 +296,7 @@
                 <div class="timeline-date">Jul 2019 -> May 2023</div>
                 <div class="timeline-spine"><div class="timeline-dot work">W</div></div>
                 <div class="timeline-body">
-                    <div class="timeline-title">Teaching Assistant</div>
+                    <h3 class="timeline-title">Teaching Assistant</h3>
                     <div class="timeline-org">TU Graz</div>
                 </div>
                 </div>
@@ -298,7 +307,7 @@
                 <div class="timeline-date">2018 -> 2019</div>
                 <div class="timeline-spine"><div class="timeline-dot work">W</div></div>
                 <div class="timeline-body">
-                    <div class="timeline-title">International Student Ambassador</div>
+                    <h3 class="timeline-title">International Student Ambassador</h3>
                     <div class="timeline-org">Technische Universitat Graz</div>
                 </div>
                 </div>
@@ -458,49 +467,49 @@
                 <a class="writing-card" data-publisher="mediumatch" target="_blank" rel="noopener" href="https://mediumatch.com/blog/technical-content-brief-template">
                     <div class="writing-card-top">
                         <span class="pub-badge pub-mediumatch">MediuMatch</span>
-                        <span class="writing-card-date">Oct 2026</span>
+                        <time class="writing-card-date" datetime="2026-10">Oct 2026</time>
                     </div>
-                    <div class="writing-card-title">Technical Content Brief Template: Write Better Developer Tutorials</div>
+                    <h3 class="writing-card-title">Technical Content Brief Template: Write Better Developer Tutorials</h3>
                     <div class="writing-card-desc">A copyable brief, a completed tutorial assignment, and a checklist for reviewing working code.</div>
                 </a>
                 <a class="writing-card" data-publisher="mediumatch" target="_blank" rel="noopener" href="https://mediumatch.com/blog/technical-writer-rates-sponsored-articles">
                     <div class="writing-card-top">
                         <span class="pub-badge pub-mediumatch">MediuMatch</span>
-                        <span class="writing-card-date">Oct 2026</span>
+                        <time class="writing-card-date" datetime="2026-10">Oct 2026</time>
                     </div>
-                    <div class="writing-card-title">Technical Writer Rates: How to Budget for Sponsored Articles</div>
+                    <h3 class="writing-card-title">Technical Writer Rates: How to Budget for Sponsored Articles</h3>
                     <div class="writing-card-desc">Compare writing scopes, plan production costs, and request quotes with a practical budget worksheet.</div>
                 </a>
                 <a class="writing-card" data-publisher="octoparse" target="_blank" rel="noopener" href="https://www.octoparse.com/blog/guide-to-browser-automation">
                     <div class="writing-card-top">
                         <span class="pub-badge pub-octoparse">Octoparse</span>
-                        <span class="writing-card-date">Mar 2026</span>
+                        <time class="writing-card-date" datetime="2026-03">Mar 2026</time>
                     </div>
-                    <div class="writing-card-title">Guide to Browser Automation</div>
+                    <h3 class="writing-card-title">Guide to Browser Automation</h3>
                     <div class="writing-card-desc">A breakdown of modern headless browsers, anti-bot systems, and practical automation options.</div>
                 </a>
                 <a class="writing-card" data-publisher="chat4data" target="_blank" rel="noopener" href="https://chat4data.ai/blog/use-claude-mcp-for-web-scraping">
                     <div class="writing-card-top">
                         <span class="pub-badge pub-chat4data">Chat<span class="pub-accent">4Data</span></span>
-                        <span class="writing-card-date">Feb 2026</span>
+                        <time class="writing-card-date" datetime="2026-02">Feb 2026</time>
                     </div>
-                    <div class="writing-card-title">Use Claude MCP for Web Scraping</div>
+                    <h3 class="writing-card-title">Use Claude MCP for Web Scraping</h3>
                     <div class="writing-card-desc">How to set up Claude Desktop with MCP to scrape and query live web data conversationally.</div>
                 </a>
                 <a class="writing-card" data-publisher="medium" target="_blank" rel="noopener" href="https://medium.com/towards-data-science/how-to-track-coronavirus-with-python-a5320b778c8e?sk=1bc1c462333efbcdbfd5a0a2db65ea2c">
                     <div class="writing-card-top">
                         <span class="pub-badge pub-medium">Medium</span>
-                        <span class="writing-card-date">Apr 2020</span>
+                        <time class="writing-card-date" datetime="2020-04">Apr 2020</time>
                     </div>
-                    <div class="writing-card-title">How To Track Coronavirus In Your Country with Python</div>
+                    <h3 class="writing-card-title">How To Track Coronavirus In Your Country with Python</h3>
                     <div class="writing-card-desc">Consuming public health APIs to track daily case velocity and plot regional curves.</div>
                 </a>
                 <a class="writing-card" data-publisher="tu-graz" target="_blank" rel="noopener noreferrer" href="https://repository.tugraz.at/publications/r1cz7-vzr51">
                     <div class="writing-card-top">
                         <span class="pub-badge">Publications</span>
-                        <span class="writing-card-date">May 2023</span>
+                        <time class="writing-card-date" datetime="2023-05">May 2023</time>
                     </div>
-                    <div class="writing-card-title">Visual food characteristics that influence attractiveness</div>
+                    <h3 class="writing-card-title">Visual food characteristics that influence attractiveness</h3>
                     <div class="writing-card-desc">Master’s thesis by Lazar Gugleta, published in the TU Graz repository. DOI: 10.3217/r1cz7-vzr51.</div>
                 </a>
             </div>
@@ -707,7 +716,7 @@
 
                     <div class="project-card-content">
                         <div class="project-repo">educative.io</div>
-                        <div class="project-title">Tracking Moving Objects Using Python</div>
+                        <h3 class="project-title">Tracking Moving Objects Using Python</h3>
                         <div class="project-blurb">Hands-on object tracking project with practical computer vision workflows in Python.</div>
                         <div><span class="project-pill">Python</span><span class="project-pill">OpenCV</span><span class="project-pill">CV</span></div>
                     </div>
@@ -717,7 +726,7 @@
                         <img src="src/branding/stripe-icon.png" width="32" height="32" alt="MediuMatch logo" class="logo-mediumatch-img">
                     </div>
                     <div class="project-repo">mediumatch.com</div>
-                    <div class="project-title">MediuMatch</div>
+                    <h3 class="project-title">MediuMatch</h3>
                     <div class="project-blurb">Data-driven analytics and marketplace connecting tech brands with top Medium writers.</div>
                     <div><span class="project-pill">Marketplace</span><span class="project-pill">Analytics</span><span class="project-pill">Writers</span></div>
                 </a>
@@ -728,7 +737,7 @@
                         </svg>
                     </div>
                     <div class="project-repo">octoparse.com</div>
-                    <div class="project-title">Octoparse Product Work</div>
+                    <h3 class="project-title">Octoparse Product Work</h3>
                     <div class="project-blurb">Product and technical writing around browser automation and scalable web data workflows.</div>
                     <div><span class="project-pill">Automation</span><span class="project-pill">Web data</span></div>
                 </a>
@@ -739,7 +748,7 @@
                         </svg>
                     </div>
                     <div class="project-repo">chat4data.ai</div>
-                    <div class="project-title">Chat4Data Product Work</div>
+                    <h3 class="project-title">Chat4Data Product Work</h3>
                     <div class="project-blurb">Building and documenting AI-assisted scraping and MCP-based extraction workflows.</div>
                     <div><span class="project-pill">MCP</span><span class="project-pill">LLM</span><span class="project-pill">Scraping</span></div>
                 </a>
@@ -765,14 +774,6 @@
                         </svg>
                     </div>
                     <div><div class="contact-label">Email</div><div class="contact-handle">lazar.gugleta@gmail.com</div></div>
-                </a>
-                <a class="contact-card" href="tel:+436781258420">
-                    <div class="contact-icon">
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
-                        </svg>
-                    </div>
-                    <div><div class="contact-label">Phone</div><div class="contact-handle">+43 678 1258420</div></div>
                 </a>
                 <a class="contact-card" target="_blank" rel="noopener" href="https://medium.com/@lazar.gugleta">
                     <div class="contact-icon">
