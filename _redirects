@@ -1,0 +1,2 @@
+# Single-hop canonical HTTPS redirection
+https://lazargugleta.com/* https://www.lazargugleta.com/:splat 301!

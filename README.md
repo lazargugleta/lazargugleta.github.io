@@ -15,6 +15,8 @@ Personal portfolio website and engineering blog for Lazar Gugleta, Data Architec
 ├── index.html                           # Portfolio homepage (Hero, Timeline, Writing, Projects, Contact)
 ├── blog.html                            # Blog listing page
 ├── 404.html                             # Custom 404 error page
+├── _headers                             # Security and cache headers (Netlify mirror at lazargugleta.com)
+├── _redirects                           # Apex-to-www redirect (Netlify mirror)
 ├── css/                                 # Stylesheets (shared tokens, home, blog)
 ├── js/                                  # Vanilla JavaScript (site navigation, theme, animations)
 ├── src/                                 # Media assets & documents (CV, responsive WebP/AVIF images)
