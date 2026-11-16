@@ -855,10 +855,10 @@ async function runTests() {
                 }));
             })()
         `);
-        assert(extProfiles.length === 4, `External profiles has 4 links (got ${extProfiles.length})`);
-        assert(extProfiles[1] && extProfiles[1].className.includes('pub-ext-mediumatch'), 'MediuMatch is second in External Profiles');
-        assert(extProfiles[1] && extProfiles[1].href === 'https://mediumatch.com', 'MediuMatch external link points to https://mediumatch.com');
-        assert(extProfiles[1] && extProfiles[1].imgSrc === 'src/branding/stripe-icon.png', 'MediuMatch uses stripe-icon.png branding logo');
+        assert(extProfiles.length === 5, `External profiles has 5 links (got ${extProfiles.length})`);
+        assert(extProfiles[2] && extProfiles[2].className.includes('pub-ext-mediumatch'), 'MediuMatch follows Publications and Medium in External Profiles');
+        assert(extProfiles[2] && extProfiles[2].href === 'https://mediumatch.com', 'MediuMatch external link points to https://mediumatch.com');
+        assert(extProfiles[2] && extProfiles[2].imgSrc === 'src/branding/stripe-icon.png', 'MediuMatch uses stripe-icon.png branding logo');
 
         // Test Technical Writing filter chip active color is all blue (matches var(--accent))
         await client.evaluate('document.querySelector(".filter-chip[data-filter=\\"technical-writing\\"]").click()');
