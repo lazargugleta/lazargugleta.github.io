@@ -496,6 +496,11 @@ h1 {
     font-size: inherit;
 }
 
+.profile-control .filter-chip:only-child {
+    border-radius: inherit;
+    padding-right: 10px;
+}
+
 .profile-control .pub-ext-link {
     justify-content: center;
     width: 32px;
