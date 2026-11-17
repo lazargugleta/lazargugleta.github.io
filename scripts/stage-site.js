@@ -24,7 +24,10 @@ const filesToCopy = [
     'favicon.svg',
     'site.webmanifest',
     'robots.txt',
-    'sitemap.xml'
+    'sitemap.xml',
+    // Netlify-only config for the lazargugleta.com mirror; ignored by GitHub Pages
+    '_headers',
+    '_redirects'
 ];
 
 const dirsToCopy = [

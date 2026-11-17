@@ -1,0 +1,5 @@
+# lazargugleta.com mirror: publish the same staged output as GitHub Pages,
+# not the repo root (keeps README, AGENTS.md and scripts/ off the site).
+[build]
+  command = "node scripts/stage-site.js"
+  publish = "_site"
