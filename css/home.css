@@ -2030,10 +2030,6 @@
         }
 
         @media (max-width: 760px) {
-            .hero-conduit-svg {
-                display: none;
-            }
-
             .social-icon-btn {
                 width: 44px;
                 height: 44px;

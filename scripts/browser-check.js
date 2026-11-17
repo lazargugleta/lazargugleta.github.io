@@ -801,7 +801,14 @@ async function runTests() {
             deviceScaleFactor: 3,
             mobile: true
         });
+        await client.evaluate('window.scrollTo({ top: 0, behavior: "instant" })');
         await sleep(300);
+
+        assert(await client.evaluate(`(() => {
+            const svg = document.getElementById('hero-conduit-svg');
+            const track = document.getElementById('conduit-track');
+            return svg.getBoundingClientRect().width > 0 && track.getTotalLength() > 0 && window.__conduitDebug.isAnimating();
+        })()`), 'Hero conduit is visible and animating on mobile');
 
         const menuToggleVisible = await client.evaluate(`
             (() => {
