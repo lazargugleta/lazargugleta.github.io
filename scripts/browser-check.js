@@ -873,6 +873,25 @@ async function runTests() {
         const blogCardsCount = await client.evaluate('document.querySelectorAll(".blog-card").length');
         assert(blogCardsCount >= 5, `Blog page rendered ${blogCardsCount} article cards`);
 
+        for (const [width, height] of [[1440, 1200], [390, 844]]) {
+            await client.send('Emulation.setDeviceMetricsOverride', { width, height, deviceScaleFactor: 1, mobile: width < 500 });
+            const stayedInPlace = await client.evaluate(`(async () => {
+                const all = document.querySelector('[data-profile="all"]');
+                window.scrollTo({ top: all.getBoundingClientRect().top + scrollY - 90, behavior: 'instant' });
+                const position = () => [scrollY, all.getBoundingClientRect().x, all.getBoundingClientRect().y,
+                    document.getElementById('articles-grid').getBoundingClientRect().top];
+                const start = position();
+                for (const profile of ['tu-graz', 'medium', 'all']) {
+                    document.querySelector('[data-profile="' + profile + '"]').click();
+                    await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+                    if (position().some((value, i) => Math.abs(value - start[i]) > 1)) return false;
+                }
+                return start[0] > 0;
+            })()`);
+            assert(stayedInPlace, 'Publisher changes preserve the viewport and filter layout at ' + width + 'px');
+        }
+        await client.send('Emulation.setDeviceMetricsOverride', { width: 1280, height: 800, deviceScaleFactor: 1, mobile: false });
+
         await client.send('Page.navigate', { url: `http://127.0.0.1:${PORT}/blog.html?ref=test#tu-graz` });
         await sleep(400);
         assert(await client.evaluate(`document.querySelector('[data-profile="tu-graz"]').getAttribute('aria-pressed') === 'true' &&

@@ -451,6 +451,8 @@ h1 {
 }
 
 .filter-count {
+    min-width: 2ch;
+    font-variant-numeric: tabular-nums;
     color: var(--faint);
     font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "SF Pro", "Inter", -apple-system-body, "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 10.5px;
@@ -622,6 +624,18 @@ h1 {
     background: var(--accent);
     color: var(--bg);
     transform: translateY(-1px);
+}
+
+/* Keep the visible filters in place when the result list gets shorter. */
+.blog-results {
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+}
+
+.blog-results .footer {
+    margin-top: auto;
 }
 
 /* Unified Articles Grid (Matching Writing Section, Image 3) */
