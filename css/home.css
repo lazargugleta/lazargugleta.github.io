@@ -1932,6 +1932,29 @@
             margin-bottom: 6px;
         }
 
+        .open-to {
+            margin-bottom: 18px;
+        }
+
+        .open-to-lead {
+            color: var(--muted);
+            font-size: 14px;
+            margin: 0 0 10px;
+        }
+
+        .open-to-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .open-to-list .project-pill {
+            font-size: 12px;
+            padding: 4px 9px;
+        }
+
         .contact-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
