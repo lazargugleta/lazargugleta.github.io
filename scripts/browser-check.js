@@ -370,6 +370,17 @@ async function runTests() {
         assert(activeNavState !== null, 'Active section link exists while scrolled');
         assert(activeNavState && activeNavState.hasBorder, `Active link "${activeNavState?.text}" renders subtle border indicator`);
 
+        assert(await client.evaluate(`document.querySelector('.nav a.active').getAttribute('aria-current') === 'location'`), 'Active homepage section is announced');
+        assert(await client.evaluate(`(() => {
+            const email = document.getElementById('newsletter-email');
+            email.value = 'alice@example';
+            const rejected = email.validity.patternMismatch;
+            email.value = 'alice+news@example.co.uk';
+            const accepted = email.validity.valid;
+            email.value = '';
+            return rejected && accepted;
+        })()`), 'Newsletter requires a dotted domain and accepts a tagged address');
+
         // Return to top
         await client.evaluate('window.scrollTo(0, 0)');
         await sleep(200);
@@ -469,9 +480,11 @@ async function runTests() {
         const allReadyStatesLight = paintMetrics.readyStates.length > 0 && paintMetrics.readyStates.every(s => s.isLight);
         assert(allReadyStatesLight, 'Light theme active across all document readyStates (0ms flash-free)');
 
+        assert(await client.evaluate(`document.getElementById('theme-toggle').getAttribute('aria-pressed') === 'true'`), 'Saved light theme is announced after reload');
         // Switch back to dark for remaining tests
         await client.evaluate('document.getElementById("theme-toggle").click()');
         await sleep(100);
+        assert(await client.evaluate(`document.getElementById('theme-toggle').getAttribute('aria-pressed') === 'false'`), 'Switching back to dark clears the pressed state');
         assertZeroErrors('theme switching and reload');
 
         console.log('\n--- Test 4: Lamp Interactions, AudioContext Reuse & Node Cleanup ---');
@@ -816,11 +829,21 @@ async function runTests() {
                 return btn ? (window.getComputedStyle(btn).display !== 'none') : false;
             })()
         `);
+        assert(await client.evaluate(`!document.querySelector('.nav [aria-current]')`), 'Hero clears the current section');
         assert(menuToggleVisible, 'Mobile menu hamburger button visible on mobile viewport');
 
         await client.evaluate('document.getElementById("menu-toggle").focus()');
         await client.send('Input.dispatchKeyEvent', { type: 'keyDown', key: 'Enter', code: 'Enter', windowsVirtualKeyCode: 13, text: '\r' });
         await client.send('Input.dispatchKeyEvent', { type: 'keyUp', key: 'Enter', code: 'Enter', windowsVirtualKeyCode: 13 });
+        await client.send('Emulation.setDeviceMetricsOverride', { width: 680, height: 280, deviceScaleFactor: 1, mobile: true });
+        assert(await client.evaluate(`(() => {
+            const menu = document.querySelector('.nav');
+            const links = Array.from(menu.querySelectorAll('a'));
+            menu.scrollTop = menu.scrollHeight;
+            const last = links[links.length - 1].getBoundingClientRect();
+            return links.every(link => link.getBoundingClientRect().height >= 44) &&
+                last.bottom <= window.innerHeight && last.top >= menu.getBoundingClientRect().top;
+        })()`), 'Short landscape menu has 44px targets and a reachable final link');
         const navOpen = await client.evaluate('document.querySelector(".nav").classList.contains("is-open")');
         assert(navOpen, 'Mobile navigation opens on click');
         await client.send('Input.dispatchKeyEvent', { type: 'keyDown', key: 'Tab', code: 'Tab', windowsVirtualKeyCode: 9 });
@@ -849,6 +872,29 @@ async function runTests() {
 
         const blogCardsCount = await client.evaluate('document.querySelectorAll(".blog-card").length');
         assert(blogCardsCount >= 5, `Blog page rendered ${blogCardsCount} article cards`);
+
+        await client.send('Page.navigate', { url: `http://127.0.0.1:${PORT}/blog.html?ref=test#tu-graz` });
+        await sleep(400);
+        assert(await client.evaluate(`document.querySelector('[data-profile="tu-graz"]').getAttribute('aria-pressed') === 'true' &&
+            document.querySelectorAll('.blog-card:not(.is-hidden)').length === 1`), 'Shared Publications URL opens the single publication');
+        await client.evaluate(`document.querySelector('[data-topic="data-engineering"]').click()`);
+        await client.send('Page.reload');
+        await sleep(400);
+        assert(await client.evaluate(`location.search === '?ref=test' && ['[data-profile="tu-graz"]', '[data-topic="data-engineering"]']
+            .every(selector => document.querySelector(selector).getAttribute('aria-pressed') === 'true')`), 'Publisher, topic and query survive reload');
+        await client.evaluate(`document.getElementById('blog-reset-filters').click()`);
+        assert(await client.evaluate(`location.search === '?ref=test' && !location.hash && document.querySelector('[data-profile="all"]').getAttribute('aria-pressed') === 'true'`), 'Reset clears filters and preserves query');
+        assert(await client.evaluate(`document.querySelector('.nav [aria-current="page"]').textContent === 'Blog'`), 'Blog navigation announces current page');
+
+        assert(await client.evaluate(`(() => {
+            const email = document.getElementById('newsletter-email');
+            email.value = 'alice@example';
+            const rejected = email.validity.patternMismatch;
+            email.value = 'alice+news@example.co.uk';
+            const accepted = email.validity.valid;
+            email.value = '';
+            return rejected && accepted;
+        })()`), 'Newsletter requires a dotted domain and accepts a tagged address');
 
         // Test MediuMatch external profile link position and attributes
         const extProfiles = await client.evaluate(`

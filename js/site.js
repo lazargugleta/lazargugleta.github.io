@@ -31,6 +31,8 @@
         if (document.body) {
             document.body.classList.toggle('light', isLight);
         }
+        const toggle = document.getElementById('theme-toggle');
+        if (toggle) toggle.setAttribute('aria-pressed', String(isLight));
         const themeMeta = document.querySelectorAll('meta[name="theme-color"]');
         themeMeta.forEach(function (m) {
             m.setAttribute('content', isLight ? '#fafaf9' : '#171923');
@@ -140,6 +142,7 @@
                 // Near top / hero
                 navLinks.forEach(function (link) {
                     link.classList.remove('active');
+                    link.removeAttribute('aria-current');
                 });
                 return;
             }
@@ -159,7 +162,10 @@
 
             navLinks.forEach(function (link) {
                 const targetId = link.getAttribute('href').slice(1);
-                link.classList.toggle('active', targetId === currentSectionId);
+                const active = targetId === currentSectionId;
+                link.classList.toggle('active', active);
+                if (active) link.setAttribute('aria-current', 'location');
+                else link.removeAttribute('aria-current');
             });
         }
 

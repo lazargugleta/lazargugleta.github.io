@@ -2046,33 +2046,6 @@
                 gap: 12px;
             }
 
-            .nav {
-                display: none;
-                position: absolute;
-                top: 76px;
-                left: 18px;
-                right: 18px;
-                margin: 0;
-                padding: 18px 16px 20px;
-                flex-direction: column;
-                align-items: center;
-                gap: 14px;
-                background: var(--bg-card);
-                border: 1px solid var(--border-soft);
-                border-radius: 10px;
-                box-shadow: 0 12px 28px oklch(0.08 0 0 / 0.18);
-            }
-
-            .nav.is-open {
-                display: flex;
-            }
-
-            .nav a {
-                text-align: center;
-                width: 100%;
-                padding: 2px 0;
-            }
-
             .theme-toggle {
                 margin-left: 8px;
             }

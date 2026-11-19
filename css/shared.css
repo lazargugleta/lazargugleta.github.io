@@ -468,6 +468,9 @@ body.light .theme-icon-moon {
         display: none;
         position: absolute;
         top: 76px;
+        max-height: calc(100vh - 84px);
+        max-height: calc(100dvh - 84px);
+        overflow-y: auto;
         left: 18px;
         right: 18px;
         margin: 0;
@@ -486,7 +489,9 @@ body.light .theme-icon-moon {
     }
 
     .nav a {
-        text-align: center;
+        display: grid;
+        place-items: center;
+        min-height: 44px;
         width: 100%;
         padding: 8px 12px;
         border-radius: 8px;

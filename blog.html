@@ -58,7 +58,7 @@
       }
     }
     </script>
-    <link rel="stylesheet" href="css/shared.css?v=20">
+    <link rel="stylesheet" href="css/shared.css?v=21">
     <link rel="stylesheet" href="css/blog.css?v=24">
 </head>
 <body>
@@ -77,11 +77,11 @@
             <nav class="nav" id="primary-navigation" aria-label="Main navigation">
                 <a href="index.html#top">Home</a>
                 <a href="index.html#timeline">Timeline</a>
-                <a href="blog.html" class="active">Blog</a>
+                <a href="blog.html" class="active" aria-current="page">Blog</a>
                 <a href="index.html#projects">Projects</a>
                 <a href="index.html#contact">Contact</a>
             </nav>
-            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle color theme" title="Toggle color theme">
+            <button id="theme-toggle" class="theme-toggle" aria-label="Light theme" aria-pressed="false" title="Toggle color theme">
                 <span class="theme-fx-wave" aria-hidden="true"></span>
                 <svg class="theme-icon-moon" viewBox="0 0 16 16" fill="none" aria-hidden="true">
                     <path d="M13.75 10.25A6 6 0 017.75 2a6 6 0 106 8.25z" fill="currentColor"></path>
@@ -922,7 +922,7 @@
                         <fieldset class="newsletter-fields">
                             <legend class="newsletter-label">Newsletter signup</legend>
                             <label class="newsletter-label" for="newsletter-email">Email address</label>
-                            <input id="newsletter-email" type="email" name="email" autocomplete="email" placeholder="you@example.com" maxlength="254" required>
+                            <input id="newsletter-email" type="email" name="email" autocomplete="email" placeholder="you@example.com" maxlength="254" pattern=".+@.+\..+" title="Use an address such as you@example.com" required>
                             <input type="hidden" name="consent" value="yes">
                             <div class="newsletter-label" aria-hidden="true">
                                 <label for="newsletter-website">Leave this field empty</label>
@@ -941,7 +941,7 @@
         </footer>
     </main>
 
-    <script src="js/site.js?v=14" defer></script>
+    <script src="js/site.js?v=15" defer></script>
     <script>
         (function initBlogListing() {
             var PAGE_SIZE = 10;
@@ -1212,7 +1212,7 @@
                     if (currentProfile !== 'all') hashParts.push(currentProfile);
                     if (currentTopic !== 'all') hashParts.push(currentTopic);
                     var newHash = hashParts.length ? '#' + hashParts.join('&') : '';
-                    history.replaceState(null, '', window.location.pathname + newHash);
+                    history.replaceState(null, '', window.location.pathname + window.location.search + newHash);
                 }
             }
 
@@ -1239,17 +1239,11 @@
 
             if (resetBtn) {
                 resetBtn.addEventListener('click', function () {
-                    currentProfile = 'all';
-                    currentTopic = 'all';
                     currentSort = 'featured';
                     if (sortSelect) sortSelect.value = 'featured';
-                    currentPage = 1;
-                    render();
+                    setFilters('all', 'all', true);
                     var allPublisher = profileChips.find(function (chip) { return chip.getAttribute('data-profile') === 'all'; });
                     if (allPublisher) allPublisher.focus({ preventScroll: true });
-                    if (history.replaceState) {
-                        history.replaceState(null, '', window.location.pathname);
-                    }
                 });
             }
 
@@ -1269,8 +1263,8 @@
 
             function syncWithHash() {
                 var hash = window.location.hash.replace('#', '').trim();
-                var knownProfiles = ['medium', 'mediumatch', 'octoparse', 'chat4data'];
-                var knownTopics = ['ai-mcp', 'data-engineering', 'browser-automation', 'scraping-guides', 'python', 'essays', 'technical-writing'];
+                var knownProfiles = profileChips.map(function (chip) { return chip.dataset.profile; });
+                var knownTopics = topicChips.map(function (chip) { return chip.dataset.topic; });
 
                 if (!hash || hash === 'all') {
                     setFilters('all', 'all', false);

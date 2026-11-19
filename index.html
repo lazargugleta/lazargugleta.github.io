@@ -77,8 +77,8 @@
     }
     </script>
 
-    <link rel="stylesheet" href="css/shared.css?v=20">
-    <link rel="stylesheet" href="css/home.css?v=32">
+    <link rel="stylesheet" href="css/shared.css?v=21">
+    <link rel="stylesheet" href="css/home.css?v=33">
 </head>
 <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -100,7 +100,7 @@
                 <a href="#projects">Projects</a>
                 <a href="#contact">Contact</a>
             </nav>
-            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle color theme" title="Toggle color theme">
+            <button id="theme-toggle" class="theme-toggle" aria-label="Light theme" aria-pressed="false" title="Toggle color theme">
                 <span class="theme-fx-wave" aria-hidden="true"></span>
                 <svg class="theme-icon-moon" viewBox="0 0 16 16" fill="none" aria-hidden="true">
                     <path d="M13.75 10.25A6 6 0 017.75 2a6 6 0 106 8.25z" fill="currentColor"></path>
@@ -530,7 +530,7 @@
                         <fieldset class="newsletter-fields">
                             <legend class="newsletter-label">Newsletter signup</legend>
                             <label class="newsletter-label" for="newsletter-email">Email address</label>
-                            <input id="newsletter-email" type="email" name="email" autocomplete="email" placeholder="you@example.com" maxlength="254" required>
+                            <input id="newsletter-email" type="email" name="email" autocomplete="email" placeholder="you@example.com" maxlength="254" pattern=".+@.+\..+" title="Use an address such as you@example.com" required>
                             <input type="hidden" name="consent" value="yes">
                             <div class="newsletter-label" aria-hidden="true">
                                 <label for="newsletter-website">Leave this field empty</label>
@@ -800,7 +800,7 @@
         </footer>
     </main>
 
-    <script src="js/site.js?v=14" defer></script>
+    <script src="js/site.js?v=15" defer></script>
     <script src="js/home.js?v=15" defer></script>
 </body>
 </html>
