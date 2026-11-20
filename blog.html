@@ -1220,14 +1220,15 @@
 
             profileChips.forEach(function (chip) {
                 chip.addEventListener('click', function () {
-                    setFilters(chip.getAttribute('data-profile'), currentTopic, true);
+                    var profile = chip.getAttribute('data-profile');
+                    setFilters(profile === currentProfile ? 'all' : profile, currentTopic, true);
                 });
             });
 
             topicChips.forEach(function (chip) {
                 chip.addEventListener('click', function () {
-                    var t = chip.getAttribute('data-topic') || chip.getAttribute('data-filter');
-                    setFilters(currentProfile, t, true);
+                    var topic = chip.getAttribute('data-topic') || chip.getAttribute('data-filter');
+                    setFilters(currentProfile, topic === currentTopic ? 'all' : topic, true);
                 });
             });
 

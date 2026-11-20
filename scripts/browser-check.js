@@ -1054,6 +1054,23 @@ async function runTests() {
         })()`);
         assert(titleSortedAlpha, 'Title sort arranges articles in alphabetical order');
 
+        assert(await client.evaluate(`(() => {
+            const medium = document.querySelector('[data-profile="medium"]');
+            const topic = document.querySelector('[data-topic="browser-automation"]');
+            medium.click();
+            topic.click();
+            medium.click();
+            return location.hash === '#browser-automation' &&
+                document.querySelector('[data-profile="all"]').getAttribute('aria-pressed') === 'true' &&
+                topic.getAttribute('aria-pressed') === 'true';
+        })()`), 'Clicking the active publisher clears only the publisher filter');
+        assert(await client.evaluate(`(() => {
+            document.querySelector('[data-topic="browser-automation"]').click();
+            return !location.hash && document.querySelector('[data-topic="all"]').getAttribute('aria-pressed') === 'true' &&
+                document.getElementById('pagination-info').textContent.includes('of 90 articles') &&
+                document.getElementById('blog-sort-select').value === 'title';
+        })()`), 'Clicking the active topic restores all articles and preserves title sort');
+
         // Restore sort to featured
         await client.evaluate(`(() => {
             const select = document.getElementById('blog-sort-select');
