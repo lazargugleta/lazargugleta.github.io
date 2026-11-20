@@ -59,7 +59,7 @@
     }
     </script>
     <link rel="stylesheet" href="css/shared.css?v=21">
-    <link rel="stylesheet" href="css/blog.css?v=26">
+    <link rel="stylesheet" href="css/blog.css?v=27">
 </head>
 <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -102,7 +102,13 @@
             <!-- Publisher and topic filters -->
             <div class="blog-filter-section">
                 <label for="article-search" class="blog-filter-label" hidden>Search</label>
-                <input id="article-search" type="search" placeholder="Search articles" aria-controls="articles-grid" hidden>
+                <div class="article-search-field" hidden>
+                    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
+                        <circle cx="6.75" cy="6.75" r="4.5"></circle>
+                        <path d="m10.25 10.25 3.5 3.5"></path>
+                    </svg>
+                    <input id="article-search" type="search" placeholder="Search articles" aria-controls="articles-grid">
+                </div>
                 <!-- Profile Filter & Smart Sorting Controls -->
                 <div class="blog-filter-toolbar">
                     <div class="blog-filter-group blog-filter-profiles" aria-label="Filter by external profile">
@@ -1236,7 +1242,7 @@
                 }
             }
 
-            searchInput.hidden = false;
+            searchInput.parentElement.hidden = false;
             searchInput.labels[0].hidden = false;
             searchInput.addEventListener('input', function () {
                 updateSearchResults();
