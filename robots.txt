@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /404.html
 
-Sitemap: https://lazargugleta.github.io/sitemap.xml
+Sitemap: https://www.lazargugleta.com/sitemap.xml

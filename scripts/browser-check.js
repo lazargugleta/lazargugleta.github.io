@@ -870,6 +870,25 @@ async function runTests() {
         const blogHeading = await client.evaluate('document.querySelector("h1").textContent.trim()');
         assert(blogHeading === 'Blog', `Blog page heading is "${blogHeading}" (expected "Blog")`);
 
+        await client.send('Page.navigate', { url: `http://127.0.0.1:${PORT}/blog.html?ref=portfolio&q=Thesis+FOOD#tu-graz` });
+        await sleep(400);
+        assert(await client.evaluate(`(() => {
+            const visible = document.querySelectorAll('.blog-card:not([hidden])');
+            return document.getElementById('article-search').value === 'Thesis FOOD' &&
+                visible.length === 1 && visible[0].dataset.publisher === 'tu-graz' &&
+                document.querySelector('[data-profile="all"] .filter-count').textContent === '1';
+        })()`), 'Shared search matches words across title and description and updates publisher counts');
+        await client.evaluate(`document.getElementById('article-search').focus()`);
+        await client.send('Input.insertText', { text: 'xyzunmatched' });
+        assert(await client.evaluate(`!document.getElementById('blog-empty-state').hidden &&
+            document.activeElement.id === 'article-search' && location.search.includes('xyzunmatched')`),
+            'Typing updates results and the URL while keeping keyboard focus');
+        await client.evaluate(`document.getElementById('blog-reset-filters').click()`);
+        assert(await client.evaluate(`document.getElementById('article-search').value === '' &&
+            location.search === '?ref=portfolio' && !location.hash &&
+            document.getElementById('pagination-info').textContent.includes('of 90 articles')`),
+            'Reset clears the search and filters and preserves unrelated URL parameters');
+
         const blogCardsCount = await client.evaluate('document.querySelectorAll(".blog-card").length');
         assert(blogCardsCount >= 5, `Blog page rendered ${blogCardsCount} article cards`);
 

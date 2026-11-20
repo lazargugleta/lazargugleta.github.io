@@ -19,13 +19,13 @@
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Articles and tutorials by Lazar Gugleta across Medium, Octoparse, and Chat4Data.">
+    <meta name="description" content="Search articles, tutorials, and publications by Lazar Gugleta on data engineering, AI tooling, web scraping, and Python.">
     <meta name="author" content="Lazar Gugleta">
     <meta property="og:title" content="Lazar Gugleta - Blog">
     <meta property="og:description" content="Articles and tutorials on data systems, AI tooling, web scraping, and Python.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://lazargugleta.github.io/blog.html">
-    <meta property="og:image" content="https://lazargugleta.github.io/src/og-card.png">
+    <meta property="og:url" content="https://www.lazargugleta.com/blog.html">
+    <meta property="og:image" content="https://www.lazargugleta.com/src/og-card.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:image:alt" content="Lazar Gugleta - Data Architect and AI security researcher">
@@ -33,10 +33,10 @@
     <meta property="og:locale" content="en_US">
     <meta name="twitter:title" content="Lazar Gugleta - Blog">
     <meta name="twitter:description" content="Articles and tutorials on data systems, AI tooling, web scraping, and Python.">
-    <meta name="twitter:image" content="https://lazargugleta.github.io/src/og-card.png">
+    <meta name="twitter:image" content="https://www.lazargugleta.com/src/og-card.png">
     <meta name="theme-color" content="#171923" media="(prefers-color-scheme: dark)">
     <meta name="theme-color" content="#fafaf9" media="(prefers-color-scheme: light)">
-    <link rel="canonical" href="https://lazargugleta.github.io/blog.html">
+    <link rel="canonical" href="https://www.lazargugleta.com/blog.html">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png?v=5">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png?v=5">
     <link rel="icon" type="image/svg+xml" href="favicon.svg?v=5">
@@ -49,17 +49,17 @@
       "@context": "https://schema.org",
       "@type": "Blog",
       "name": "Lazar Gugleta Blog",
-      "url": "https://lazargugleta.github.io/blog.html",
-      "description": "Articles and tutorials by Lazar Gugleta across Medium, Octoparse, and Chat4Data.",
+      "url": "https://www.lazargugleta.com/blog.html",
+      "description": "Search articles, tutorials, and publications by Lazar Gugleta on data engineering, AI tooling, web scraping, and Python.",
       "author": {
         "@type": "Person",
         "name": "Lazar Gugleta",
-        "url": "https://lazargugleta.github.io/"
+        "url": "https://www.lazargugleta.com/"
       }
     }
     </script>
     <link rel="stylesheet" href="css/shared.css?v=21">
-    <link rel="stylesheet" href="css/blog.css?v=25">
+    <link rel="stylesheet" href="css/blog.css?v=26">
 </head>
 <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -101,6 +101,8 @@
 
             <!-- Publisher and topic filters -->
             <div class="blog-filter-section">
+                <label for="article-search" class="blog-filter-label" hidden>Search</label>
+                <input id="article-search" type="search" placeholder="Search articles" aria-controls="articles-grid" hidden>
                 <!-- Profile Filter & Smart Sorting Controls -->
                 <div class="blog-filter-toolbar">
                     <div class="blog-filter-group blog-filter-profiles" aria-label="Filter by external profile">
@@ -182,7 +184,7 @@
                     <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
                 </div>
                 <div class="blog-empty-title">No articles found</div>
-                <p class="blog-empty-desc">No publications match this profile and topic combination.</p>
+                <p class="blog-empty-desc">Try a different search or reset your filters.</p>
                 <button type="button" class="blog-empty-reset" id="blog-reset-filters">Reset filters</button>
             </div>
             <a class="blog-card" data-publisher="tu-graz" data-category="academic-publications" data-date="2023-05" data-index="89" target="_blank" rel="noopener noreferrer" href="https://repository.tugraz.at/publications/r1cz7-vzr51">
@@ -950,6 +952,7 @@
             var profileChips = Array.from(document.querySelectorAll('.filter-chip-profile'));
             var topicChips = Array.from(document.querySelectorAll('.filter-chip-topic'));
             var sortSelect = document.getElementById('blog-sort-select');
+            var searchInput = document.getElementById('article-search');
             var grid = document.getElementById('articles-grid');
             var rawCards = Array.from(document.querySelectorAll('.blog-card'));
             var paginationNav = document.getElementById('blog-pagination');
@@ -975,12 +978,22 @@
                     publisher: card.getAttribute('data-publisher') || '',
                     category: card.getAttribute('data-category') || '',
                     date: card.getAttribute('data-date') || '',
-                    title: (titleEl ? titleEl.textContent : '').trim()
+                    title: (titleEl ? titleEl.textContent : '').trim(),
+                    searchText: card.textContent.toLowerCase().replace(/\s+/g, ' ')
                 };
             });
 
+            var searchResults = cardsData;
+
+            function updateSearchResults() {
+                var terms = searchInput.value.toLowerCase().trim().split(/\s+/);
+                searchResults = cardsData.filter(function (item) {
+                    return terms.every(function (term) { return item.searchText.includes(term); });
+                });
+            }
+
             function getSortedMatchingCards() {
-                var matching = cardsData.filter(function (item) {
+                var matching = searchResults.filter(function (item) {
                     var matchProfile = (currentProfile === 'all' || item.publisher === currentProfile);
                     var matchTopic = (currentTopic === 'all' || item.category === currentTopic);
                     return matchProfile && matchTopic;
@@ -1025,7 +1038,7 @@
             function updateCounts() {
                 profileChips.forEach(function (chip) {
                     var p = chip.getAttribute('data-profile');
-                    var count = cardsData.filter(function (item) {
+                    var count = searchResults.filter(function (item) {
                         var matchP = (p === 'all' || item.publisher === p);
                         var matchT = (currentTopic === 'all' || item.category === currentTopic);
                         return matchP && matchT;
@@ -1037,7 +1050,7 @@
 
                 topicChips.forEach(function (chip) {
                     var t = chip.getAttribute('data-topic') || chip.getAttribute('data-filter');
-                    var count = cardsData.filter(function (item) {
+                    var count = searchResults.filter(function (item) {
                         var matchP = (currentProfile === 'all' || item.publisher === currentProfile);
                         var matchT = (t === 'all' || item.category === t);
                         return matchP && matchT;
@@ -1214,9 +1227,21 @@
                     if (currentProfile !== 'all') hashParts.push(currentProfile);
                     if (currentTopic !== 'all') hashParts.push(currentTopic);
                     var newHash = hashParts.length ? '#' + hashParts.join('&') : '';
-                    history.replaceState(null, '', window.location.pathname + window.location.search + newHash);
+                    var url = new URL(window.location.href);
+                    var query = searchInput.value.trim();
+                    if (query) url.searchParams.set('q', query);
+                    else url.searchParams.delete('q');
+                    url.hash = newHash;
+                    history.replaceState(null, '', url);
                 }
             }
+
+            searchInput.hidden = false;
+            searchInput.labels[0].hidden = false;
+            searchInput.addEventListener('input', function () {
+                updateSearchResults();
+                setFilters(currentProfile, currentTopic, true);
+            });
 
             profileChips.forEach(function (chip) {
                 chip.addEventListener('click', function () {
@@ -1242,6 +1267,8 @@
 
             if (resetBtn) {
                 resetBtn.addEventListener('click', function () {
+                    searchInput.value = '';
+                    updateSearchResults();
                     currentSort = 'featured';
                     if (sortSelect) sortSelect.value = 'featured';
                     setFilters('all', 'all', true);
@@ -1265,6 +1292,8 @@
             }
 
             function syncWithHash() {
+                searchInput.value = new URLSearchParams(window.location.search).get('q') || '';
+                updateSearchResults();
                 var hash = window.location.hash.replace('#', '').trim();
                 var knownProfiles = profileChips.map(function (chip) { return chip.dataset.profile; });
                 var knownTopics = topicChips.map(function (chip) { return chip.dataset.topic; });
