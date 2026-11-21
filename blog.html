@@ -59,7 +59,7 @@
     }
     </script>
     <link rel="stylesheet" href="css/shared.css?v=21">
-    <link rel="stylesheet" href="css/blog.css?v=27">
+    <link rel="stylesheet" href="css/blog.css?v=28">
 </head>
 <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -101,14 +101,23 @@
 
             <!-- Publisher and topic filters -->
             <div class="blog-filter-section">
-                <label for="article-search" class="blog-filter-label" hidden>Search</label>
-                <div class="article-search-field" hidden>
-                    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
-                        <circle cx="6.75" cy="6.75" r="4.5"></circle>
-                        <path d="m10.25 10.25 3.5 3.5"></path>
-                    </svg>
-                    <input id="article-search" type="search" placeholder="Search articles" aria-controls="articles-grid">
+                <div class="blog-search-row">
+                    <label for="article-search" class="blog-search-label" hidden>Search</label>
+                    <div class="article-search-field" hidden>
+                        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
+                            <circle cx="6.75" cy="6.75" r="4.5"></circle>
+                            <path d="m10.25 10.25 3.5 3.5"></path>
+                        </svg>
+                        <input id="article-search" type="search" placeholder="Search articles" aria-controls="articles-grid">
+                    </div>
+                    <button id="blog-filter-toggle" class="blog-filter-toggle" type="button" aria-expanded="false" aria-controls="blog-filter-panel" hidden>
+                        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M2 4h12M4.5 8h7M7 12h2"/></svg>
+                        <span>Filters</span>
+                        <span class="blog-filter-badge" hidden></span>
+                    </button>
                 </div>
+
+                <div id="blog-filter-panel" class="blog-filter-panel" role="group" aria-label="Article filters" hidden>
                 <!-- Profile Filter & Smart Sorting Controls -->
                 <div class="blog-filter-toolbar">
                     <div class="blog-filter-group blog-filter-profiles" aria-label="Filter by external profile">
@@ -119,7 +128,7 @@
                             </div>
                             <div class="profile-control">
                                 <button class="filter-chip filter-chip-profile" data-profile="tu-graz" type="button"><svg class="pub-ext-logo" width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 1.5h5l3 3v10H4zM9 1.5v3h3M6 8h4M6 11h4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="pub-ext-name">Publications</span><span class="filter-count">1</span></button>
-                                <a class="pub-ext-link" target="_blank" rel="noopener noreferrer" href="https://orcid.org/0009-0004-5021-3693" title="Visit Lazar Gugleta’s ORCID profile" aria-label="Visit ORCID profile (opens in new tab)"><svg class="pub-ext-icon" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M3.5 1.5h7v7M10.5 1.5L1.5 10.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+                                <a class="pub-ext-link" target="_blank" rel="noopener noreferrer" href="https://orcid.org/0009-0004-5021-3693" title="Visit Lazar Gugletaâ€™s ORCID profile" aria-label="Visit ORCID profile (opens in new tab)"><svg class="pub-ext-icon" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M3.5 1.5h7v7M10.5 1.5L1.5 10.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
                             </div>
                             <div class="profile-control">
                                 <button class="filter-chip filter-chip-profile" data-profile="medium" type="button"><svg class="pub-ext-logo logo-medium" width="15" height="15" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
@@ -178,6 +187,7 @@
                         <button class="filter-chip filter-chip-topic" data-filter="technical-writing" data-topic="technical-writing" type="button">Technical Writing <span class="filter-count">26</span></button>
                     </div>
                 </div>
+                </div>
             </div>
         </section>
 
@@ -196,7 +206,7 @@
             <a class="blog-card" data-publisher="tu-graz" data-category="academic-publications" data-date="2023-05" data-index="89" target="_blank" rel="noopener noreferrer" href="https://repository.tugraz.at/publications/r1cz7-vzr51">
                 <div class="blog-card-top"><span class="pub-badge">Publications</span><time class="blog-card-date" datetime="2023-05">May 2023</time></div>
                 <h2 class="blog-card-title">Visual food characteristics that influence attractiveness</h2>
-                <div class="blog-card-desc">Master’s thesis by Lazar Gugleta, published in the TU Graz repository. DOI: 10.3217/r1cz7-vzr51.</div>
+                <div class="blog-card-desc">Masterâ€™s thesis by Lazar Gugleta, published in the TU Graz repository. DOI: 10.3217/r1cz7-vzr51.</div>
             </a>
             <!-- MEDIUMATCH ARTICLES START -->
             <a class="blog-card" data-publisher="mediumatch" data-category="technical-writing" data-date="2026-10" data-index="0" target="_blank" rel="noopener" href="https://mediumatch.com/blog/technical-content-brief-template">
@@ -1070,6 +1080,12 @@
             function render() {
                 var focusedControl = document.activeElement;
                 var matching = getSortedMatchingCards();
+                if (filterBadge) {
+                    var activeFilters = (currentProfile !== 'all') + (currentTopic !== 'all') + (currentSort !== 'featured');
+                    filterBadge.textContent = activeFilters;
+                    filterBadge.hidden = !activeFilters;
+                    filterToggle.setAttribute('aria-label', activeFilters ? 'Filters, ' + activeFilters + ' active' : 'Filters');
+                }
                 var total = matching.length;
                 var totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
 
@@ -1244,6 +1260,26 @@
 
             searchInput.parentElement.hidden = false;
             searchInput.labels[0].hidden = false;
+
+            // Filters popup: Publisher, Topic and Sort live behind one toggle
+            var filterToggle = document.getElementById('blog-filter-toggle');
+            var filterPanel = document.getElementById('blog-filter-panel');
+            var filterBadge = filterToggle.querySelector('.blog-filter-badge');
+            filterToggle.hidden = false;
+            function setPanelOpen(open) {
+                filterPanel.hidden = !open;
+                filterToggle.setAttribute('aria-expanded', String(open));
+            }
+            filterToggle.addEventListener('click', function () { setPanelOpen(filterPanel.hidden); });
+            document.addEventListener('click', function (event) {
+                if (!filterPanel.hidden && !event.target.closest('.blog-filter-section, #blog-reset-filters')) setPanelOpen(false);
+            });
+            document.addEventListener('keydown', function (event) {
+                if (event.key === 'Escape' && !filterPanel.hidden) {
+                    setPanelOpen(false);
+                    filterToggle.focus();
+                }
+            });
             searchInput.addEventListener('input', function () {
                 updateSearchResults();
                 setFilters(currentProfile, currentTopic, true);
@@ -1278,6 +1314,7 @@
                     currentSort = 'featured';
                     if (sortSelect) sortSelect.value = 'featured';
                     setFilters('all', 'all', true);
+                    setPanelOpen(true);
                     var allPublisher = profileChips.find(function (chip) { return chip.getAttribute('data-profile') === 'all'; });
                     if (allPublisher) allPublisher.focus({ preventScroll: true });
                 });

@@ -895,6 +895,8 @@ async function runTests() {
         for (const [width, height] of [[1440, 1200], [390, 844]]) {
             await client.send('Emulation.setDeviceMetricsOverride', { width, height, deviceScaleFactor: 1, mobile: width < 500 });
             const stayedInPlace = await client.evaluate(`(async () => {
+                const toggle = document.getElementById('blog-filter-toggle');
+                if (toggle.getAttribute('aria-expanded') !== 'true') toggle.click();
                 const all = document.querySelector('[data-profile="all"]');
                 window.scrollTo({ top: all.getBoundingClientRect().top + scrollY - 90, behavior: 'instant' });
                 const position = () => [scrollY, all.getBoundingClientRect().x, all.getBoundingClientRect().y,
@@ -1155,6 +1157,11 @@ async function runTests() {
         // Test publisher-specific hover colors
         // Filter by ai-mcp so chat4data and octoparse cards are visible on active page
         await client.evaluate('document.querySelector(".filter-chip[data-filter=\\"ai-mcp\\"]").click()');
+        // Close the filters popup so it does not cover the cards being hovered
+        await client.evaluate(`document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }))`);
+        assert(await client.evaluate(`document.getElementById('blog-filter-panel').hidden &&
+            document.getElementById('blog-filter-toggle').getAttribute('aria-expanded') === 'false'`),
+            'Escape closes the filters popup');
         await sleep(200);
 
         const c4dCardPos = await client.evaluate(`(() => {

@@ -224,13 +224,94 @@ h1 {
 /* Timeline-Style Filter (Matching Image 1) */
 /* One aligned grid: label column | controls column. Wrappers flatten into it. */
 .blog-filter-section {
+    position: relative;
     margin-top: 32px;
     margin-bottom: 24px;
+}
+
+.blog-search-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.blog-search-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+}
+
+.blog-filter-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    height: 32px;
+    padding: 0 12px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: var(--bg-soft);
+    color: var(--text-2);
+    font: inherit;
+    font-size: 12.5px;
+    font-weight: 450;
+    box-shadow: var(--shadow-sm);
+    cursor: pointer;
+    transition: border-color 180ms ease, color 180ms ease, box-shadow 180ms ease;
+}
+
+.blog-filter-toggle:hover,
+.blog-filter-toggle[aria-expanded="true"] {
+    border-color: var(--accent-border);
+    color: var(--text);
+    box-shadow: var(--shadow-md);
+}
+
+.blog-filter-toggle:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+}
+
+.blog-filter-badge {
+    min-width: 18px;
+    height: 18px;
+    padding: 0 5px;
+    border-radius: 999px;
+    background: var(--accent);
+    color: var(--bg);
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 18px;
+    text-align: center;
+}
+
+.blog-filter-badge[hidden] {
+    display: none;
+}
+
+/* Popover under the search row; same aligned label | controls grid inside */
+.blog-filter-panel {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    z-index: 20;
+    width: min(100%, 46rem);
+    padding: 16px;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: var(--bg);
+    box-shadow: var(--shadow-lg);
     display: grid;
     grid-template-columns: 72px minmax(0, 1fr);
     column-gap: 16px;
     row-gap: 14px;
     align-items: baseline;
+}
+
+.blog-filter-panel[hidden] {
+    display: none;
 }
 
 .blog-filter-toolbar,
@@ -241,7 +322,12 @@ h1 {
 
 .article-search-field {
     position: relative;
-    width: min(100%, 16rem);
+    flex: 1 1 auto;
+    max-width: 22rem;
+}
+
+.article-search-field[hidden] {
+    display: none;
 }
 
 .article-search-field svg {
@@ -913,10 +999,24 @@ h1 {
         min-height: 32px;
     }
 
-    /* Narrow: label stacks above its row */
-    .blog-filter-section {
+    /* Narrow: search fills the row; label stacks above its row in the panel */
+    .article-search-field {
+        max-width: none;
+    }
+
+    #article-search {
+        height: 36px;
+        font-size: 16px; /* avoids iOS zoom-on-focus */
+    }
+
+    .blog-filter-toggle {
+        height: 36px;
+    }
+
+    .blog-filter-panel {
         grid-template-columns: minmax(0, 1fr);
         row-gap: 8px;
+        padding: 14px;
     }
 
     .blog-filter-topics .blog-filter-label,
