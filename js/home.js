@@ -301,7 +301,6 @@
         const dot = document.querySelector('.conduit-dot-anchor');
         const ai = document.querySelector('.conduit-ai-anchor');
         const aiI = document.querySelector('.conduit-ai-i');
-        const btnCv = document.getElementById('btn-open-cv') || document.querySelector('.hero-actions .btn-primary');
 
         if (!hero || !track || !dot || !ai || !ballGroup || !ball) return;
 
@@ -328,7 +327,6 @@
 
         function clearImpact() {
             if (card) card.classList.remove('conduit-impacted');
-            if (btnCv) btnCv.classList.remove('conduit-impacted');
         }
 
         function updateAnimationState() {
@@ -354,7 +352,6 @@
             const aRect = ai.getBoundingClientRect();
             const cRect = card ? card.getBoundingClientRect() : null;
             const iRect = aiI ? aiI.getBoundingClientRect() : null;
-            const bRect = btnCv ? btnCv.getBoundingClientRect() : null;
 
             if (hRect.width === 0 || dRect.width === 0) return false;
 
@@ -369,61 +366,28 @@
                 ? Math.round((iRect.left + (iRect.width - iSpacing) / 2 - hRect.left) * 2) / 2
                 : Math.round(aRect.left - hRect.left + 36);
 
-            let xRightTurn, yMidTrace, yBottomTrace, pathD;
+            const xRightTurn = Math.min(Math.round(hRect.width - 16), Math.max(Math.round(xStart + 32), xDropThroughI + 28));
+            const yMidTrace = Math.round(aRect.top - hRect.top + 2);
+            const yBottomTrace = Math.round(aRect.bottom - hRect.top + 14);
+            // Mobile: end in the gap under the title instead of crossing the bio to reach the stacked card
+            const xEnd = isMobile || !cRect
+                ? Math.min(Math.round(hRect.width - 20), Math.max(xDropThroughI + 48, Math.round(aRect.right - hRect.left)))
+                : Math.round(cRect.left - hRect.left);
 
-            if (isMobile && bRect) {
-                xRightTurn = Math.min(Math.round(hRect.width - 16), Math.max(Math.round(xStart + 36), Math.round(aRect.right - hRect.left - 10)));
-                yMidTrace = Math.round(aRect.top - hRect.top + 2);
-                yBottomTrace = Math.round(aRect.bottom - hRect.top + 12);
-                const xTurnDownToBtn = Math.min(
-                    Math.round(hRect.width - 24),
-                    Math.max(
-                        Math.round(xDropThroughI + 24),
-                        Math.min(
-                            Math.round(bRect.right - hRect.left - 24),
-                            Math.round(aRect.right - hRect.left - 4)
-                        )
-                    )
-                );
-                const yBtnTop = Math.round(bRect.top - hRect.top);
+            const pathD = [
+                'M ' + xStart + ' ' + yStart,
+                'H ' + (xRightTurn - r),
+                'A ' + r + ' ' + r + ' 0 0 1 ' + xRightTurn + ' ' + (yStart + r),
+                'V ' + (yMidTrace - r),
+                'A ' + r + ' ' + r + ' 0 0 1 ' + (xRightTurn - r) + ' ' + yMidTrace,
+                'H ' + (xDropThroughI + r),
+                'A ' + r + ' ' + r + ' 0 0 0 ' + xDropThroughI + ' ' + (yMidTrace + r),
+                'V ' + (yBottomTrace - r),
+                'A ' + r + ' ' + r + ' 0 0 0 ' + (xDropThroughI + r) + ' ' + yBottomTrace,
+                'H ' + xEnd
+            ].join(' ');
 
-                pathD = [
-                    'M ' + xStart + ' ' + yStart,
-                    'H ' + (xRightTurn - r),
-                    'A ' + r + ' ' + r + ' 0 0 1 ' + xRightTurn + ' ' + (yStart + r),
-                    'V ' + (yMidTrace - r),
-                    'A ' + r + ' ' + r + ' 0 0 1 ' + (xRightTurn - r) + ' ' + yMidTrace,
-                    'H ' + (xDropThroughI + r),
-                    'A ' + r + ' ' + r + ' 0 0 0 ' + xDropThroughI + ' ' + (yMidTrace + r),
-                    'V ' + (yBottomTrace - r),
-                    'A ' + r + ' ' + r + ' 0 0 0 ' + (xDropThroughI + r) + ' ' + yBottomTrace,
-                    'H ' + (xTurnDownToBtn - r),
-                    'A ' + r + ' ' + r + ' 0 0 1 ' + xTurnDownToBtn + ' ' + (yBottomTrace + r),
-                    'V ' + yBtnTop
-                ].join(' ');
-
-                impactPoint = { x: xTurnDownToBtn, y: yBtnTop };
-            } else {
-                xRightTurn = Math.max(Math.round(xStart + 32), xDropThroughI + 28);
-                yMidTrace = Math.round(aRect.top - hRect.top + 2);
-                yBottomTrace = Math.round(aRect.bottom - hRect.top + 14);
-                const xCard = cRect ? Math.round(cRect.left - hRect.left) : Math.round(hRect.width - 20);
-
-                pathD = [
-                    'M ' + xStart + ' ' + yStart,
-                    'H ' + (xRightTurn - r),
-                    'A ' + r + ' ' + r + ' 0 0 1 ' + xRightTurn + ' ' + (yStart + r),
-                    'V ' + (yMidTrace - r),
-                    'A ' + r + ' ' + r + ' 0 0 1 ' + (xRightTurn - r) + ' ' + yMidTrace,
-                    'H ' + (xDropThroughI + r),
-                    'A ' + r + ' ' + r + ' 0 0 0 ' + xDropThroughI + ' ' + (yMidTrace + r),
-                    'V ' + (yBottomTrace - r),
-                    'A ' + r + ' ' + r + ' 0 0 0 ' + (xDropThroughI + r) + ' ' + yBottomTrace,
-                    'H ' + xCard
-                ].join(' ');
-
-                impactPoint = { x: xCard, y: yBottomTrace };
-            }
+            impactPoint = { x: xEnd, y: yBottomTrace };
 
             track.setAttribute('d', pathD);
             if (node) {
@@ -485,8 +449,7 @@
                 });
             }
 
-            const isMobile = window.innerWidth <= 980;
-            const impactTarget = isMobile ? btnCv : card;
+            const impactTarget = window.innerWidth <= 980 ? null : card;
             if (impactTarget) {
                 impactTarget.classList.add('conduit-impacted');
             }

@@ -150,18 +150,6 @@
             box-shadow: -6px 0 24px -2px rgba(37, 99, 235, 0.45), var(--shadow-md) !important;
         }
 
-        .btn-primary.conduit-impacted {
-            box-shadow: 0 0 26px 4px rgba(59, 130, 246, 0.75), 0 2px 14px rgba(59, 130, 246, 0.9) !important;
-            filter: brightness(1.18);
-            transform: translateY(-1px);
-        }
-
-        :is(html.light, body.light) .btn-primary.conduit-impacted {
-            box-shadow: 0 0 24px 3px rgba(37, 99, 235, 0.65), 0 2px 14px rgba(37, 99, 235, 0.75) !important;
-            filter: brightness(1.12);
-            transform: translateY(-1px);
-        }
-
         .conduit-ripple {
             fill: none;
             stroke: #3b82f6;
