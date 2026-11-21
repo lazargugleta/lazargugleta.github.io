@@ -14,10 +14,13 @@
 /src/*
   Cache-Control: public, max-age=31536000, immutable
 
+# CVs keep a stable URL but change content: always revalidate (ETag makes this cheap)
 /src/Lazar_Gugleta_CV.pdf
+  Cache-Control: no-cache
   Link: </favicon-32x32.png?v=5>; rel="icon"; type="image/png"; sizes="32x32"
   Link: </favicon.svg?v=5>; rel="alternate icon"; type="image/svg+xml"
 
 /src/Lazar_Gugleta_CV_DE.pdf
+  Cache-Control: no-cache
   Link: </favicon-32x32.png?v=5>; rel="icon"; type="image/png"; sizes="32x32"
   Link: </favicon.svg?v=5>; rel="alternate icon"; type="image/svg+xml"
