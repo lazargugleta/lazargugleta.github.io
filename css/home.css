@@ -366,33 +366,6 @@
             transform: translateY(-1px);
         }
 
-        .hero-highlights {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-
-        .hero-chip {
-            border: 1px solid var(--border);
-            border-radius: 999px;
-            padding: 5px 12px;
-            color: var(--text-2);
-            font-size: 12px;
-            background: var(--bg-soft);
-            box-shadow: var(--shadow-sm);
-            display: inline-flex;
-            align-items: center;
-            gap: 7px;
-            transition: border-color 160ms ease, color 160ms ease, transform 160ms ease, box-shadow 160ms ease;
-        }
-
-        .hero-chip:hover {
-            border-color: var(--accent-border);
-            color: var(--text);
-            transform: translateY(-1px);
-            box-shadow: var(--shadow-md);
-        }
-
         .chip-dot {
             width: 6px;
             height: 6px;
