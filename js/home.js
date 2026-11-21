@@ -369,10 +369,14 @@
             const xRightTurn = Math.min(Math.round(hRect.width - 16), Math.max(Math.round(xStart + 32), xDropThroughI + 28));
             const yMidTrace = Math.round(aRect.top - hRect.top + 2);
             const yBottomTrace = Math.round(aRect.bottom - hRect.top + 14);
-            // Mobile: end in the gap under the title instead of crossing the bio to reach the stacked card
-            const xEnd = isMobile || !cRect
+            // Mobile: the card is stacked below, so run down the page gutter right of the hero (clear of the bio and buttons) and enter it from the right
+            const gutter = window.innerWidth - hRect.right;
+            const viaGutter = isMobile && cRect && gutter >= 10;
+            const xGutter = Math.round(hRect.width + gutter / 2);
+            const yCard = cRect ? Math.round(cRect.top - hRect.top + 28) : 0;
+            const xEnd = !cRect || (isMobile && !viaGutter)
                 ? Math.min(Math.round(hRect.width - 20), Math.max(xDropThroughI + 48, Math.round(aRect.right - hRect.left)))
-                : Math.round(cRect.left - hRect.left);
+                : Math.round((isMobile ? cRect.right : cRect.left) - hRect.left);
 
             const pathD = [
                 'M ' + xStart + ' ' + yStart,
@@ -384,10 +388,15 @@
                 'A ' + r + ' ' + r + ' 0 0 0 ' + xDropThroughI + ' ' + (yMidTrace + r),
                 'V ' + (yBottomTrace - r),
                 'A ' + r + ' ' + r + ' 0 0 0 ' + (xDropThroughI + r) + ' ' + yBottomTrace,
+            ].concat(viaGutter ? [
+                'H ' + (xGutter - r),
+                'A ' + r + ' ' + r + ' 0 0 1 ' + xGutter + ' ' + (yBottomTrace + r),
+                'V ' + (yCard - r),
+                'A ' + r + ' ' + r + ' 0 0 1 ' + (xGutter - r) + ' ' + yCard,
                 'H ' + xEnd
-            ].join(' ');
+            ] : ['H ' + xEnd]).join(' ');
 
-            impactPoint = { x: xEnd, y: yBottomTrace };
+            impactPoint = { x: xEnd, y: viaGutter ? yCard : yBottomTrace };
 
             track.setAttribute('d', pathD);
             if (node) {
@@ -449,7 +458,7 @@
                 });
             }
 
-            const impactTarget = window.innerWidth <= 980 ? null : card;
+            const impactTarget = card;
             if (impactTarget) {
                 impactTarget.classList.add('conduit-impacted');
             }
