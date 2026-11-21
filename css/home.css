@@ -2090,8 +2090,27 @@
                 grid-template-columns: 1fr;
             }
 
+            /* 2x2 compact tiles: icon above text so handles get the full width */
             .contact-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+
+            .contact-card {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+                padding: 12px;
+                min-width: 0;
+            }
+
+            .contact-card > div:last-child {
+                min-width: 0;
+                max-width: 100%;
+            }
+
+            .contact-handle {
+                overflow-wrap: anywhere;
             }
 
             .writing-header {
@@ -2122,20 +2141,29 @@
                 letter-spacing: -0.6px;
             }
 
+            /* Two rows: CV + contact side by side, socials as one even strip */
             .hero-actions {
                 width: 100%;
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
             }
 
             .hero-actions .btn {
-                width: 100%;
                 justify-content: center;
+                padding-inline: 12px;
+                white-space: nowrap;
             }
 
             .hero-social {
-                width: 100%;
-                justify-content: flex-start;
+                grid-column: 1 / -1;
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
                 gap: 10px;
-                margin-top: 2px;
+            }
+
+            .hero-social .social-icon-btn {
+                width: auto;
             }
 
             .now-card {
