@@ -21,6 +21,7 @@ Personal portfolio website and engineering blog for Lazar Gugleta, Data Architec
 ├── js/                                  # Vanilla JavaScript (site navigation, theme, animations)
 ├── src/                                 # Media assets & documents (CV, responsive WebP/AVIF images)
 │   ├── Lazar_Gugleta_CV.pdf
+│   ├── Lazar_Gugleta_CV_DE.pdf          # German CV
 │   └── polars-vs-pandas.png
 ├── .github/workflows/
 │   └── pages.yml                        # GitHub Actions deployment workflow to GitHub Pages
