@@ -69,7 +69,7 @@
 
         .hero {
             position: relative;
-            padding: 72px 0 60px;
+            padding: 72px 0 48px;
             display: grid;
             grid-template-columns: 1.45fr 1fr;
             gap: 52px;
@@ -274,7 +274,6 @@
             align-items: center;
             flex-wrap: wrap;
             gap: 12px;
-            margin-bottom: 26px;
             position: relative;
             z-index: 2;
         }
