@@ -1,2 +1,7 @@
 # Single-hop canonical HTTPS redirection
 https://lazargugleta.com/* https://www.lazargugleta.com/:splat 301!
+
+# First-party Umami proxy: browsers never contact the Tailscale host directly,
+# so tailnet devices get no Chrome "local network access" prompt.
+/stats/script.js  https://mediumatch.tail292e54.ts.net/script.js  200!
+/stats/api/send   https://mediumatch.tail292e54.ts.net/api/send   200!

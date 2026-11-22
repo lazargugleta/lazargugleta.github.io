@@ -81,6 +81,7 @@ htmlFiles.forEach(relPath => {
     while ((match = scriptRegex.exec(content)) !== null) {
         const src = match[1];
         if (src.startsWith('http://') || src.startsWith('https://')) continue;
+        if (src.startsWith('/stats/')) continue; // Umami, proxied by Netlify (_redirects)
         const cleanSrc = src.split('?')[0];
         const targetPath = resolveLocalUrl(dir, cleanSrc);
         assert(fs.existsSync(targetPath), `Script target exists in ${relPath}: ${cleanSrc}`);
