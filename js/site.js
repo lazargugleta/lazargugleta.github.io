@@ -182,14 +182,57 @@
         updateActiveLink();
     }
 
+    // Umami events. No-op when the tracker is blocked or not yet loaded.
+    function track(name, data) {
+        if (window.umami && typeof window.umami.track === 'function') window.umami.track(name, data);
+    }
+
+    function initAnalytics() {
+        document.addEventListener('click', function (e) {
+            const el = e.target.closest('a[href], button');
+            if (!el) return;
+            const area = el.closest('section[id], aside[class], header, footer');
+            const section = area ? (area.id || area.className.split(' ')[0] || area.tagName.toLowerCase()) : 'page';
+
+            if (el.matches('.filter-chip')) {
+                track('filter-click', { filter: el.dataset.profile || el.dataset.filter || el.textContent.trim().slice(0, 40) });
+            } else if (el.id === 'theme-toggle') {
+                track('theme-toggle');
+            } else if (el.tagName === 'A') {
+                const href = el.getAttribute('href');
+                if (href.startsWith('mailto:')) {
+                    track('email-click', { section: section });
+                } else if (/\.pdf($|[?#])/i.test(href)) {
+                    track('cv-download', { section: section });
+                } else if (el.hostname && el.hostname !== location.hostname) {
+                    track('outbound-click', { url: el.href.split('?')[0].slice(0, 500), section: section });
+                }
+            }
+        });
+
+        document.addEventListener('submit', function (e) {
+            if (e.target.closest('.newsletter')) track('newsletter-submit', { page: location.pathname });
+        });
+
+        const search = document.getElementById('article-search');
+        if (search) {
+            search.addEventListener('change', function () {
+                const q = search.value.trim();
+                if (q) track('blog-search', { query: q.slice(0, 100) });
+            });
+        }
+    }
+
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', function () {
+            initAnalytics();
             initThemeToggle();
             initNavigation();
             initProjectCardCars();
             initScrollSpy();
         });
     } else {
+        initAnalytics();
         initThemeToggle();
         initNavigation();
         initProjectCardCars();
